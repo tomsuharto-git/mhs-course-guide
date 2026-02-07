@@ -46,9 +46,9 @@ export default async function CourseDetailPage({
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
       <Link
         href="/courses"
-        className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-mountie-blue mb-6"
+        className="link-back inline-flex items-center gap-1 text-sm text-text-muted hover:text-mountie-blue mb-6 transition-colors"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="m15 18-6-6 6-6" />
         </svg>
         All Courses
@@ -100,7 +100,7 @@ export default async function CourseDetailPage({
                 <Link
                   key={pc!.id}
                   href={`/courses/${pc!.id}`}
-                  className="block p-3 bg-white border border-border rounded-lg hover:border-mountie-blue/30 transition text-sm"
+                  className="block p-3 bg-white border border-border rounded-lg card-hover text-sm"
                 >
                   <span className="font-mono text-text-muted text-xs mr-2">
                     {pc!.code}
@@ -128,7 +128,7 @@ export default async function CourseDetailPage({
                 <Link
                   key={c.id}
                   href={`/courses/${c.id}`}
-                  className="block p-3 bg-white border border-border rounded-lg hover:border-mountie-blue/30 transition text-sm"
+                  className="block p-3 bg-white border border-border rounded-lg card-hover text-sm"
                 >
                   <span className="font-mono text-text-muted text-xs mr-2">
                     {c.code}

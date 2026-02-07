@@ -25,7 +25,7 @@ export default function TracksPage() {
             <Link
               key={track.id}
               href={`/tracks/${track.id}`}
-              className="p-5 bg-white border border-border rounded-lg hover:border-mountie-blue/30 hover:shadow-sm transition group"
+              className="p-5 bg-white border border-border rounded-xl card-hover overflow-hidden group"
             >
               <div className="mb-3">
                 <DepartmentIcon department={track.department} />
@@ -36,8 +36,8 @@ export default function TracksPage() {
               <p className="text-xs text-text-muted mt-1 line-clamp-2">
                 {track.description}
               </p>
-              <p className="text-xs text-mountie-blue mt-3 font-medium">
-                {track.nodes.length} courses &rarr;
+              <p className="link-arrow text-xs text-mountie-blue mt-3 font-medium inline-flex items-center gap-1">
+                {track.nodes.length} courses <span className="arrow">&rarr;</span>
               </p>
             </Link>
           );

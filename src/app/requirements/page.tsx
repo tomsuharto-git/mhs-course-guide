@@ -38,7 +38,7 @@ export default function RequirementsPage() {
           </thead>
           <tbody>
             {graduationRequirements.map((req) => (
-              <tr key={req.area} className="border-b border-border last:border-0">
+              <tr key={req.area} className="border-b border-border last:border-0 row-hover">
                 <td className="px-4 py-3 font-medium">{req.area}</td>
                 <td className="text-center px-4 py-3 font-mono text-mountie-blue">
                   {req.credits}
@@ -77,7 +77,7 @@ export default function RequirementsPage() {
           </thead>
           <tbody>
             {promotionRequirements.map((req) => (
-              <tr key={req.grade} className="border-b border-border last:border-0">
+              <tr key={req.grade} className="border-b border-border last:border-0 row-hover">
                 <td className="px-4 py-3">{req.grade}</td>
                 <td className="text-center px-4 py-3 font-mono text-mountie-blue">
                   {req.credits}
@@ -114,7 +114,7 @@ export default function RequirementsPage() {
             {gpaTable.rows.map((row) => (
               <tr
                 key={row.grade}
-                className="border-b border-border last:border-0"
+                className="border-b border-border last:border-0 row-hover"
               >
                 <td className="text-center px-4 py-3 font-semibold">
                   {row.grade}

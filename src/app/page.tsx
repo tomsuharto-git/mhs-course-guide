@@ -3,95 +3,152 @@ import { DEPARTMENT_META, Department } from "@/data/types";
 import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
 import { allCourses } from "@/data/courses";
 
-const DEPT_ORDER: Department[] = [
-  "english",
-  "math",
-  "science",
-  "social-studies",
-  "world-languages",
-  "visual-performing-arts",
-  "career-technical",
-  "health-pe",
-  "special-education",
+const CORE_DEPTS: Department[] = [
+  "english", "math", "science", "social-studies",
+];
+
+const OTHER_DEPTS: Department[] = [
+  "world-languages", "visual-performing-arts", "career-technical",
+  "health-pe", "special-education",
+];
+
+const STATS = [
+  { value: () => String(allCourses.length), label: "Courses" },
+  { value: () => String(allCourses.filter((c) => c.level === "ap").length), label: "AP" },
+  { value: () => "9", label: "Depts" },
+  { value: () => "122", label: "Credits" },
 ];
 
 export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="bg-mountie-blue text-white py-16 sm:py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] leading-tight">
-            Montclair High School
-            <br />
-            Course Guide 2026–2027
-          </h1>
-          <p className="text-blue-200 mt-3 max-w-xl mx-auto text-sm sm:text-base">
-            A searchable, filterable guide to every course in the MHS Program of
-            Studies. Built by parents, for parents.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
-            <Link
-              href="/courses"
-              className="px-5 py-2.5 bg-white text-mountie-blue font-semibold rounded-lg text-sm hover:bg-blue-50 transition"
-            >
-              Browse All Courses
-            </Link>
-            <Link
-              href="/tracks"
-              className="px-5 py-2.5 border border-white/30 text-white font-semibold rounded-lg text-sm hover:bg-white/10 transition"
-            >
-              View Track Flowcharts
-            </Link>
+      <section className="relative bg-mountie-blue text-white overflow-hidden">
+        {/* Diagonal accent */}
+        <div className="absolute inset-0 bg-gradient-to-br from-mountie-blue via-mountie-blue to-mountie-dark" />
+        <div className="absolute -right-32 -top-32 w-96 h-96 rounded-full bg-white/5" />
+        <div className="absolute -left-16 -bottom-24 w-64 h-64 rounded-full bg-white/3" />
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-16 sm:pb-24">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-[family-name:var(--font-heading)] leading-[0.9] tracking-wide">
+              Course
+              <br />
+              Guide
+              <br />
+              <span className="text-white/40">2026–27</span>
+            </h1>
+            <p className="text-white/70 mt-6 max-w-md text-sm sm:text-base leading-relaxed">
+              Every course at Montclair High School — searchable, filterable,
+              and mapped into visual pathways. Built by parents, for parents.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Link
+                href="/courses"
+                className="btn-hover px-6 py-3 bg-white text-mountie-blue font-semibold rounded-lg text-sm"
+              >
+                Browse All Courses
+              </Link>
+              <Link
+                href="/tracks"
+                className="btn-hover px-6 py-3 border border-white/20 text-white font-semibold rounded-lg text-sm hover:bg-white/10"
+              >
+                View Track Flowcharts
+              </Link>
+            </div>
+          </div>
+
+          {/* Inline stats */}
+          <div className="flex gap-8 sm:gap-12 mt-14 sm:mt-20 border-t border-white/10 pt-6">
+            {STATS.map((s) => (
+              <div key={s.label}>
+                <p className="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] text-white tracking-wider">
+                  {s.value()}
+                </p>
+                <p className="text-[11px] text-white/50 uppercase tracking-widest mt-0.5">
+                  {s.label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Quick links */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <h2 className="text-lg font-[family-name:var(--font-heading)] text-text mb-6">
-          Departments
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {DEPT_ORDER.map((dept) => {
+      {/* Core departments — featured large */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-6">
+        <div className="flex items-baseline justify-between mb-8">
+          <h2 className="text-xl sm:text-2xl font-[family-name:var(--font-heading)] text-text">
+            Core Departments
+          </h2>
+          <Link href="/courses" className="link-arrow text-xs text-mountie-blue font-medium hover:underline underline-offset-4 inline-flex items-center gap-1">
+            View all courses <span className="arrow">&rarr;</span>
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {CORE_DEPTS.map((dept) => {
             const meta = DEPARTMENT_META[dept];
+            const count = allCourses.filter((c) => c.department === dept).length;
             return (
               <Link
                 key={dept}
                 href={`/courses?dept=${dept}`}
-                className="p-4 bg-white border border-border rounded-lg hover:border-mountie-blue/30 hover:shadow-sm transition group"
+                className="group relative p-5 sm:p-6 bg-white rounded-xl border border-border card-hover overflow-hidden"
               >
-                <div className="mb-2">
-                  <DepartmentIcon department={dept} size="sm" />
-                </div>
-                <p className="text-sm font-medium text-text group-hover:text-mountie-blue transition-colors">
+                <div className="absolute top-0 left-0 w-1 h-full rounded-l-xl" style={{ backgroundColor: meta.color }} />
+                <DepartmentIcon department={dept} />
+                <h3 className="text-base sm:text-lg font-semibold text-text mt-4 group-hover:text-mountie-blue transition-colors !text-transform-none !font-[family-name:var(--font-body)]" style={{ textTransform: 'none', letterSpacing: '0' }}>
                   {meta.label}
-                </p>
+                </h3>
+                <p className="text-xs text-text-muted mt-1">{count} courses</p>
               </Link>
             );
           })}
         </div>
       </section>
 
-      {/* Quick stats */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {[
-            { label: "Total Courses", value: String(allCourses.length) },
-            { label: "AP Courses", value: String(allCourses.filter((c) => c.level === "ap").length) },
-            { label: "Departments", value: "9" },
-            { label: "Credits to Graduate", value: "122" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="p-4 bg-white border border-border rounded-lg text-center"
-            >
-              <p className="text-2xl font-bold text-mountie-blue font-[family-name:var(--font-heading)]">
-                {stat.value}
-              </p>
-              <p className="text-xs text-text-muted mt-1">{stat.label}</p>
-            </div>
-          ))}
+      {/* Other departments — compact row */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
+        <div className="flex flex-wrap gap-2 mt-2">
+          {OTHER_DEPTS.map((dept) => {
+            const meta = DEPARTMENT_META[dept];
+            const count = allCourses.filter((c) => c.department === dept).length;
+            return (
+              <Link
+                key={dept}
+                href={`/courses?dept=${dept}`}
+                className="group flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-border card-hover"
+              >
+                <DepartmentIcon department={dept} size="sm" />
+                <div>
+                  <p className="text-sm font-medium text-text group-hover:text-mountie-blue transition-colors">
+                    {meta.label}
+                  </p>
+                  <p className="text-[11px] text-text-muted">{count} courses</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="border-t border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <h2 className="text-lg sm:text-xl font-[family-name:var(--font-heading)] text-text">
+              Planning a schedule?
+            </h2>
+            <p className="text-sm text-text-muted mt-1 max-w-md">
+              Track flowcharts show how courses connect from 9th grade through
+              senior year. See prerequisites and pathways at a glance.
+            </p>
+          </div>
+          <Link
+            href="/tracks"
+            className="link-arrow btn-hover px-6 py-3 bg-mountie-blue text-white font-semibold rounded-lg text-sm hover:bg-mountie-dark shrink-0 inline-flex items-center gap-1.5"
+          >
+            Explore Tracks <span className="arrow">&rarr;</span>
+          </Link>
         </div>
       </section>
     </div>

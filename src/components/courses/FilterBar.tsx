@@ -50,7 +50,7 @@ function Chip({
   return (
     <button
       onClick={onClick}
-      className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
+      className={`chip-interactive px-2.5 py-1 text-xs rounded-full border ${
         active
           ? "bg-mountie-blue text-white border-mountie-blue"
           : "bg-white text-text-muted border-border hover:border-mountie-blue/40"

@@ -111,7 +111,7 @@ function TrackNodeCard({
   return (
     <Link
       href={`/courses/${courseId}`}
-      className="block p-2.5 bg-white border border-border rounded-md hover:border-mountie-blue/30 hover:shadow-sm transition text-sm"
+      className="block p-2.5 bg-white border border-border rounded-md card-hover text-sm"
     >
       <div className="flex items-center justify-between gap-2">
         <span className="font-medium text-text leading-tight text-xs">
