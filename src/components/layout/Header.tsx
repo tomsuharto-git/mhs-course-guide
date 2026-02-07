@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/tracks", label: "Tracks" },
   { href: "/programs", label: "Programs" },
   { href: "/requirements", label: "Requirements" },
+  { href: "/selection", label: "Selection" },
 ];
 
 export function Header() {
