@@ -1,0 +1,103 @@
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { allTracks, getTrackById } from "@/data/tracks";
+import { DEPARTMENT_META, Department } from "@/data/types";
+import { TrackFlowchart } from "@/components/tracks/TrackFlowchart";
+import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
+import { graduationRequirements } from "@/data/graduation-requirements";
+
+const DEPT_TO_REQ_AREAS: Record<Department, string[]> = {
+  english: ["English Language Arts"],
+  math: ["Mathematics"],
+  science: ["Science"],
+  "social-studies": ["Social Studies"],
+  "world-languages": ["World Languages"],
+  "visual-performing-arts": ["Visual & Performing Arts"],
+  "health-pe": ["Health & Physical Education"],
+  "career-technical": ["21st Century Life & Careers / CTE"],
+  "special-education": [],
+};
+
+export function generateStaticParams() {
+  return allTracks.map((t) => ({ id: t.id }));
+}
+
+export function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  return params.then(({ id }) => {
+    const track = getTrackById(id);
+    return {
+      title: track
+        ? `${track.name} Track | MHS Course Guide`
+        : "Track Not Found",
+    };
+  });
+}
+
+export default async function TrackDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const track = getTrackById(id);
+  if (!track) return notFound();
+
+  const deptMeta = DEPARTMENT_META[track.department];
+  const reqAreas = DEPT_TO_REQ_AREAS[track.department];
+  const deptReqs = graduationRequirements.filter((r) =>
+    reqAreas.includes(r.area)
+  );
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      <Link
+        href="/tracks"
+        className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-mountie-blue mb-6"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        All Tracks
+      </Link>
+
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <DepartmentIcon department={track.department} size="sm" />
+          <h1 className="text-2xl font-[family-name:var(--font-heading)] text-text">
+            {track.name}
+          </h1>
+        </div>
+        <p className="text-sm text-text-muted">{track.description}</p>
+      </div>
+
+      {deptReqs.length > 0 && (
+        <div className="mb-6 p-4 bg-white border border-border rounded-lg">
+          <h2 className="text-sm font-semibold text-text mb-3">
+            Graduation Requirements
+          </h2>
+          <div className="space-y-2">
+            {deptReqs.map((req) => (
+              <div key={req.area} className="flex items-baseline justify-between gap-4">
+                <div>
+                  <span className="text-sm font-medium text-text">{req.area}</span>
+                  <span className="text-xs text-text-muted ml-2">{req.notes}</span>
+                </div>
+                <span className="text-sm font-bold text-mountie-blue whitespace-nowrap">
+                  {req.credits} credits
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-text-muted mt-3 pt-3 border-t border-border">
+            MHS requires {122} total credits for graduation.{" "}
+            <Link href="/requirements" className="text-mountie-blue hover:underline">
+              View all requirements &rarr;
+            </Link>
+          </p>
+        </div>
+      )}
+
+      <TrackFlowchart track={track} />
+    </div>
+  );
+}
