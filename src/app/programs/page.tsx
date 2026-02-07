@@ -109,17 +109,25 @@ export default function ProgramsPage() {
         {/* Jump nav */}
         <nav className="flex flex-wrap gap-2 mt-4">
           {[
-            { href: "#slc", label: "Small Learning Communities", count: slcs.length },
-            { href: "#dual", label: "Dual Enrollment", count: dualEnrollment.length },
-            { href: "#experiential", label: "Internships & Research", count: experiential.length },
+            { href: "#slc", label: "Small Learning Communities", count: slcs.length, color: "#254093" },
+            { href: "#dual", label: "Dual Enrollment", count: dualEnrollment.length, color: "#7c3aed" },
+            { href: "#experiential", label: "Internships & Research", count: experiential.length, color: "#059669" },
           ].map((s) => (
             <a
               key={s.href}
               href={s.href}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-muted bg-white border border-border rounded-lg hover:border-mountie-blue hover:text-mountie-blue transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors"
+              style={{
+                color: s.color,
+                backgroundColor: `${s.color}10`,
+                border: `1px solid ${s.color}30`,
+              }}
             >
               {s.label}
-              <span className="text-xs bg-warm-gray text-text-muted rounded-full px-1.5 py-0.5 font-mono">
+              <span
+                className="text-xs rounded-full px-1.5 py-0.5 font-mono"
+                style={{ backgroundColor: `${s.color}15`, color: s.color }}
+              >
                 {s.count}
               </span>
             </a>
