@@ -3,6 +3,7 @@ import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-heading",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Header />
         <main className="min-h-[calc(100vh-160px)]">{children}</main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
