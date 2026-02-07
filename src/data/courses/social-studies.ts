@@ -287,8 +287,20 @@ export const socialStudiesCourses: Course[] = [
     tags: ['elective'],
     fulfills: ['Social Studies', 'Financial Literacy'],
   },
-  // TODO: "Analysis of Monetary Policy Honors" appears on the flowchart (p. 86) but has
-  // no course description or code in pages 86-96. May need to add if found elsewhere in PDF.
+  {
+    id: 'monetary-policy-h',
+    code: '7110H-MP',
+    name: 'Analysis of Monetary Policy H',
+    department: 'social-studies',
+    level: 'honors',
+    grades: [12],
+    credits: 2.5,
+    duration: 'semester',
+    description: 'Listed on the Social Studies course flowchart as a Grade 12 economics elective alongside Macroeconomics Honors. No course description is provided in the 2026-2027 Program of Studies PDF. Contact the Social Studies department for details.',
+    prerequisites: ['microecon-h'],
+    tags: ['elective', 'economics'],
+    fulfills: ['Social Studies', 'Financial Literacy'],
+  },
 
   // ═══════════════════════════════════════════
   // ELECTIVES — AP COURSES
