@@ -6,6 +6,7 @@ import { socialStudiesCourses } from './social-studies';
 import { worldLanguageCourses } from './world-languages';
 import { vpaCourses } from './visual-performing-arts';
 import { careerTechnicalCourses } from './career-technical';
+import { healthPeCourses } from './health-pe';
 
 export {
   englishCourses,
@@ -15,6 +16,7 @@ export {
   worldLanguageCourses,
   vpaCourses,
   careerTechnicalCourses,
+  healthPeCourses,
 };
 
 export const allCourses: Course[] = [
@@ -25,6 +27,7 @@ export const allCourses: Course[] = [
   ...worldLanguageCourses,
   ...vpaCourses,
   ...careerTechnicalCourses,
+  ...healthPeCourses,
 ];
 
 export const coursesByDepartment: Record<Department, Course[]> = {
@@ -34,7 +37,7 @@ export const coursesByDepartment: Record<Department, Course[]> = {
   'social-studies': socialStudiesCourses,
   'world-languages': worldLanguageCourses,
   'visual-performing-arts': vpaCourses,
-  'health-pe': [],
+  'health-pe': healthPeCourses,
   'career-technical': careerTechnicalCourses,
   'special-education': [],
 };

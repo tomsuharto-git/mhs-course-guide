@@ -11,7 +11,7 @@ export type Department =
 
 export type CourseLevel = 'academic' | 'honors' | 'ap' | 'high-honors' | 'resource';
 
-export type Duration = 'full-year' | 'semester';
+export type Duration = 'full-year' | 'semester' | 'quarter';
 
 export interface Course {
   id: string;

@@ -43,7 +43,7 @@ export function GradeBadge({ grades }: { grades: number[] }) {
 export function CreditsBadge({ credits, duration }: { credits: number; duration: string }) {
   return (
     <span className="inline-flex items-center px-2 py-0.5 text-xs text-text-muted bg-warm-gray rounded">
-      {credits} cr &middot; {duration === "full-year" ? "Full Year" : "Semester"}
+      {credits} cr &middot; {duration === "full-year" ? "Full Year" : duration === "quarter" ? "Quarter" : "Semester"}
     </span>
   );
 }
