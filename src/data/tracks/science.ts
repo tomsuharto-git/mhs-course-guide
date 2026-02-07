@@ -6,7 +6,8 @@ import { Track } from '../types';
 //
 // Key branching: All students take Bio H in G9. The G10 decision
 // (Geoscience vs Geoscience Honors) determines the rest of the path.
-// Accelerated students can take Chem H at G10 with permission.
+// Accelerated students skip Geoscience and take Chem H at G10 with permission
+// (dotted line on flowchart).
 
 export const scienceTrack: Track = {
   id: 'science',
@@ -22,9 +23,8 @@ export const scienceTrack: Track = {
     { label: 'Resource', startRow: 3, endRow: 3 },
   ],
   nodes: [
-    // === Row 0: Accelerated (Geosci H + Chem H at G10) ===
+    // === Row 0: Accelerated (skip Geosci, Chem H at G10 with permission) ===
     { courseId: 'bio-h', row: 0, col: 0 },
-    { courseId: 'geosci-h', row: 0, col: 1 },
     { courseId: 'chem-h', row: 0, col: 1 },
     { courseId: 'ap-bio', row: 0, col: 2 },
     { courseId: 'ap-chem', row: 0, col: 2 },

@@ -4,6 +4,7 @@ import { allCourses, getCourseById } from "@/data/courses";
 import { DEPARTMENT_META } from "@/data/types";
 import { LevelBadge, GradeBadge, CreditsBadge } from "@/components/shared/Badge";
 import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
+import { getPathwayNext, getTrackForCourse } from "@/lib/track-utils";
 
 export function generateStaticParams() {
   return allCourses.map((c) => ({ id: c.id }));
@@ -31,10 +32,14 @@ export default async function CourseDetailPage({
 
   const deptMeta = DEPARTMENT_META[course.department];
 
-  // Find courses that list this course as a prerequisite
-  const leadsTo = allCourses.filter((c) =>
-    c.prerequisites.includes(course.id)
-  );
+  // Pathway-aware "next courses" from track data
+  const pathwayNext = getPathwayNext(course.id);
+  const track = getTrackForCourse(course.id);
+
+  // Fallback: courses that list this course as a prerequisite (for non-pathway tracks)
+  const leadsTo = !pathwayNext
+    ? allCourses.filter((c) => c.prerequisites.includes(course.id))
+    : [];
 
   // Resolve prerequisite course objects (only those that are course IDs, not text)
   const prereqCourses = course.prerequisites
@@ -135,8 +140,65 @@ export default async function CourseDetailPage({
           </div>
         )}
 
-        {/* Leads to */}
-        {leadsTo.length > 0 && (
+        {/* Next in Pathway — pathway-table tracks (Science, Math) */}
+        {pathwayNext && (
+          <div>
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+              Next in pathway
+            </h2>
+            <div className="space-y-3">
+              {pathwayNext.groups.map((group) => {
+                const courses = group.courseIds
+                  .map((cid) => getCourseById(cid))
+                  .filter(Boolean);
+                if (courses.length === 0) return null;
+                return (
+                  <div key={group.pathwayLabel}>
+                    {pathwayNext.groups.length > 1 && (
+                      <p className="text-[11px] font-medium text-text-muted mb-1.5 whitespace-pre-line">
+                        {group.pathwayLabel}
+                      </p>
+                    )}
+                    <div className="space-y-1.5">
+                      {courses.map((c) => (
+                        <Link
+                          key={c!.id}
+                          href={`/courses/${c!.id}`}
+                          className="group flex items-center justify-between gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <svg className="w-4 h-4 text-text-muted/40 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                            <div className="min-w-0">
+                              <span className="font-medium text-text group-hover:text-mountie-blue transition-colors">{c!.name}</span>
+                              <span className="text-text-muted/60 text-xs ml-2 font-mono">{c!.code}</span>
+                            </div>
+                          </div>
+                          <LevelBadge level={c!.level} />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            {track && (
+              <Link
+                href={`/tracks/${track.id}`}
+                className="inline-flex items-center gap-1.5 mt-3 text-xs text-mountie-blue hover:underline"
+              >
+                View full {track.name} pathway
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </Link>
+            )}
+          </div>
+        )}
+
+        {/* Fallback: Leads to (non-pathway tracks) */}
+        {!pathwayNext && leadsTo.length > 0 && (
           <div>
             <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
               This course leads to
