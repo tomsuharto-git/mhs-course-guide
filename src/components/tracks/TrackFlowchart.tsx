@@ -28,7 +28,7 @@ function PathwayTable({ track }: { track: Track }) {
           <thead>
             <tr>
               <th className="text-left px-3 py-2.5 text-xs font-semibold text-text-muted uppercase tracking-wider bg-warm-gray border border-border w-36">
-                Middle School
+                {track.rowGroupHeader || "Middle School"}
               </th>
               {track.columns.map((col) => (
                 <th
@@ -107,7 +107,7 @@ function PathwayTable({ track }: { track: Track }) {
           <div key={group.label} className="bg-white border border-border rounded-xl overflow-hidden">
             <div className="px-4 py-2.5 bg-warm-gray border-b border-border">
               <p className="text-xs font-semibold text-text uppercase tracking-wider whitespace-pre-line">
-                MS: {group.label}
+                {track.rowGroupHeader ? `${track.rowGroupHeader}: ` : "MS: "}{group.label}
               </p>
             </div>
             <div className="divide-y divide-border">

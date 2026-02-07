@@ -58,6 +58,7 @@ export interface Track {
   edges: TrackEdge[];
   columns: string[]; // column headers like "Academic", "Honors", "AP"
   rowGroups?: TrackRowGroup[]; // pathway-based tracks: groups rows by entry point (e.g. Middle School course)
+  rowGroupHeader?: string; // left column header for pathway tables (default: "Middle School")
 }
 
 export interface GraduationRequirement {
