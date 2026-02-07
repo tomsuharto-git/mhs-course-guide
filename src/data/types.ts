@@ -24,6 +24,7 @@ export interface Course {
   duration: Duration;
   description: string;
   prerequisites: string[];
+  prerequisiteNote?: string; // human-readable prereq text when course IDs alone don't capture the full requirement
   tags: string[];
   fulfills: string[];
   contractHonors?: boolean;
