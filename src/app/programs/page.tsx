@@ -105,10 +105,30 @@ export default function ProgramsPage() {
           MHS offers small learning communities, dual enrollment, internships, and research
           programs beyond the standard course catalog.
         </p>
+
+        {/* Jump nav */}
+        <nav className="flex flex-wrap gap-2 mt-4">
+          {[
+            { href: "#slc", label: "Small Learning Communities", count: slcs.length },
+            { href: "#dual", label: "Dual Enrollment", count: dualEnrollment.length },
+            { href: "#experiential", label: "Internships & Research", count: experiential.length },
+          ].map((s) => (
+            <a
+              key={s.href}
+              href={s.href}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-muted bg-white border border-border rounded-lg hover:border-mountie-blue hover:text-mountie-blue transition-colors"
+            >
+              {s.label}
+              <span className="text-xs bg-warm-gray text-text-muted rounded-full px-1.5 py-0.5 font-mono">
+                {s.count}
+              </span>
+            </a>
+          ))}
+        </nav>
       </div>
 
       {/* SLCs */}
-      <h2 className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1">
+      <h2 id="slc" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 scroll-mt-20">
         Small Learning Communities
       </h2>
       <p className="text-sm text-text-muted mb-4">
@@ -122,7 +142,7 @@ export default function ProgramsPage() {
       </div>
 
       {/* Dual Enrollment */}
-      <h2 className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1">
+      <h2 id="dual" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 scroll-mt-20">
         Dual Enrollment
       </h2>
       <p className="text-sm text-text-muted mb-4">
@@ -136,7 +156,7 @@ export default function ProgramsPage() {
       </div>
 
       {/* Internships & Research */}
-      <h2 className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1">
+      <h2 id="experiential" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 scroll-mt-20">
         Internships &amp; Research
       </h2>
       <p className="text-sm text-text-muted mb-4">
