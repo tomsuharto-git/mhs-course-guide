@@ -41,7 +41,7 @@ export default function TracksPage() {
                   {track.description}
                 </p>
                 <p className="link-arrow text-xs text-mountie-blue mt-3 font-medium inline-flex items-center gap-1">
-                  {track.nodes.length} courses <span className="arrow">&rarr;</span>
+                  {new Set(track.nodes.map(n => n.courseId)).size} courses <span className="arrow">&rarr;</span>
                 </p>
               </div>
             </Link>

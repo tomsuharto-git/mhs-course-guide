@@ -43,6 +43,12 @@ export interface TrackEdge {
   label?: string;
 }
 
+export interface TrackRowGroup {
+  label: string;
+  startRow: number;
+  endRow: number;
+}
+
 export interface Track {
   id: string;
   name: string;
@@ -51,6 +57,7 @@ export interface Track {
   nodes: TrackNode[];
   edges: TrackEdge[];
   columns: string[]; // column headers like "Academic", "Honors", "AP"
+  rowGroups?: TrackRowGroup[]; // pathway-based tracks: groups rows by entry point (e.g. Middle School course)
 }
 
 export interface GraduationRequirement {

@@ -1,59 +1,119 @@
 import { Track } from '../types';
 
+// Matches the HIGH SCHOOL MATH COURSE SEQUENCE chart from page 56 of the
+// 2026-2027 Program of Studies. Structure: 11 pathway rows grouped by 4
+// Middle School entry points. Each cell lists the course options available
+// at that grade level on that pathway.
+
 export const mathTrack: Track = {
   id: 'math',
   name: 'Mathematics',
   department: 'math',
-  description: 'Course pathways from Algebra I through AP Calculus BC and Calculus III. Multiple entry points based on middle school preparation.',
-  columns: ['Resource', 'Academic', 'Honors', 'AP / High Honors'],
+  description: 'Course pathways from middle school through AP Calculus BC and Calculus III. Multiple entry points based on middle school preparation.',
+  columns: ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'],
+  rowGroups: [
+    { label: 'Algebra B Accel\n(*Opt Geo. Accel.)', startRow: 0, endRow: 3 },
+    { label: 'Algebra B Accel.\nor Algebra B', startRow: 4, endRow: 7 },
+    { label: 'Algebra B', startRow: 8, endRow: 9 },
+    { label: 'Math Foundation', startRow: 10, endRow: 10 },
+  ],
   nodes: [
-    // Grade 9 (row 0)
-    { courseId: 'alg-1-r', row: 0, col: 0 },
-    { courseId: 'alg-1', row: 0, col: 1 },
-    { courseId: 'alg-1-h', row: 0, col: 2 },
-    { courseId: 'geom-h', row: 0, col: 2, label: 'Geometry H (from MS Alg)' },
-    { courseId: 'alg-2-trig-h', row: 0, col: 3, label: 'Alg II/Trig H (accelerated)' },
+    // === Group 1: Algebra B Accel (*Opt Geo. Accel.) ===
 
-    // Grade 10 (row 1)
-    { courseId: 'geom-r', row: 1, col: 0 },
-    { courseId: 'geom', row: 1, col: 1 },
-    { courseId: 'alg-2-h', row: 1, col: 2 },
-    { courseId: 'ap-precalc-calc', row: 1, col: 3 },
+    // Row 0: Most accelerated pathway
+    { courseId: 'alg-2-trig-h', row: 0, col: 0 },
+    { courseId: 'ap-precalc-calc', row: 0, col: 1 },
+    { courseId: 'ap-calc-bc', row: 0, col: 2 },
+    { courseId: 'ap-calc-ab', row: 0, col: 2 },
+    { courseId: 'calc-3-hh', row: 0, col: 3 },
+    { courseId: 'ap-stats', row: 0, col: 3 },
 
-    // Grade 11 (row 2)
-    { courseId: 'alg-2-r', row: 2, col: 0 },
-    { courseId: 'alg-2', row: 2, col: 1 },
-    { courseId: 'precalc-h', row: 2, col: 2 },
-    { courseId: 'ap-calc-bc', row: 2, col: 3, label: 'AP Calc BC' },
-    { courseId: 'ap-calc-ab', row: 2, col: 3, label: 'AP Calc AB' },
+    // Row 1: AP Precalculus branch
+    { courseId: 'ap-precalc', row: 1, col: 1 },
+    { courseId: 'ap-calc-ab', row: 1, col: 2 },
+    { courseId: 'calc-h', row: 1, col: 2 },
+    { courseId: 'ap-calc-bc', row: 1, col: 3 },
+    { courseId: 'ap-stats', row: 1, col: 3 },
 
-    // Grade 12 (row 3)
-    { courseId: 'applied-math', row: 3, col: 0 },
-    { courseId: 'precalc', row: 3, col: 1 },
+    // Row 2: Algebra 2 H (*Opt. Geo. H) branch
+    { courseId: 'alg-2-h', row: 2, col: 0, label: 'Algebra 2 H (*Opt. Geo. H)' },
+    { courseId: 'precalc-h', row: 2, col: 1 },
+    { courseId: 'ap-precalc', row: 2, col: 1 },
+    { courseId: 'ap-calc-ab', row: 2, col: 2 },
+    { courseId: 'ap-calc-bc', row: 2, col: 3 },
+    { courseId: 'ap-stats', row: 2, col: 3 },
+
+    // Row 3: Calc H branch (from row 2)
     { courseId: 'calc-h', row: 3, col: 2 },
-    { courseId: 'calc-3-hh', row: 3, col: 3 },
-    // Statistics available at multiple levels
-    { courseId: 'prob-stats', row: 3, col: 1, label: 'Prob & Stats' },
-    { courseId: 'prob-stats-h', row: 3, col: 2, label: 'Prob & Stats H' },
-    { courseId: 'ap-stats', row: 3, col: 3, label: 'AP Statistics' },
+    { courseId: 'ap-stats', row: 3, col: 3 },
+
+    // === Group 2: Algebra B Accel. or Algebra B ===
+
+    // Row 4: Geometry H → Alg II/Trig H → AP Precalc/Calc
+    { courseId: 'geom-h', row: 4, col: 0 },
+    { courseId: 'alg-2-trig-h', row: 4, col: 1 },
+    { courseId: 'ap-precalc-calc', row: 4, col: 2 },
+    { courseId: 'ap-calc-bc', row: 4, col: 3 },
+    { courseId: 'ap-calc-ab', row: 4, col: 3 },
+    { courseId: 'ap-stats', row: 4, col: 3 },
+
+    // Row 5: Alg II H / Precalc H branch
+    { courseId: 'alg-2-h', row: 5, col: 1 },
+    { courseId: 'precalc-h', row: 5, col: 1 },
+    { courseId: 'ap-precalc', row: 5, col: 2 },
+    { courseId: 'precalc-h', row: 5, col: 2 },
+    { courseId: 'calc-h', row: 5, col: 3 },
+    { courseId: 'ap-calc-ab', row: 5, col: 3 },
+    { courseId: 'prob-stats-h', row: 5, col: 3 },
+    { courseId: 'ap-stats', row: 5, col: 3 },
+
+    // Row 6: Geometry → Algebra II H
+    { courseId: 'geom', row: 6, col: 0 },
+    { courseId: 'alg-2-h', row: 6, col: 1 },
+    { courseId: 'ap-precalc', row: 6, col: 2 },
+    { courseId: 'precalc-h', row: 6, col: 2 },
+    { courseId: 'ap-calc-ab', row: 6, col: 3 },
+    { courseId: 'calc-h', row: 6, col: 3 },
+    { courseId: 'prob-stats-h', row: 6, col: 3 },
+    { courseId: 'prob-stats', row: 6, col: 3 },
+    { courseId: 'ap-stats', row: 6, col: 3 },
+
+    // Row 7: Algebra II → Precalculus
+    { courseId: 'alg-2', row: 7, col: 1 },
+    { courseId: 'precalc', row: 7, col: 2 },
+    { courseId: 'calc-h', row: 7, col: 3 },
+    { courseId: 'prob-stats-h', row: 7, col: 3 },
+    { courseId: 'prob-stats', row: 7, col: 3 },
+
+    // === Group 3: Algebra B ===
+
+    // Row 8: Algebra I H → Geometry H → Algebra II H
+    { courseId: 'alg-1-h', row: 8, col: 0 },
+    { courseId: 'geom-h', row: 8, col: 1 },
+    { courseId: 'alg-2-h', row: 8, col: 2 },
+    { courseId: 'precalc-h', row: 8, col: 3 },
+    { courseId: 'prob-stats-h', row: 8, col: 3, label: 'Probability & Statistics H' },
+    { courseId: 'ap-precalc', row: 8, col: 3 },
+
+    // Row 9: Algebra I → Geometry → Algebra II
+    { courseId: 'alg-1', row: 9, col: 0 },
+    { courseId: 'geom', row: 9, col: 1 },
+    { courseId: 'alg-2', row: 9, col: 2 },
+    { courseId: 'precalc', row: 9, col: 3 },
+    { courseId: 'prob-stats', row: 9, col: 3, label: 'Probability & Statistics' },
+
+    // === Group 4: Math Foundation ===
+
+    // Row 10: Resource / ICS pathway
+    { courseId: 'alg-1-r', row: 10, col: 0, label: 'Algebra I RCS' },
+    { courseId: 'alg-1-ics', row: 10, col: 0, label: 'Algebra I ICS' },
+    { courseId: 'geom-r', row: 10, col: 1, label: 'Geometry RCS' },
+    { courseId: 'geom-ics', row: 10, col: 1, label: 'Geometry ICS' },
+    { courseId: 'alg-2-r', row: 10, col: 2, label: 'Algebra II RCS' },
+    { courseId: 'alg-2-ics', row: 10, col: 2, label: 'Algebra II ICS' },
+    { courseId: 'applied-math', row: 10, col: 3, label: 'Applied Math RCS' },
+    { courseId: 'precalc-ics', row: 10, col: 3, label: 'Precalculus ICS' },
+    { courseId: 'prob-stats-ics', row: 10, col: 3, label: 'Prob & Stats ICS' },
   ],
-  edges: [
-    { from: 'alg-1-r', to: 'geom-r' },
-    { from: 'alg-1', to: 'geom' },
-    { from: 'alg-1-h', to: 'geom-h' },
-    { from: 'geom-r', to: 'alg-2-r' },
-    { from: 'geom', to: 'alg-2' },
-    { from: 'geom-h', to: 'alg-2-h' },
-    { from: 'alg-2-trig-h', to: 'ap-precalc-calc' },
-    { from: 'alg-2-h', to: 'precalc-h' },
-    { from: 'alg-2', to: 'precalc' },
-    { from: 'ap-precalc-calc', to: 'ap-calc-bc', label: '≥88' },
-    { from: 'ap-precalc-calc', to: 'ap-calc-ab', label: '≥80' },
-    { from: 'precalc-h', to: 'calc-h', label: '≥75' },
-    { from: 'precalc-h', to: 'ap-calc-ab', label: '≥90' },
-    { from: 'ap-calc-bc', to: 'calc-3-hh', label: '≥90' },
-    { from: 'alg-2', to: 'prob-stats' },
-    { from: 'alg-2-h', to: 'prob-stats-h' },
-    { from: 'alg-2-h', to: 'ap-stats', label: '≥80' },
-  ],
+  edges: [], // Pathway table format — progression shown by row structure, not edges
 };

@@ -23,13 +23,17 @@ export const socialStudiesTrack: Track = {
     { courseId: 'us-hist-2-h', row: 2, col: 2 },
     { courseId: 'ap-us-hist', row: 2, col: 3, label: 'AP U.S. History' },
 
-    // Grade 12 electives (row 3)
+    // Grade 12 electives (row 3) — Patterns semester courses + full-year AP/H
     { courseId: 'holocaust-genocide', row: 3, col: 1, label: 'Holocaust & Genocide' },
     { courseId: 'african-am-hist', row: 3, col: 1, label: 'African Am. History' },
+    { courseId: '20th-century-culture', row: 3, col: 1, label: '20th Century Culture' },
+    { courseId: 'women-of-world', row: 3, col: 1, label: 'Women of the World' },
+    { courseId: 'cultural-pluralism', row: 3, col: 1, label: 'Cultural Pluralism' },
     { courseId: 'microecon-h', row: 3, col: 2, label: 'Microeconomics H' },
     { courseId: 'macroecon-h', row: 3, col: 2, label: 'Macroeconomics H' },
     { courseId: 'am-foreign-policy-h', row: 3, col: 2, label: 'Am. Foreign Policy H' },
     { courseId: 'ap-euro-hist', row: 3, col: 3, label: 'AP European History' },
+    { courseId: 'ap-world-hist', row: 3, col: 3, label: 'AP World History' },
     { courseId: 'ap-psych', row: 3, col: 3, label: 'AP Psychology' },
     { courseId: 'ap-african-am-studies', row: 3, col: 3, label: 'AP African Am. Studies' },
     { courseId: 'ap-human-geo', row: 3, col: 3, label: 'AP Human Geography' },

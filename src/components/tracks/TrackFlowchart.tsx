@@ -5,11 +5,164 @@ import { Track } from "@/data/types";
 import { getCourseById } from "@/data/courses";
 import { LevelBadge } from "@/components/shared/Badge";
 
-const GRADE_LABELS = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
+const DEFAULT_GRADE_LABELS = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
 
 export function TrackFlowchart({ track }: { track: Track }) {
-  // Group nodes by row
-  const nodesByRow = [0, 1, 2, 3].map((row) =>
+  if (track.rowGroups && track.rowGroups.length > 0) {
+    return <PathwayTable track={track} />;
+  }
+  return <GradeGrid track={track} />;
+}
+
+// ─── Pathway Table (math-style: rows=pathways, cols=grades) ─────────────────
+
+function PathwayTable({ track }: { track: Track }) {
+  const maxRow = Math.max(...track.nodes.map((n) => n.row));
+  const allRows = Array.from({ length: maxRow + 1 }, (_, i) => i);
+
+  return (
+    <div>
+      {/* Desktop: HTML table with rowspan for MS entry groups */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full border-collapse text-sm">
+          <thead>
+            <tr>
+              <th className="text-left px-3 py-2.5 text-xs font-semibold text-text-muted uppercase tracking-wider bg-warm-gray border border-border w-36">
+                Middle School
+              </th>
+              {track.columns.map((col) => (
+                <th
+                  key={col}
+                  className="text-center px-3 py-2.5 text-xs font-semibold text-text-muted uppercase tracking-wider bg-warm-gray border border-border"
+                >
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {allRows.map((rowIdx) => {
+              const rowNodes = track.nodes.filter((n) => n.row === rowIdx);
+              const group = track.rowGroups?.find(
+                (g) => g.startRow === rowIdx
+              );
+              const isFirstInGroup = !!group;
+              const groupSpan = group
+                ? group.endRow - group.startRow + 1
+                : 0;
+
+              // Add stronger border at group boundaries
+              const isGroupStart =
+                isFirstInGroup && rowIdx > 0;
+
+              return (
+                <tr
+                  key={rowIdx}
+                  className={
+                    isGroupStart
+                      ? "border-t-2 border-border"
+                      : ""
+                  }
+                >
+                  {isFirstInGroup && (
+                    <td
+                      rowSpan={groupSpan}
+                      className="px-3 py-3 text-xs font-semibold text-text bg-warm-gray border border-border align-top whitespace-pre-line leading-relaxed"
+                    >
+                      {group!.label}
+                    </td>
+                  )}
+                  {track.columns.map((_, colIdx) => {
+                    const cellNodes = rowNodes.filter(
+                      (n) => n.col === colIdx
+                    );
+                    return (
+                      <td
+                        key={colIdx}
+                        className="px-2 py-2 border border-border align-top"
+                      >
+                        <div className="space-y-1">
+                          {cellNodes.map((node) => (
+                            <TrackNodeCard
+                              key={`${node.courseId}-${node.row}-${node.col}`}
+                              courseId={node.courseId}
+                              label={node.label}
+                              compact
+                            />
+                          ))}
+                        </div>
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile: grouped sections */}
+      <div className="md:hidden space-y-6">
+        {track.rowGroups?.map((group) => (
+          <div key={group.label} className="bg-white border border-border rounded-xl overflow-hidden">
+            <div className="px-4 py-2.5 bg-warm-gray border-b border-border">
+              <p className="text-xs font-semibold text-text uppercase tracking-wider whitespace-pre-line">
+                MS: {group.label}
+              </p>
+            </div>
+            <div className="divide-y divide-border">
+              {Array.from(
+                { length: group.endRow - group.startRow + 1 },
+                (_, i) => group.startRow + i
+              ).map((rowIdx) => {
+                const rowNodes = track.nodes.filter(
+                  (n) => n.row === rowIdx
+                );
+                if (rowNodes.length === 0) return null;
+                return (
+                  <div key={rowIdx} className="px-4 py-3">
+                    {track.columns.map((colLabel, colIdx) => {
+                      const cellNodes = rowNodes.filter(
+                        (n) => n.col === colIdx
+                      );
+                      if (cellNodes.length === 0) return null;
+                      return (
+                        <div key={colIdx} className="mb-2 last:mb-0">
+                          <p className="text-[10px] font-medium text-text-muted uppercase tracking-wider mb-1">
+                            {colLabel}
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            {cellNodes.map((node) => (
+                              <TrackNodeCard
+                                key={`${node.courseId}-${node.row}-${node.col}-m`}
+                                courseId={node.courseId}
+                                label={node.label}
+                                compact
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <TrackLegend track={track} />
+    </div>
+  );
+}
+
+// ─── Grade Grid (default: rows=grades, cols=levels) ─────────────────────────
+
+function GradeGrid({ track }: { track: Track }) {
+  const rowCount = Math.max(...track.nodes.map((n) => n.row)) + 1;
+  const gradeLabels = DEFAULT_GRADE_LABELS.slice(0, rowCount);
+  const nodesByRow = Array.from({ length: rowCount }, (_, row) =>
     track.nodes.filter((n) => n.row === row)
   );
 
@@ -20,11 +173,16 @@ export function TrackFlowchart({ track }: { track: Track }) {
         {/* Column headers */}
         <div
           className="grid gap-3 mb-4"
-          style={{ gridTemplateColumns: `100px repeat(${track.columns.length}, 1fr)` }}
+          style={{
+            gridTemplateColumns: `100px repeat(${track.columns.length}, 1fr)`,
+          }}
         >
           <div />
           {track.columns.map((col) => (
-            <div key={col} className="text-xs font-medium text-text-muted text-center">
+            <div
+              key={col}
+              className="text-xs font-medium text-text-muted text-center"
+            >
               {col}
             </div>
           ))}
@@ -35,10 +193,12 @@ export function TrackFlowchart({ track }: { track: Track }) {
           <div
             key={rowIdx}
             className="grid gap-3 mb-3"
-            style={{ gridTemplateColumns: `100px repeat(${track.columns.length}, 1fr)` }}
+            style={{
+              gridTemplateColumns: `100px repeat(${track.columns.length}, 1fr)`,
+            }}
           >
             <div className="flex items-center text-xs font-semibold text-text-muted">
-              {GRADE_LABELS[rowIdx]}
+              {gradeLabels[rowIdx]}
             </div>
             {track.columns.map((_, colIdx) => {
               const colNodes = nodes.filter((n) => n.col === colIdx);
@@ -63,7 +223,7 @@ export function TrackFlowchart({ track }: { track: Track }) {
         {nodesByRow.map((nodes, rowIdx) => (
           <div key={rowIdx}>
             <h3 className="text-xs font-semibold text-text-muted mb-2 uppercase tracking-wider">
-              {GRADE_LABELS[rowIdx]}
+              {gradeLabels[rowIdx]}
             </h3>
             <div className="space-y-2">
               {nodes.map((node) => (
@@ -78,40 +238,42 @@ export function TrackFlowchart({ track }: { track: Track }) {
         ))}
       </div>
 
-      {/* Legend */}
-      <div className="mt-6 p-4 bg-warm-gray rounded-lg">
-        <p className="text-xs font-medium text-text-muted mb-2">Level Legend</p>
-        <div className="flex flex-wrap gap-2">
-          {(["academic", "honors", "ap", "high-honors", "resource"] as const).map(
-            (level) => (
-              <LevelBadge key={level} level={level} />
-            )
-          )}
-        </div>
-        {track.edges.some((e) => e.label) && (
-          <p className="text-xs text-text-muted mt-2">
-            Arrows with numbers indicate minimum grade averages required for progression.
-          </p>
-        )}
-      </div>
+      <TrackLegend track={track} />
     </div>
   );
 }
 
+// ─── Shared components ──────────────────────────────────────────────────────
+
 function TrackNodeCard({
   courseId,
   label,
+  compact,
 }: {
   courseId: string;
   label?: string;
+  compact?: boolean;
 }) {
   const course = getCourseById(courseId);
-  if (!course) return null;
+
+  // Course not in catalog (middle school courses, ICS variants)
+  if (!course) {
+    if (!label) return null;
+    return (
+      <div
+        className={`${compact ? "px-2 py-1" : "p-2.5"} bg-warm-gray border border-border rounded-md text-xs`}
+      >
+        <span className="font-medium text-text-muted leading-tight">
+          {label}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <Link
       href={`/courses/${courseId}`}
-      className="block p-2.5 bg-white border border-border rounded-md card-hover text-sm"
+      className={`block ${compact ? "px-2 py-1.5" : "p-2.5"} bg-white border border-border rounded-md card-hover text-sm`}
     >
       <div className="flex items-center justify-between gap-2">
         <span className="font-medium text-text leading-tight text-xs">
@@ -119,7 +281,38 @@ function TrackNodeCard({
         </span>
         <LevelBadge level={course.level} />
       </div>
-      <p className="text-[10px] text-text-muted mt-0.5 font-mono">{course.code}</p>
+      {!compact && (
+        <p className="text-[10px] text-text-muted mt-0.5 font-mono">
+          {course.code}
+        </p>
+      )}
     </Link>
+  );
+}
+
+function TrackLegend({ track }: { track: Track }) {
+  return (
+    <div className="mt-6 p-4 bg-warm-gray rounded-lg">
+      <p className="text-xs font-medium text-text-muted mb-2">Level Legend</p>
+      <div className="flex flex-wrap gap-2">
+        {(
+          ["academic", "honors", "ap", "high-honors", "resource"] as const
+        ).map((level) => (
+          <LevelBadge key={level} level={level} />
+        ))}
+      </div>
+      {track.edges.some((e) => e.label) && (
+        <p className="text-xs text-text-muted mt-2">
+          Arrows with numbers indicate minimum grade averages required for
+          progression.
+        </p>
+      )}
+      {track.rowGroups && (
+        <p className="text-xs text-text-muted mt-2">
+          Each row shows a pathway option. Course cells list possible courses at that grade level.
+          Consult with your counselor for specific recommendations.
+        </p>
+      )}
+    </div>
   );
 }
