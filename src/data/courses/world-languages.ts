@@ -1,7 +1,10 @@
 import { Course } from '../types';
 
 export const worldLanguageCourses: Course[] = [
+  // ═══════════════════════════════════════════════════════════════════════
   // MANDARIN
+  // ═══════════════════════════════════════════════════════════════════════
+
   {
     id: 'mandarin-1-h',
     code: '2041H',
@@ -11,7 +14,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Introduction to Mandarin Chinese. Students develop basic listening, speaking, reading, and writing skills including Chinese characters.',
+    description:
+      'Mandarin I H introduces students to the basics of Mandarin Chinese. The course develops students\u2019 communicative skills in listening, speaking, reading, and writing, while focusing on the first two. Students learn through a performance-based approach while they explore various thematic units. Simple cultural facts are introduced.',
     prerequisites: [],
     tags: ['world-language', 'mandarin'],
     fulfills: ['World Language'],
@@ -25,7 +29,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Continuation of Mandarin I. Expanding vocabulary, grammar, character recognition, and conversational skills.',
+    description:
+      'Mandarin II H continues to develop students\u2019 capability to deal with day-to-day situations through communicative Mandarin. Attention is split equally to the development of students\u2019 listening/speaking and reading/writing skills. Students learn through a performance-based approach while they explore various thematic units. Chinese history and culture are taught with more details.',
     prerequisites: ['mandarin-1-h'],
     tags: ['world-language', 'mandarin'],
     fulfills: ['World Language'],
@@ -39,7 +44,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Intermediate Mandarin. Students read authentic texts, write compositions, and engage in sustained conversation.',
+    description:
+      'Mandarin III H reinforces and expands upon the communicative skills established in Mandarin I and II. The course develops students\u2019 capability to deal with more complicated situations through a performance-based approach. Additional emphasis is placed on the ongoing development of reading and writing skills. Chinese culture and/or historical events are discussed in class.',
     prerequisites: ['mandarin-2-h'],
     tags: ['world-language', 'mandarin'],
     fulfills: ['World Language'],
@@ -50,10 +56,11 @@ export const worldLanguageCourses: Course[] = [
     name: 'Mandarin IV H',
     department: 'world-languages',
     level: 'honors',
-    grades: [11, 12],
+    grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Advanced Mandarin. Emphasis on fluency, complex grammar, and Chinese culture and literature.',
+    description:
+      'Mandarin IV H incorporates the knowledge and communicative skills built during Mandarin I, II, and III to form a challenging and enjoyable course. Students\u2019 four language skills are trained to coordinate with each other in more challenging stimulations. Reading and writing of Chinese characters have become the focus of the course. Extensive cultural facts and ideology form an important part of the course.',
     prerequisites: ['mandarin-3-h'],
     tags: ['world-language', 'mandarin'],
     fulfills: ['World Language'],
@@ -61,19 +68,23 @@ export const worldLanguageCourses: Course[] = [
   {
     id: 'ap-chinese',
     code: '2045AP',
-    name: 'AP Chinese',
+    name: 'AP Chinese Language and Culture',
     department: 'world-languages',
     level: 'ap',
-    grades: [11, 12],
+    grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'College-level Mandarin Chinese course preparing students for the AP Chinese Language and Culture exam.',
+    description:
+      'The AP Chinese Language and Culture course is designed to be comparable to fourth semester (or the equivalent) college/university courses in Mandarin Chinese. The AP course prepares students to demonstrate their level of Chinese proficiency across the three communicative modes and the five goal areas. The class aims to provide students with ongoing and varied opportunities to further develop their proficiencies across the full range of language skills within a cultural frame of reference reflective of the richness of Chinese language and culture.',
     prerequisites: ['mandarin-4-h'],
     tags: ['world-language', 'mandarin', 'ap'],
     fulfills: ['World Language'],
   },
 
+  // ═══════════════════════════════════════════════════════════════════════
   // SPANISH
+  // ═══════════════════════════════════════════════════════════════════════
+
   {
     id: 'spanish-1-r',
     code: '82051',
@@ -83,7 +94,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Resource center replacement class for introductory Spanish with individualized instruction.',
+    description:
+      'This course is designed for resource center students who a) want to fulfill the one-year high school graduation requirement for World Languages, b) want to take a class which will increase their knowledge of basic Spanish vocabulary and expose them to the various cultures of Spanish speaking countries. A student in this course wishing to continue on the next level of Spanish should take Spanish I (2051), not Spanish II.',
     prerequisites: ['Recommendation by the Child Study Team'],
     tags: ['world-language', 'spanish', 'resource'],
     fulfills: ['World Language'],
@@ -97,7 +109,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Introduction to Spanish language and culture. Basic listening, speaking, reading, and writing skills.',
+    description:
+      'This is the first year of Spanish for students who have never formally studied the language. Particular attention is given to the development of the four basic skills: listening, speaking, reading, and writing. A variety of activities and drills are used to master basic vocabulary and common expressions. Students are encouraged to speak Spanish from the very beginning. Reading and listening for comprehension also begins at this level, as well as written expression. Students are also exposed to culture and customs of Spanish speaking countries through videos, music, art, and dance.',
     prerequisites: [],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
@@ -111,7 +124,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors-level introduction to Spanish. Accelerated pace with greater emphasis on grammar and communication.',
+    description:
+      'This course incorporates the same principles as Spanish I. Students in Spanish I Honors utilize higher level thinking skills \u2014 more open-ended application of the skills acquired during the first year. An emphasis is placed on reading, research, critical thinking, social participation and oral and written communication skills. The pace of this course is double that of the regular level.',
     prerequisites: [],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
@@ -122,11 +136,12 @@ export const worldLanguageCourses: Course[] = [
     name: 'Spanish II',
     department: 'world-languages',
     level: 'academic',
-    grades: [9, 10, 11, 12],
+    grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Continuation of Spanish I. Expanding vocabulary, grammar, and conversational ability.',
-    prerequisites: ['spanish-1', 'spanish-1-h'],
+    description:
+      'In second year Spanish, the four basic skills are strengthened with further emphasis on the indicative tenses, reading for comprehension, vocabulary building and cultural material. Students are expected to further expand their conversational skills by way of skits, presentations and dialogues. Cultural selections are read and discussed orally in class and in writing through assignments outside of class.',
+    prerequisites: ['spanish-1'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
   },
@@ -139,10 +154,12 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors-level continuation of Spanish. Accelerated grammar, reading, and oral proficiency development.',
+    description:
+      'Spanish II Honors is designed for students who have successfully completed Spanish I Honors and are interested in continuing their study of Spanish through an accelerated and proficiency based curricular approach. The course presents itself with a language based approach with its emphasis on proficiency on all three academic modes outlined in the NJCCCS: Interpersonal, Interpretive, and Presentational. The major units of study include: vocabulary development, comprehensive verb conjugations, guided compositions, reading comprehension, and role-playing activities. The curriculum reflects a rigorous set of student expectations. The course is fast-paced, and includes both independent and group activities. Creative thinking and verbal communication are encouraged and expanded in the classroom and there are several inquiry based projects assigned.',
     prerequisites: ['spanish-1-h'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: Spanish I H or equivalent from middle school.',
   },
   {
     id: 'spanish-3',
@@ -153,8 +170,9 @@ export const worldLanguageCourses: Course[] = [
     grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Intermediate Spanish. Reading authentic texts, writing compositions, and sustained conversation.',
-    prerequisites: ['spanish-2', 'spanish-2-h'],
+    description:
+      'Spanish III Academic is designed for students who have successfully completed Spanish 2 Academic and are interested in continuing their study of Spanish through a proficiency-based curricular approach. The course presents itself with a language-based approach with its emphasis on proficiency on all three academic modes outlined in the NJCCCS: Interpersonal, Interpretive, and Presentational. The major units of study include: vocabulary development, comprehensive verb conjugations, guided compositions, reading comprehension, and role-playing activities. The curriculum reflects vocabulary building, and other grammatical structures are emphasized to further improve conversational skills in the language. Spanish III offers units on Hispanic figures as well as readings and the culture of Spain and Latin America.',
+    prerequisites: ['spanish-2'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
   },
@@ -164,10 +182,11 @@ export const worldLanguageCourses: Course[] = [
     name: 'Spanish III H',
     department: 'world-languages',
     level: 'honors',
-    grades: [10, 11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors intermediate Spanish with advanced grammar, literature, and cultural study.',
+    description:
+      'The Spanish III H course gives students opportunities to demonstrate communicative proficiency through the use of engaging vocabulary in thematic contexts, reality-based cultural readings and historical perspectives of the Hispanic world. Based on the \u201cfive C\u2019s\u201d of the national standards (Communication, Cultures, Connections, Comparisons, and Communities), this course allows students to achieve success as they gain a deeper understanding of the Spanish language and culture.',
     prerequisites: ['spanish-2-h'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
@@ -178,13 +197,15 @@ export const worldLanguageCourses: Course[] = [
     name: 'Spanish IV',
     department: 'world-languages',
     level: 'academic',
-    grades: [11, 12],
+    grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Advanced Spanish. Emphasis on fluency, complex grammar, and Hispanic culture and literature.',
-    prerequisites: ['spanish-3', 'spanish-3-h'],
+    description:
+      'Spanish IV Academic is a course designed for the student who has successfully completed Spanish III Academic and wishes to continue his/her Spanish language experience. It is a course that is taught in the target language and places an emphasis on refining language skills through vocabulary development, reading, and analyzing Spanish and Latin American Literature and culture. The student will also critique television novels and a variety of cultural videos. Spanish IV Academic follows the NJCCCS guidelines. This course concludes the Academic Language series. Students will not be eligible to advance to AP Spanish V \u2013 Language & Culture. To enroll in AP Spanish V, students must first complete Spanish IV Honors.',
+    prerequisites: ['spanish-3'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
+    notes: 'This course concludes the Academic track. Students must complete Spanish IV H to advance to AP Spanish V.',
   },
   {
     id: 'spanish-4-h',
@@ -192,58 +213,69 @@ export const worldLanguageCourses: Course[] = [
     name: 'Spanish IV H',
     department: 'world-languages',
     level: 'honors',
-    grades: [11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors advanced Spanish with in-depth study of literature, grammar, and cultural topics.',
+    description:
+      'The fundamental objective of Spanish IV H is to emphasize the use of Spanish for active communication and performance-based learning. It concentrates on the students expressing themselves in the three modes of communication: interpretive, interpersonal, and presentational, accentuating both the spoken and the written components of the language while further developing the listening and the reading skills. The daily and practical use of the Spanish language through the use of authentic context via internet news sites, videos, art, and music in class will help prepare students for AP Spanish V \u2013 Language and Culture.',
     prerequisites: ['spanish-3-h'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: Spanish III H with a grade of 80 or higher.',
   },
   {
     id: 'ap-spanish-5',
     code: '2055AP',
-    name: 'AP Spanish V',
+    name: 'AP Spanish V - Language & Culture',
     department: 'world-languages',
     level: 'ap',
-    grades: [11, 12],
+    grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'College-level Spanish preparing students for the AP Spanish Language and Culture exam.',
+    description:
+      'This course follows the guidelines of the College Board AP Spanish Language and Culture course and provides opportunities for students to demonstrate their proficiency in the three modes of communication (Interpretive, Interpersonal, and Presentational) defined in the Standards for Foreign Language Learning in the 21st century. Thematic organized materials will provide students with the skills and strategies that are vital for the Advanced Placement Examination. The six themes explored in this class are: Families and Communities, Science and Technology, Beauty and Aesthetics, Global Challenges, Contemporary Life, and Personal and Public Identities.',
     prerequisites: ['spanish-4-h'],
     tags: ['world-language', 'spanish', 'ap'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: Spanish IV H with a grade of 85 or higher and teacher\u2019s recommendation.',
   },
   {
     id: 'ap-spanish-6',
     code: '2056AP',
-    name: 'AP Spanish VI',
+    name: 'AP Spanish VI - Literature & Culture',
     department: 'world-languages',
     level: 'ap',
-    grades: [12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Post-AP Spanish continuing advanced study of language, literature, and culture.',
+    description:
+      'This course is intended for the advanced student of Spanish who has completed the sequence of courses through Spanish V. The student is expected to exhibit proficiency in more complex structures of the Spanish language. New works of the list of authors required by the Advanced Placement College Board are introduced and special attention is given to reading, research, critical thinking, social participation, and oral and written communication skills.',
     prerequisites: ['ap-spanish-5'],
     tags: ['world-language', 'spanish', 'ap'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: AP Spanish V - Language with a grade of 80 or higher and teacher\u2019s recommendation.',
   },
   {
     id: 'spanish-6-hh-cinema',
     code: '2056HH',
-    name: 'Spanish VI HH Cinema',
+    name: 'Spanish VI HH - Cinema',
     department: 'world-languages',
     level: 'high-honors',
-    grades: [12],
+    grades: [10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'High Honors Spanish through the lens of Hispanic cinema. Advanced analysis of film, culture, and language.',
+    description:
+      'Spanish Cinema is a course designed to evaluate Spanish films as works of art in a historical, literary, and cultural context. Film will be used as a medium to explore and analyze stylistic elements (narrative, characterization, plot, and symbolism), cultural elements (class, gender, political views, and immigration), and technical aspects of cinema (cinematography, sound, and special effects). The main goal is to expand and strengthen oral proficiency in the Spanish language by focusing on listening comprehension, interactive verbal communication, and essential writing skills.',
     prerequisites: ['ap-spanish-5'],
     tags: ['world-language', 'spanish'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: AP Spanish V - Language.',
   },
 
+  // ═══════════════════════════════════════════════════════════════════════
   // FRENCH
+  // ═══════════════════════════════════════════════════════════════════════
+
   {
     id: 'french-1-h',
     code: '2001H',
@@ -253,7 +285,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors introduction to French language and Francophone culture. Basic communication skills in listening, speaking, reading, and writing.',
+    description:
+      'The beginning course starts with conversational French and continues with an emphasis on listening and speaking. Basic grammatical constructions and vocabulary from themes of everyday living allow students to express themselves on subjects of common interest. The cultural components of the course are built into the various lessons. Conversational patterns cover the basic constructions and present the essentials of the present tense, the futur proche of regular and some irregular verbs. In addition, subject pronouns, adjectives, the negatives and the interrogatives are studied. Vocabulary is expanded through typical activities of French-speaking youngsters and listening and speaking are integrated with reading and writing.',
     prerequisites: [],
     tags: ['world-language', 'french'],
     fulfills: ['World Language'],
@@ -267,10 +300,12 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Continuation of French I. Expanding vocabulary, grammar, and conversational proficiency.',
+    description:
+      'This course continues to develop proficiency in listening, speaking, reading, and writing. Attention is given to expanding the present tense system, introducing the past tense, and the use of some object pronouns. French speakers and French life styles continue to provide materials for the language practice through daily oral work, and students approach fluency in a range of constructions. Vocabulary building continues with practical and useful expressions. Readings continue to be culturally oriented and writing becomes more automatic and sophisticated.',
     prerequisites: ['french-1-h'],
     tags: ['world-language', 'french'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: French I H or equivalent from middle school.',
   },
   {
     id: 'french-3-h',
@@ -278,13 +313,15 @@ export const worldLanguageCourses: Course[] = [
     name: 'French III H',
     department: 'world-languages',
     level: 'honors',
-    grades: [10, 11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Intermediate French. Reading authentic texts, writing compositions, and sustained conversation.',
+    description:
+      'French III is a proficiency-based course designed to advance students\u2019 language skills in alignment with the five World-Readiness Standards: Communication, Cultures, Connections, Comparisons, and Communities. Through thematic units, students actively engage in interpretive, interpersonal, and presentational modes of communication to achieve an intermediate-low proficiency level. Emphasis is placed on developing the ability to understand and create with the language at the sentence level, enabling students to express ideas, opinions, and preferences in culturally authentic contexts. Learners explore topics such as personal and past life events, daily routines, city life, and intercultural understanding through travel, gaining meaningful insights into Francophone products, practices, and perspectives.',
     prerequisites: ['french-2-h'],
     tags: ['world-language', 'french'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: French II H or equivalent from middle school.',
   },
   {
     id: 'french-4-h',
@@ -292,44 +329,53 @@ export const worldLanguageCourses: Course[] = [
     name: 'French IV H',
     department: 'world-languages',
     level: 'honors',
-    grades: [11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Advanced French with emphasis on fluency, literature, and Francophone culture.',
+    description:
+      'This course allows students to develop and master three modes of communications: interpretive, interpersonal, and presentational. Students will study both the oral and written expression of the language through culturally relevant concepts by reading excerpts from literature or newspapers, using authentic French data and by discussing current events, values and cultural behaviors. The daily and practical use of the French language through the use of authentic context via internet news sites, videos, art, and music in class will help prepare students for the advanced study of the French language in AP French V \u2013 Language and Culture.',
     prerequisites: ['french-3-h'],
     tags: ['world-language', 'french'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: French III H or equivalent from middle school and a grade of 80 or higher.',
   },
   {
     id: 'ap-french-5',
     code: '2005AP',
-    name: 'AP French V',
+    name: 'AP French V - Language & Culture',
     department: 'world-languages',
     level: 'ap',
-    grades: [11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'College-level French preparing students for the AP French Language and Culture exam.',
+    description:
+      'The AP French Language course is intended for students in their fifth year study of French. It is designed to enable advanced learners of French to become competent in interpersonal, interpretive, and presentational communication within the meaningful study of six course themes: Global Challenges, Science and Technology, Contemporary Life, Personal and Public Identities, Families and Communities, and Beauty and Aesthetics. The course guides the students to explore culture and events in both the contemporary and historical settings and to examine products and practices of the target culture. Both teacher and students use French exclusively in the classroom.',
     prerequisites: ['french-4-h'],
     tags: ['world-language', 'french', 'ap'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: French IV H and a grade of 85 or higher and teacher\u2019s recommendation.',
   },
   {
     id: 'french-6-hh',
     code: '2006HH',
-    name: 'French VI HH',
+    name: 'French VI HH - Literature',
     department: 'world-languages',
     level: 'high-honors',
-    grades: [12],
+    grades: [11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'High Honors post-AP French. Advanced study of French literature, film, and culture.',
+    description:
+      'This course is intended for qualified students who have completed French V and are interested in completing studies comparable to an Introduction to French Literature at the third year college level. The program in French VI is designed to introduce students who have advanced language skills to the formal study of a representative body of literary texts in French. Students will read and analyze French drama, prose and poetry and acquire the basic concepts and terminology necessary for the task at hand. Literature through cinema will also be explored in this course.',
     prerequisites: ['ap-french-5'],
     tags: ['world-language', 'french'],
     fulfills: ['World Language'],
+    notes: 'Prerequisite: AP French V and a grade of 85 or higher and teacher\u2019s recommendation.',
   },
 
+  // ═══════════════════════════════════════════════════════════════════════
   // GERMAN
+  // ═══════════════════════════════════════════════════════════════════════
+
   {
     id: 'german-1-h',
     code: '2011H',
@@ -339,7 +385,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors introduction to German language and culture. Basic communication skills in listening, speaking, reading, and writing.',
+    description:
+      'This is a course for students who have never studied German before. It introduces them to the basic patterns of German pronunciation, vocabulary, and grammar. All four skills (listening, speaking, reading, and writing) but especially listening and speaking are developed. Students acquire speaking skills through a variety of drill exercises and TPR methods (Total Physical Response). Through discussions and presentations, students learn about the geography and culture of Germany, Switzerland, Austria and Liechtenstein. Students also learn the German word units which have become a part of the vernacular. Students will learn several folk and modern songs to practice pronunciation and grammar patterns.',
     prerequisites: [],
     tags: ['world-language', 'german'],
     fulfills: ['World Language'],
@@ -353,7 +400,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Continuation of German I. Expanding vocabulary, grammar, and conversational proficiency.',
+    description:
+      'German II builds on German I. The emphasis is on speaking German in the classroom. The study of grammar is continued and intensified and the conversational past is introduced. Grammatical structures in the readings are used as a basis for learning prepositional concepts of German. The grammatical patterns are expanded, and the concept of case is taught. Students are given a chance to combine creativity with the study of German. For semester assessments, they choose a topic of their interest and create a project using certain vocabulary and grammar patterns. Students are encouraged to memorize original poetry in German and create their original poems and put them to music. Students memorize 19th and 20th century poems by Goethe, Heine, Schiller, and Brecht including \u201cOde to Joy.\u201d Students start reading fiction starting with the second semester.',
     prerequisites: ['german-1-h'],
     tags: ['world-language', 'german'],
     fulfills: ['World Language'],
@@ -364,10 +412,11 @@ export const worldLanguageCourses: Course[] = [
     name: 'German III H',
     department: 'world-languages',
     level: 'honors',
-    grades: [10, 11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Intermediate German. Reading authentic texts, writing compositions, and sustained conversation.',
+    description:
+      'Students review fundamental grammatical points and learn more sophisticated tenses and structures, such as the relationship between the cases in a sentence and the finer points of word order. Vocabulary study is intensified, as is the ability to express oneself in German. The reading and speaking skills are developed further through selections that convey the customs and traditions of German-speaking countries. Whenever possible, cultural and literary enrichment is continued through a variety of instructional media, such as the Internet, YouTube in particular. Students are encouraged to do group projects, where a student can gain more self-confidence in the use of German. Students continue reading fiction appropriate for their level.',
     prerequisites: ['german-2-h'],
     tags: ['world-language', 'german'],
     fulfills: ['World Language'],
@@ -378,16 +427,20 @@ export const worldLanguageCourses: Course[] = [
     name: 'German IV H',
     department: 'world-languages',
     level: 'honors',
-    grades: [11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Advanced German with emphasis on fluency, literature, and German-speaking cultures.',
+    description:
+      'Fourth year German is a continuation of fine-tuning the communication skills. Writing and reading skills are further developed with continued reinforcement and review of the four cases, uses of prepositions, and the overall intricate German syntax. Students continue memorizing classical German poetry with the help of music. Students will write compositions and short presentations and deliver them to the class in order to improve their writing and speaking skills and to build confidence in using German as a communication medium. Reading fiction is continued on a higher level of comprehension. The selection is represented by the so-called \u201cKrimis\u201d (crime novels), short fictional pieces with suspenseful plots.',
     prerequisites: ['german-3-h'],
     tags: ['world-language', 'german'],
     fulfills: ['World Language'],
   },
 
+  // ═══════════════════════════════════════════════════════════════════════
   // ITALIAN
+  // ═══════════════════════════════════════════════════════════════════════
+
   {
     id: 'italian-1-h',
     code: '2021H',
@@ -397,7 +450,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors introduction to Italian language and culture. Basic communication skills in listening, speaking, reading, and writing.',
+    description:
+      'This course is for students who have never studied the language formally. Particular attention is given to the development of the four basic skills: listening, speaking, reading, and writing, with special emphasis on the first two. A variety of activities and drills are used to master basic vocabulary and to stimulate students to speak the language in the present tense. Reading for comprehension is begun at this level, and the student is introduced to selected cultural material.',
     prerequisites: [],
     tags: ['world-language', 'italian'],
     fulfills: ['World Language'],
@@ -411,7 +465,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Continuation of Italian I. Expanding vocabulary, grammar, and conversational proficiency.',
+    description:
+      'Italian II is recommended for students who have had Italian I. This course reviews the basic notions of the language. Dialogues and readings about Italian culture introduce the student to the understanding of Italian literature and civilization. Using a variety of drills and audio-visual aids, grammar is introduced as the need arises. The study of the language continues to develop the four basic skills of listening, speaking, reading, and writing. Emphasis is given to grammar and more to the use of the language itself in a given situation.',
     prerequisites: ['italian-1-h'],
     tags: ['world-language', 'italian'],
     fulfills: ['World Language'],
@@ -422,10 +477,11 @@ export const worldLanguageCourses: Course[] = [
     name: 'Italian III H',
     department: 'world-languages',
     level: 'honors',
-    grades: [10, 11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Intermediate Italian. Reading authentic texts, writing compositions, and sustained conversation.',
+    description:
+      'This course is offered to the students who have satisfactorily completed the first two years of the language and to those whose native language is Italian. Major Italian writers are selected for reading to give the student an opportunity to use and enjoy the mastery of Italian grammar and vocabulary acquired in the first two years of language study. Short reports and group dialogues also serve the purpose of expanding on the material learned in formal situations.',
     prerequisites: ['italian-2-h'],
     tags: ['world-language', 'italian'],
     fulfills: ['World Language'],
@@ -436,16 +492,20 @@ export const worldLanguageCourses: Course[] = [
     name: 'Italian IV H',
     department: 'world-languages',
     level: 'honors',
-    grades: [11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Advanced Italian with emphasis on fluency, literature, and Italian culture.',
+    description:
+      'This course is recommended for students who have finished Italian III. A major emphasis on speaking, reading-comprehension, and writing further enhances students\u2019 language skills. These skills are reinforced through selected Italian literary works and special attention given to research, critical thinking, and social participation.',
     prerequisites: ['italian-3-h'],
     tags: ['world-language', 'italian'],
     fulfills: ['World Language'],
   },
 
+  // ═══════════════════════════════════════════════════════════════════════
   // LATIN
+  // ═══════════════════════════════════════════════════════════════════════
+
   {
     id: 'latin-1-h',
     code: '2031H',
@@ -455,7 +515,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Honors introduction to Latin. Focus on grammar, vocabulary, and Roman civilization.',
+    description:
+      'This beginning course covers the fundamentals of grammar and vocabulary, and teaches, in a functional way, the inflections and principles of grammar needed for reading and translating simple Latin stories. The present tense is studied for verbs of the first, second, third, and fourth conjugations together with nouns of the first, second, and third declensions and adjectives of the first and second declensions. Translations of edited Latin stories give a background of Roman life, history and mythology. Skills in English are developed through a study of the contribution of Latin to our vocabulary. Students give oral presentations on aspects of Roman daily life as well as work on group projects for visual presentations.',
     prerequisites: [],
     tags: ['world-language', 'latin'],
     fulfills: ['World Language'],
@@ -469,7 +530,8 @@ export const worldLanguageCourses: Course[] = [
     grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Continuation of Latin I. Expanding grammar, vocabulary, and reading of Latin texts.',
+    description:
+      'The second year Latin course continues the study of grammar and vocabulary with the reading of simplified stories based on excerpts from classical Latin Literature. Intermediate grammar is mastered through a variety of drills and other practice activities. Students study cultural and historical backgrounds and English derivatives. Students are required to give oral presentations on Roman sites, the Roman government, the military, and the expansion of the Empire.',
     prerequisites: ['latin-1-h'],
     tags: ['world-language', 'latin'],
     fulfills: ['World Language'],
@@ -480,10 +542,11 @@ export const worldLanguageCourses: Course[] = [
     name: 'Latin III H',
     department: 'world-languages',
     level: 'honors',
-    grades: [10, 11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Intermediate Latin. Reading authentic Roman authors and advanced grammar study.',
+    description:
+      'The third year Latin course introduces more complex grammar and brings the majority of the grammatical elements to completion. Selected passages, some in the original, are translated, analyzed, and interpreted as a continuing review of Latin syntax. The study of myths, culture, and the Roman art of war are discussed through student presentations and projects. The English debt to Latin, both linguistic and cultural, continues to be stressed. Students are required to give oral presentations on mythology and culture.',
     prerequisites: ['latin-2-h'],
     tags: ['world-language', 'latin'],
     fulfills: ['World Language'],
@@ -494,10 +557,11 @@ export const worldLanguageCourses: Course[] = [
     name: 'Latin IV H',
     department: 'world-languages',
     level: 'honors',
-    grades: [11, 12],
+    grades: [9, 10, 11, 12],
     credits: 5,
     duration: 'full-year',
-    description: 'Advanced Latin. Reading Virgil, Cicero, and other classical authors in the original.',
+    description:
+      'In the fourth year course, all the noun and pronoun declensions and all the verb conjugations are reviewed in their entirety through a variety of drills and exercises. The most sophisticated uses of the subjunctive are studied, as are specialized clauses and verbal elements such as gerundives and supines. The art of translation is refined as adapted by Caesar, Livy, Cicero, et al. Samples of poetry from Horace, Ovid, and Vergil introduce the student to the technique of Latin versification while deepening the exposure to civilization and mythology.',
     prerequisites: ['latin-3-h'],
     tags: ['world-language', 'latin'],
     fulfills: ['World Language'],
