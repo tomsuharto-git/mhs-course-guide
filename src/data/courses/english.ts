@@ -561,7 +561,7 @@ export const englishCourses: Course[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════
-  // ESL (English for Speakers of Other Languages)
+  // ESL — Grade-Level Courses (English for Speakers of Other Languages)
   // ═══════════════════════════════════════════════════════════════════════
 
   {
@@ -574,10 +574,12 @@ export const englishCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'For students whose native language is not English. The objective is the acquisition of listening, speaking, reading, and writing skills and full academic command of the English language. Students acquire learning strategies and study skills for all subject area classes. Emphasis is placed on reading comprehension, models of academic writing, and vocabulary development. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
+      'For students whose native language is not American English. The objective is the acquisition of listening, speaking, reading, and writing skills and full academic command of the English language. Students acquire learning strategies and study skills for all subject area classes. Emphasis is placed on reading comprehension, models of academic writing, and vocabulary development. Completing this course enables students to achieve success in school and in the community. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
     prerequisites: [],
     tags: ['esl'],
     fulfills: ['ELA'],
+    notes:
+      'Eligibility determined by WIDA Screener/ACCESS for ELLs 2.0.',
   },
   {
     id: 'esl-10',
@@ -589,10 +591,12 @@ export const englishCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'For students whose native language is not English. Continuation of ESL instruction in listening, speaking, reading, and writing with emphasis on academic vocabulary, reading comprehension, and writing development. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
+      'For students whose native language is not American English. The objective is the acquisition of listening, speaking, reading, and writing skills and full academic command of the English language. Students acquire learning strategies and study skills for all subject area classes. Emphasis is placed on reading comprehension, models of academic writing, and vocabulary development. Completing this course enables students to achieve success in school and in the community. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
     prerequisites: [],
     tags: ['esl'],
     fulfills: ['ELA'],
+    notes:
+      'Eligibility determined by WIDA Screener/ACCESS for ELLs 2.0.',
   },
   {
     id: 'esl-11',
@@ -604,10 +608,12 @@ export const englishCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'For students whose native language is not English. Continuation of ESL instruction in listening, speaking, reading, and writing with emphasis on academic vocabulary, reading comprehension, and writing development. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
+      'For students whose native language is not American English. The objective is the acquisition of listening, speaking, reading, and writing skills and full academic command of the English language. Students acquire learning strategies and study skills for all subject area classes. Emphasis is placed on reading comprehension, models of academic writing, and vocabulary development. Completing this course enables students to achieve success in school and in the community. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
     prerequisites: [],
     tags: ['esl'],
     fulfills: ['ELA'],
+    notes:
+      'Eligibility determined by WIDA Screener/ACCESS for ELLs 2.0.',
   },
   {
     id: 'esl-12',
@@ -619,9 +625,176 @@ export const englishCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'For students whose native language is not English. Continuation of ESL instruction in listening, speaking, reading, and writing with emphasis on academic vocabulary, reading comprehension, and writing development. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
+      'For students whose native language is not American English. The objective is the acquisition of listening, speaking, reading, and writing skills and full academic command of the English language. Students acquire learning strategies and study skills for all subject area classes. Emphasis is placed on reading comprehension, models of academic writing, and vocabulary development. Completing this course enables students to achieve success in school and in the community. The WIDA Screener/ACCESS for ELLs 2.0 determines eligibility. Students in Intermediate and Advanced levels may contract for honors credit.',
     prerequisites: [],
     tags: ['esl'],
     fulfills: ['ELA'],
+    notes:
+      'Eligibility determined by WIDA Screener/ACCESS for ELLs 2.0.',
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // ESL — Proficiency-Level Courses
+  // The ESL Program offers five leveled courses (Newcomer, Beginner,
+  // Intermediate, Advanced, Transitional) for Multilingual Learners in
+  // grades 9-12. Each level has A and B sections. Instruction is
+  // differentiated by proficiency level and emphasizes listening,
+  // speaking, reading, and writing, as well as academic vocabulary and
+  // critical thinking skills aligned with grade-level expectations.
+  // ═══════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'esl-newcomers-a',
+    code: '1086A',
+    name: 'ESL Newcomers A',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Specifically designed for new ESL students. Instruction develops foundational skills in listening, reading, speaking, writing, and vocabulary with an additional focus on American culture. There is an emphasis on real-world application of these skills. Starting with simple readings, students move on to more challenging and level-appropriate fiction and non-fiction selections. Students will develop sentence and paragraph writing methods with some focus on learning grammatical structures, specifically targeting writing skills to develop informational/explanatory, argumentative, and narrative writing.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+  },
+  {
+    id: 'esl-newcomers-b',
+    code: '1086B',
+    name: 'ESL Newcomers B',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Specifically designed for new ESL students. Instruction develops foundational skills in listening, reading, speaking, writing, and vocabulary with an additional focus on American culture. There is an emphasis on real-world application of these skills. Starting with simple readings, students move on to more challenging and level-appropriate fiction and non-fiction selections. Students will develop sentence and paragraph writing methods with some focus on learning grammatical structures, specifically targeting writing skills to develop informational/explanatory, argumentative, and narrative writing.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+  },
+  {
+    id: 'esl-beginners-a',
+    code: '1087A',
+    name: 'ESL Beginners A',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Designed for beginner-level students. Emphasis is placed on the target language and communication in a safe environment. Objectives include the development of skills in all four language domains (listening, reading, speaking, and writing). Starting with basic readings, students move on to more challenging and level-appropriate fiction and non-fiction selections. Students will have the opportunity to develop strategies to improve organizational skills in speaking and writing, and many opportunities to expand and practice new vocabulary. Strategies for identifying text structures and developing informational/explanatory, argumentative, and narrative writing will be integral parts of the course.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+  },
+  {
+    id: 'esl-beginners-b',
+    code: '1087B',
+    name: 'ESL Beginners B',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Designed for beginner-level students. Emphasis is placed on the target language and communication in a safe environment. Objectives include the development of skills in all four language domains (listening, reading, speaking, and writing). Starting with basic readings, students move on to more challenging and level-appropriate fiction and non-fiction selections. Students will have the opportunity to develop strategies to improve organizational skills in speaking and writing, and many opportunities to expand and practice new vocabulary. Strategies for identifying text structures and developing informational/explanatory, argumentative, and narrative writing will be integral parts of the course.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+  },
+  {
+    id: 'esl-intermediate-a',
+    code: '1088A',
+    name: 'ESL Intermediate A',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'An intermediate-level course designed to develop reading and writing skills for intermediate students. Students develop reading fluency, accuracy, comprehension and expand their vocabulary by reading passages, short stories, articles, and novels. Students learn about the writing process and the elements of short stories, such as plot, setting, and character development. Students will develop writing skills needed to produce coherent essays. Focus will be on process writing (pre-writing activities, revising, and editing), and low-stakes exploratory and reflective writing. Speaking and listening skills will be developed through interactive class discussion and formal presentations.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+    contractHonors: true,
+  },
+  {
+    id: 'esl-intermediate-b',
+    code: '1088B',
+    name: 'ESL Intermediate B',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'An intermediate-level course designed to develop reading and writing skills for intermediate students. Students develop reading fluency, accuracy, comprehension and expand their vocabulary by reading passages, short stories, articles, and novels. Students learn about the writing process and the elements of short stories, such as plot, setting, and character development. Students will develop writing skills needed to produce coherent essays. Focus will be on process writing (pre-writing activities, revising, and editing), and low-stakes exploratory and reflective writing. Speaking and listening skills will be developed through interactive class discussion and formal presentations.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+    contractHonors: true,
+  },
+  {
+    id: 'esl-advanced-a',
+    code: '1089A',
+    name: 'ESL Advanced A',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Meets the needs of students who have mastered an intermediate level of competency in English. Listening, speaking, reading, and writing skills at a more sophisticated level are acquired. The expectation at this level is that students have achieved basic interpersonal communication skills in English and will require an intensive program of cognitive academic language skills. This course offers extensive opportunities to continue language development at a rapid rate. Students are expected to read and comprehend various types of texts, as well as write for a variety of purposes.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+    contractHonors: true,
+  },
+  {
+    id: 'esl-advanced-b',
+    code: '1089B',
+    name: 'ESL Advanced B',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Meets the needs of students who have mastered an intermediate level of competency in English. Listening, speaking, reading, and writing skills at a more sophisticated level are acquired. The expectation at this level is that students have achieved basic interpersonal communication skills in English and will require an intensive program of cognitive academic language skills. This course offers extensive opportunities to continue language development at a rapid rate. Students are expected to read and comprehend various types of texts, as well as write for a variety of purposes.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+    contractHonors: true,
+  },
+  {
+    id: 'esl-transitional',
+    code: '1090',
+    name: 'Transitional ESL',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'Serves as a transition for students who have achieved an advanced proficiency in English listening, reading, and speaking. Students focus on various forms of written academic English, writing various essays and a formal research paper. Students will learn skills that will enable them to succeed in high school and beyond. The class will widen and improve familiarity with literary genres and works encouraged in high school and expected for entering college students.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: ['ELA'],
+  },
+  {
+    id: 'esl-support',
+    code: '1086',
+    name: 'ESL Support',
+    department: 'english',
+    level: 'academic',
+    grades: [9, 10, 11, 12],
+    credits: 5,
+    duration: 'full-year',
+    description:
+      'A supplemental ESL tutorial course paired with a core ESL course as part of the High-Intensity ESL Program. Provides additional dedicated English instruction to support students\u2019 linguistic growth and promote access to rigorous academic content and successful integration into mainstream coursework.',
+    prerequisites: ['Qualifying score on WIDA Screener or ACCESS'],
+    tags: ['esl'],
+    fulfills: [],
   },
 ];
