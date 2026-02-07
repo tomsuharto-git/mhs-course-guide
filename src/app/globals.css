@@ -19,7 +19,7 @@ body {
   font-family: var(--font-body);
 }
 
-h1, h2, h3, h4 {
+h1 {
   font-family: var(--font-heading);
   text-transform: uppercase;
   letter-spacing: 0.06em;

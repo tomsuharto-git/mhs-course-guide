@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   graduationRequirements,
   totalCreditsRequired,
@@ -12,16 +13,18 @@ export const metadata = {
 export default function RequirementsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      <h1 className="text-2xl font-[family-name:var(--font-heading)] text-text mb-2">
-        Graduation Requirements
-      </h1>
-      <p className="text-sm text-text-muted mb-8">
-        New Jersey requires 120 credits; MHS requires{" "}
-        <strong>{totalCreditsRequired} credits</strong> per Board Policy 5460.
-      </p>
+      <div className="mb-8">
+        <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] text-text tracking-wide">
+          Graduation Requirements
+        </h1>
+        <p className="text-sm text-text-muted mt-2 max-w-lg">
+          New Jersey requires 120 credits; MHS requires{" "}
+          <strong className="text-text">{totalCreditsRequired} credits</strong> per Board Policy 5460.
+        </p>
+      </div>
 
       {/* Requirements table */}
-      <div className="bg-white border border-border rounded-lg overflow-hidden mb-8">
+      <div className="bg-white border border-border rounded-xl overflow-hidden mb-10">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-warm-gray">
@@ -48,9 +51,9 @@ export default function RequirementsPage() {
                 </td>
               </tr>
             ))}
-            <tr className="bg-mountie-blue/5 font-semibold">
+            <tr className="bg-mountie-blue text-white font-semibold">
               <td className="px-4 py-3">Total Required</td>
-              <td className="text-center px-4 py-3 font-mono text-mountie-blue">
+              <td className="text-center px-4 py-3 font-mono">
                 {totalCreditsRequired}
               </td>
               <td className="px-4 py-3 hidden sm:table-cell" />
@@ -60,10 +63,10 @@ export default function RequirementsPage() {
       </div>
 
       {/* Promotion credits */}
-      <h2 className="text-lg font-[family-name:var(--font-heading)] text-text mb-3">
+      <h2 className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-3">
         Credit Requirements for Promotion
       </h2>
-      <div className="bg-white border border-border rounded-lg overflow-hidden mb-8">
+      <div className="bg-white border border-border rounded-xl overflow-hidden mb-10">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-warm-gray">
@@ -89,14 +92,14 @@ export default function RequirementsPage() {
       </div>
 
       {/* GPA table */}
-      <h2 className="text-lg font-[family-name:var(--font-heading)] text-text mb-3">
+      <h2 className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-3">
         Quality Point Index (GPA)
       </h2>
       <p className="text-sm text-text-muted mb-3">
         GPA is computed at the end of 11th grade and again at the end of 12th
         grade. Higher course levels earn more quality points.
       </p>
-      <div className="bg-white border border-border rounded-lg overflow-hidden mb-8">
+      <div className="bg-white border border-border rounded-xl overflow-hidden mb-10">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-warm-gray">
@@ -131,10 +134,10 @@ export default function RequirementsPage() {
       </div>
 
       {/* Contracting for Honors */}
-      <h2 className="text-lg font-[family-name:var(--font-heading)] text-text mb-3">
+      <h2 className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-3">
         Contracting for Honors
       </h2>
-      <div className="bg-white border border-border rounded-lg p-5 text-sm text-text leading-relaxed">
+      <div className="bg-white border border-border rounded-xl p-5 text-sm text-text leading-relaxed mb-6">
         <p>
           In certain courses not offered at the honors level, students may
           contract for a higher level within the first two weeks of the course.
@@ -143,6 +146,15 @@ export default function RequirementsPage() {
           &ldquo;Honors&rdquo; on the report card and earn honors-level quality
           points.
         </p>
+      </div>
+
+      <div className="text-center py-4">
+        <Link
+          href="/courses"
+          className="link-arrow btn-hover inline-flex items-center gap-1.5 px-5 py-2.5 bg-mountie-blue text-white font-semibold rounded-lg text-sm hover:bg-mountie-dark"
+        >
+          Browse Courses <span className="arrow">&rarr;</span>
+        </Link>
       </div>
     </div>
   );

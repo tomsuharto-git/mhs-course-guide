@@ -96,7 +96,7 @@ export default function HomePage() {
               >
                 <div className="absolute top-0 left-0 w-1 h-full rounded-l-xl" style={{ backgroundColor: meta.color }} />
                 <DepartmentIcon department={dept} />
-                <h3 className="text-base sm:text-lg font-semibold text-text mt-4 group-hover:text-mountie-blue transition-colors !text-transform-none !font-[family-name:var(--font-body)]" style={{ textTransform: 'none', letterSpacing: '0' }}>
+                <h3 className="text-base sm:text-lg font-semibold text-text mt-4 group-hover:text-mountie-blue transition-colors">
                   {meta.label}
                 </h3>
                 <p className="text-xs text-text-muted mt-1">{count} courses</p>

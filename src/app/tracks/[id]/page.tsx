@@ -60,19 +60,23 @@ export default async function TrackDetailPage({
         All Tracks
       </Link>
 
-      <div className="mb-6">
+      <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <DepartmentIcon department={track.department} size="sm" />
-          <h1 className="text-2xl font-[family-name:var(--font-heading)] text-text">
-            {track.name}
-          </h1>
+          <DepartmentIcon department={track.department} />
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] text-text tracking-wide">
+              {track.name}
+            </h1>
+          </div>
         </div>
-        <p className="text-sm text-text-muted">{track.description}</p>
+        <p className="text-sm text-text-muted mt-2">{track.description}</p>
       </div>
 
       {deptReqs.length > 0 && (
-        <div className="mb-6 p-4 bg-white border border-border rounded-lg">
-          <h2 className="text-sm font-semibold text-text mb-3">
+        <div className="mb-8 bg-white border border-border rounded-xl overflow-hidden">
+          <div className="h-0.5" style={{ backgroundColor: deptMeta.color }} />
+          <div className="p-4">
+          <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
             Graduation Requirements
           </h2>
           <div className="space-y-2">
@@ -94,6 +98,7 @@ export default async function TrackDetailPage({
               View all requirements &rarr;
             </Link>
           </p>
+          </div>
         </div>
       )}
 

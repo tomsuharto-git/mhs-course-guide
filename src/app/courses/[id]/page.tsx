@@ -3,6 +3,7 @@ import Link from "next/link";
 import { allCourses, getCourseById } from "@/data/courses";
 import { DEPARTMENT_META } from "@/data/types";
 import { LevelBadge, GradeBadge, CreditsBadge } from "@/components/shared/Badge";
+import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
 
 export function generateStaticParams() {
   return allCourses.map((c) => ({ id: c.id }));
@@ -54,14 +55,20 @@ export default async function CourseDetailPage({
         All Courses
       </Link>
 
-      <div className="space-y-6">
-        {/* Header */}
-        <div>
-          <p className="text-sm font-mono text-text-muted">{course.code}</p>
-          <h1 className="text-2xl font-[family-name:var(--font-heading)] text-text mt-1">
-            {course.name}
-          </h1>
-          <div className="flex flex-wrap gap-2 mt-3">
+      {/* Header card with department color accent */}
+      <div className="bg-white border border-border rounded-xl overflow-hidden mb-6">
+        <div className="h-1" style={{ backgroundColor: deptMeta.color }} />
+        <div className="p-5 sm:p-6">
+          <div className="flex items-start gap-3 mb-3">
+            <DepartmentIcon department={course.department} size="sm" />
+            <div className="min-w-0">
+              <p className="text-xs font-mono text-text-muted/60">{course.code}</p>
+              <h1 className="text-2xl sm:text-3xl font-[family-name:var(--font-heading)] text-text mt-0.5 leading-tight tracking-wide">
+                {course.name}
+              </h1>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-4">
             <LevelBadge level={course.level} />
             <GradeBadge grades={course.grades} />
             <CreditsBadge credits={course.credits} duration={course.duration} />
@@ -78,15 +85,21 @@ export default async function CourseDetailPage({
             )}
           </div>
         </div>
+      </div>
 
+      <div className="space-y-6">
         {/* Description */}
-        <div className="bg-white border border-border rounded-lg p-5">
+        <div>
+          <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+            Description
+          </h2>
           <p className="text-sm text-text leading-relaxed">{course.description}</p>
         </div>
 
         {/* Notes */}
         {course.notes && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+          <div className="bg-amber-50/50 border border-amber-200/60 rounded-lg p-4">
+            <p className="text-xs font-semibold text-amber-800 uppercase tracking-wider mb-1">Note</p>
             <p className="text-sm text-amber-800">{course.notes}</p>
           </div>
         )}
@@ -94,18 +107,23 @@ export default async function CourseDetailPage({
         {/* Prerequisites */}
         {(prereqCourses.length > 0 || textPrereqs.length > 0) && (
           <div>
-            <h2 className="text-sm font-semibold text-text mb-2">Prerequisites</h2>
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+              Prerequisites
+            </h2>
             <div className="space-y-1.5">
               {prereqCourses.map((pc) => (
                 <Link
                   key={pc!.id}
                   href={`/courses/${pc!.id}`}
-                  className="block p-3 bg-white border border-border rounded-lg card-hover text-sm"
+                  className="group flex items-center gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm"
                 >
-                  <span className="font-mono text-text-muted text-xs mr-2">
-                    {pc!.code}
-                  </span>
-                  <span className="font-medium">{pc!.name}</span>
+                  <svg className="w-4 h-4 text-text-muted/40 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                  <div className="min-w-0">
+                    <span className="font-medium text-text group-hover:text-mountie-blue transition-colors">{pc!.name}</span>
+                    <span className="text-text-muted/60 text-xs ml-2 font-mono">{pc!.code}</span>
+                  </div>
                 </Link>
               ))}
               {textPrereqs.map((t) => (
@@ -120,7 +138,7 @@ export default async function CourseDetailPage({
         {/* Leads to */}
         {leadsTo.length > 0 && (
           <div>
-            <h2 className="text-sm font-semibold text-text mb-2">
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
               This course leads to
             </h2>
             <div className="space-y-1.5">
@@ -128,12 +146,17 @@ export default async function CourseDetailPage({
                 <Link
                   key={c.id}
                   href={`/courses/${c.id}`}
-                  className="block p-3 bg-white border border-border rounded-lg card-hover text-sm"
+                  className="group flex items-center justify-between gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm"
                 >
-                  <span className="font-mono text-text-muted text-xs mr-2">
-                    {c.code}
-                  </span>
-                  <span className="font-medium">{c.name}</span>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <svg className="w-4 h-4 text-text-muted/40 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="m9 18 6-6-6-6" />
+                    </svg>
+                    <div className="min-w-0">
+                      <span className="font-medium text-text group-hover:text-mountie-blue transition-colors">{c.name}</span>
+                      <span className="text-text-muted/60 text-xs ml-2 font-mono">{c.code}</span>
+                    </div>
+                  </div>
                   <LevelBadge level={c.level} />
                 </Link>
               ))}
@@ -144,17 +167,18 @@ export default async function CourseDetailPage({
         {/* Fulfills */}
         {course.fulfills.length > 0 && (
           <div>
-            <h2 className="text-sm font-semibold text-text mb-2">
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
               Fulfills graduation requirements
             </h2>
             <div className="flex flex-wrap gap-1.5">
               {course.fulfills.map((f) => (
-                <span
+                <Link
                   key={f}
-                  className="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200"
+                  href="/requirements"
+                  className="px-2.5 py-1 text-xs bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 hover:bg-emerald-100 transition-colors"
                 >
                   {f}
-                </span>
+                </Link>
               ))}
             </div>
           </div>
