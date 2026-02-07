@@ -30,7 +30,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'For students who have not yet completed the NJ State standards for Algebra. Provides in-depth instruction at a fast pace in a cooperative learning environment. This course is an introduction to a more abstract and generalized form of mathematics than arithmetic. Topics include operations with algebraic symbols, elementary set theory, solution of linear equalities and inequalities, graphing algebraic functions and relationships, elementary statistics, and probability. Problem-solving and critical thinking are emphasized throughout, along with the application of the scientific calculator.',
+      'This course is designed for those students who have not successfully completed the NJ State standards for Algebra. It will provide the student with in-depth instruction, a fast pace of instruction, and a cooperative learning environment. The student must have self-motivation and the ability to comprehend reading materials. This course is an introduction to a more abstract and generalized form of mathematics than arithmetic. At the completion of the course, the student will understand the operations with algebraic symbols, elementary set theory, solution of linear equalities and inequalities, graphing algebraic functions and relationships, elementary statistics, and probability. Problem-solving and critical thinking are emphasized throughout the course, along with the application of the scientific calculator.',
     prerequisites: [],
     tags: ['core', 'grade-9'],
     fulfills: ['Math', 'Algebra I'],
@@ -45,7 +45,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'Resource center replacement class designed for students who require individualized and small-group instruction. IEP goals and objectives are addressed throughout the course. Students will learn operations with algebraic symbols, solutions of linear equations and inequalities, and graphing algebraic functions. Problem-solving concepts are emphasized throughout the course.',
+      'Algebra I is a resource center replacement class that is taught in the resource center program. It is designed for those students who require individualized and small-group instruction. The goals and objectives in each student\u2019s IEP will be addressed throughout the course. Students will be aware of the operations with algebraic symbols, solutions of linear equations and inequalities, and graphing algebraic functions. Problem-solving concepts are emphasized throughout the course.',
     prerequisites: ['Recommendation by the Child Study Team'],
     tags: ['core', 'resource'],
     fulfills: ['Math', 'Algebra I'],
@@ -133,7 +133,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'A briskly paced course designed to prepare students for Pre-Calculus Honors and college math. This is the second course in the branch of mathematics that enables students to represent and analyze relationships among variable quantities and solve problems involving patterns, functions, and algebraic concepts and processes. Prerequisite concepts and skills from Algebra I are reviewed and enhanced.',
+      'Algebra II Honors is a briskly paced course designed to prepare students for Pre-Calculus Honors and college math. It is the second course in the branch of mathematics that enables students to represent and analyze relationships among variable quantities and solve problems involving patterns, functions, and algebraic concepts and processes. Prerequisite concepts and skills from Algebra I are reviewed and enhanced. Topics include functions, linear equations, systems, polynomials, rational expressions, irrational and complex numbers, quadratics, exponential and logarithmic functions, and laws of exponents.',
     prerequisites: ['geom-h', 'geom'],
     tags: ['core'],
     fulfills: ['Math', 'Algebra II'],
@@ -202,7 +202,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'Comprehensive fast-paced instruction in a cooperative learning environment for students who are self-motivated and able to work with advanced algebraic and geometric concepts. The course extends and broadens mathematical concepts introduced in previous years. Topics include trigonometric and circular functions, logarithms, graphs of rational functions, and limits. This course will not prepare students for AP Calculus BC but will provide highly proficient students with an opportunity for AP Calculus AB.',
+      'This course will provide the student with comprehensive fast-paced instruction and a cooperative learning environment. The student must be self-motivated and able to work with advanced algebraic and geometric concepts. The course extends and broadens the mathematical concepts introduced in previous years. At the completion of the course, the student will be able to understand trigonometric and circular functions and more advanced algebraic concepts, such as logarithms, graphs of rational functions, and limits. This course will not prepare students for AP Calculus BC the following year but will provide highly proficient students with an opportunity for AP Calculus AB.',
     prerequisites: ['alg-2-h', 'alg-2-trig-h'],
     tags: ['core'],
     fulfills: ['Math'],
@@ -219,7 +219,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'A traditional pace of instruction with more individualized support in a cooperative learning environment. Fundamental algebra topics are treated as review within the context of trigonometric functions. Students will understand the concepts of circular and trigonometric functions and their relationships and applications to real-life problems.',
+      'This course will provide students with a traditional pace of instruction, more individualized instruction, and a cooperative learning environment. Fundamental algebra topics will be treated as a review within the context of trigonometric functions. At the completion of this course, students will understand the concepts of circular and trigonometric functions and their relationships and applications to real-life problems.',
     prerequisites: ['alg-2'],
     tags: ['core'],
     fulfills: ['Math'],
@@ -251,7 +251,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'Resource center replacement class for students who need to fulfill the third-year graduation requirement or need additional reinforcement of basic math skills. IEP goals and objectives are addressed throughout the course. Focuses on the contemporary uses of mathematics and mathematical modeling. The intent is to add significant value to students\u2019 mastery of algebra and geometry, expand their knowledge through various interactive platforms, and strengthen problem-solving techniques. The curriculum is a mixture of Algebra I, Geometry, and Algebra II.',
+      'Applied Mathematics is designed for students who need to fulfill the third-year graduation requirement or who still need additional reinforcement of basic math skills. It is a resource center replacement class that is taught in the resource center program. The goals and objectives in each student\u2019s IEP will be addressed throughout the course. The course will focus on the contemporary uses of mathematics and on the processes of mathematical modeling. The intent of the course is to add significant value to students\u2019 mastery of algebra and geometry, expand their knowledge through various interactive platforms and strengthen their problem-solving techniques. The Applied Math curriculum is a mixture of Algebra I, Geometry and Algebra II.',
     prerequisites: [],
     tags: ['resource'],
     fulfills: ['Math'],
@@ -273,7 +273,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'An extremely fast-paced, rigorous course in preparation for the AP Calculus BC Exam. Topics include limits, continuity, differential calculus, integral calculus, improper integrals, Taylor and MacLaurin polynomials, series and their convergence/divergence, applications of polar coordinates, parametric representations of functions and their derivatives, vectors in the plane, and differential equations. The graphing calculator is incorporated throughout. Students are expected to take the AP Exam in Calculus BC.',
+      'This course will provide the student with an extremely fast-paced, rigorous course in calculus in preparation for the Advanced Placement Examination in Calculus BC. At the completion of the course, the student will be able to understand and apply the concepts of limits, continuity, differential calculus, integral calculus, improper integrals, Taylor and MacLaurin polynomials, series and their convergence/divergence, applications of polar coordinates, parametric representations of functions and their derivatives, vectors in the plane and differential equations. The use of the graphic calculator is incorporated throughout the course. Students are expected to take the AP Exam in Calculus BC. Note: Honors Calculus is not sufficient preparation for AP Calculus.',
     prerequisites: ['ap-precalc-calc', 'ap-calc-ab'],
     tags: ['core', 'ap'],
     fulfills: ['Math'],
@@ -290,7 +290,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'A rigorous course in calculus at an accelerated pace in preparation for the AP AB Exam. Students will understand the theory and applications of differential and integral calculus. As recommended by the National Council of Teachers of Mathematics, students should have a mastery of algebra, geometry, and trigonometry. Students are expected to take the AP Exam in May. Successful students will develop proficiency in evaluating limits, derivatives, and integrals, applying derivatives to related rates, optimization, and motion, applying integrals to area, volume, and differential equations, and using advanced techniques of integration.',
+      'This course will provide the student with a rigorous course in calculus at an accelerated pace in preparation for the AP Examination in AB Calculus. At the completion of the course, the student will understand the theory and applications of differential and integral calculus. As recommended by the National Council of Teachers of Mathematics, students enrolled in this course should have a mastery of algebra, geometry, and trigonometry. Students are expected to take the AP Exam in May. It is expected that students who successfully complete the course will have developed proficiency in the following areas: evaluating limits, derivatives, and integrals; applying derivatives to related rates, optimization problems, and motion; applying integrals to area, volume, and differential equations; and using advanced techniques of integration. Please note that students who take Calculus Honors are not eligible to take AP Calculus AB.',
     prerequisites: ['ap-precalc-calc', 'precalc-h', 'ap-precalc'],
     tags: ['core', 'ap'],
     fulfills: ['Math'],
@@ -307,7 +307,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'A rigorous course in the basic concepts of calculus with in-depth instruction, designed for students NOT planning to take the AP Calculus exam. Topics include the theory of limits, derivatives, integrals, and their applications, including maxima and minima, related rates, area and volume, and exponential, logarithmic, and trigonometric functions. As recommended by the National Council of Teachers of Mathematics (NCTM), students should have a mastery of algebra, geometry, and trigonometry.',
+      'This course will provide the student with a rigorous course in calculus with in-depth instruction in the basic concepts of calculus. The course is designed for those students not planning to take the Advanced Placement Examination in Calculus. At the completion of the course, the student will have a clear understanding of the theory of limits, derivatives, integrals, and their applications. Topics covered include maxima and minima, related rates, area and volume, exponential, logarithmic, and trigonometric functions. As recommended by the National Council of Teachers of Mathematics (NCTM), students who enroll in this course should have a mastery of algebra, geometry, and trigonometry.',
     prerequisites: ['precalc-h'],
     tags: ['core'],
     fulfills: ['Math'],
@@ -324,7 +324,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'Multivariable calculus for seniors who have successfully completed AP Calculus BC. Topics include vector-valued functions of several variables, multiple integration, directional derivatives, vector analysis, and calculus in three dimensions.',
+      'This course in multivariable calculus is for those seniors who have successfully completed AP Calculus BC. Topics covered include vector-valued functions of several variables, multiple integration, directional derivatives, vector analysis, and calculus in three dimensions.',
     prerequisites: ['ap-calc-bc'],
     tags: ['core'],
     fulfills: ['Math'],
@@ -345,7 +345,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'In-depth instruction at a fast pace in a cooperative learning environment, designed to prepare students for the AP Statistics College Board examination. This course is equivalent to an introductory non-calculus-based statistics course offered by many colleges and universities. Topics include exploring data, planning a study (deciding what and how to measure), anticipating patterns (introducing probability and simulation), and statistical inference. The instruction is technology and calculator-based. Students intending to major in psychology, sociology, health sciences, or business may wish to consider this course. Those intending to major in sciences, engineering, mathematics, or computer science will find this an effective preparation for upper-level calculus-based statistics. TI-83/84 calculator required.',
+      'This course provides in-depth instruction at a fast pace in a cooperative learning environment. It is intended for students who have a strong mathematics background equivalent to Algebra II. This AP course is designed to prepare students to take the Advanced Placement College Board examination in Statistics. The instruction in this course is technology and calculator-based. This course is equivalent to an introductory non-calculus-based statistics course offered by the mathematics departments at many colleges and universities. Those students intending to major in psychology, sociology, health sciences or business may wish to consider taking this course. Those intending to major in the sciences, engineering, mathematics, or computer science will find this course to be an effective preparation for the upper-level calculus-based statistics course they will take in college. Those students planning to take an AP science course in their senior year will benefit greatly from AP Statistics in their junior year. The approach taken in this course will allow students to build interdisciplinary connections with other subjects and with their world outside school. Topics include exploring data, planning a study (deciding what and how to measure), anticipating patterns (introducing probability and simulation), and statistical inference. Students are expected to have a TI-83/84 plus calculator and are expected to take the AP Statistics Exam in May.',
     prerequisites: ['alg-2-h', 'alg-2-trig-h', 'precalc-h'],
     tags: ['core', 'ap'],
     fulfills: ['Math'],
@@ -362,7 +362,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'An alternative to Calculus courses for students who wish to include a fourth year of math. Topics include exploring data, planning a study (deciding what and how to measure), anticipating patterns (introducing probability and simulation), and statistical inference. Students are encouraged to use their own TI-83/84 calculator. Successful students will be able to perform exploratory data analysis, apply and interpret techniques of statistical inference, and critique and interpret various research design models. The approach taken in this course will allow students to build interdisciplinary connections with other subjects and with their world outside school.',
+      'This course provides an alternative to Calculus courses for those who wish to include a fourth year of math in the high school program. This course will include the following major topics: exploring data, planning a study (deciding what and how to measure), anticipating patterns (introducing probability and simulation), and statistical inference. Students are encouraged to use their own TI-83/84 plus calculator. Successful students will be able to perform exploratory data analysis, apply and interpret techniques of statistical inference, and critique and interpret various research design models. The approach taken in this course will allow students to build interdisciplinary connections with other subjects and with their world outside school.',
     prerequisites: ['alg-2-h', 'precalc-h', 'alg-2', 'precalc'],
     tags: ['core'],
     fulfills: ['Math'],
@@ -379,7 +379,7 @@ export const mathCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description:
-      'An alternative to Pre-Calculus for students who wish to include a fourth year of math. Topics include exploring data, planning a study (deciding what and how to measure), anticipating patterns (introducing probability and simulation), and statistical inference. Students are encouraged to use their own TI-83/84 calculator. Successful students will be able to perform exploratory data analysis, apply and interpret techniques of statistical inference, and critique and interpret various research design models.',
+      'This course provides an alternative to Pre-Calculus for those who wish to include a fourth year of math in the high school program. Topics covered include exploring data, planning a study (deciding what and how to measure), anticipating patterns (introducing probability and simulation), and statistical inference. Students are encouraged to use their own TI-83/84 plus calculator. Successful students will be able to perform exploratory data analysis, apply and interpret techniques of statistical inference, and critique and interpret various research design models.',
     prerequisites: ['alg-2', 'precalc'],
     tags: ['core'],
     fulfills: ['Math'],
