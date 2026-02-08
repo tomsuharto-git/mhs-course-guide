@@ -147,13 +147,13 @@ h1 {
   padding: 1.25rem 1.5rem;
   box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.04);
 }
-.prose-card p {
+.prose-card p:not(.not-prose *) {
   font-size: 0.875rem;
   line-height: 1.7;
   color: var(--color-text);
   margin-bottom: 0.75rem;
 }
-.prose-card p:last-child {
+.prose-card p:last-child:not(.not-prose *) {
   margin-bottom: 0;
 }
 .prose-card h3 {
