@@ -121,27 +121,6 @@ export default function HomePage() {
           })}
         </div>
       </section>
-
-      {/* Bottom CTA */}
-      <section className="border-t border-border bg-gradient-to-b from-warm-gray/30 to-transparent">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div>
-            <h2 className="text-lg sm:text-xl font-[family-name:var(--font-heading)] text-text">
-              Planning a schedule?
-            </h2>
-            <p className="text-[15px] text-text-muted mt-1 max-w-md leading-relaxed">
-              Track flowcharts show how courses connect from 9th grade through
-              senior year. See prerequisites and pathways at a glance.
-            </p>
-          </div>
-          <Link
-            href="/tracks"
-            className="link-arrow btn-hover px-6 py-3 bg-mountie-blue text-white font-semibold rounded-lg text-sm hover:bg-mountie-dark shrink-0 inline-flex items-center gap-1.5"
-          >
-            Explore Tracks <span className="arrow">&rarr;</span>
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }
