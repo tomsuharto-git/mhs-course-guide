@@ -4,11 +4,12 @@ import { englishTrack } from './english';
 import { scienceTrack } from './science';
 import { socialStudiesTrack } from './social-studies';
 import { worldLanguagesTrack } from './world-languages';
+import { vpaTrack } from './visual-performing-arts';
 
-export const allTracks: Track[] = [mathTrack, englishTrack, scienceTrack, socialStudiesTrack, worldLanguagesTrack];
+export const allTracks: Track[] = [mathTrack, englishTrack, scienceTrack, socialStudiesTrack, worldLanguagesTrack, vpaTrack];
 
 export function getTrackById(id: string): Track | undefined {
   return allTracks.find((t) => t.id === id);
 }
 
-export { mathTrack, englishTrack, scienceTrack, socialStudiesTrack, worldLanguagesTrack };
+export { mathTrack, englishTrack, scienceTrack, socialStudiesTrack, worldLanguagesTrack, vpaTrack };
