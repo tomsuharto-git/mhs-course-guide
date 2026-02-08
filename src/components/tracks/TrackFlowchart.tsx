@@ -117,6 +117,7 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
                               key={`${node.courseId}-${node.row}-${node.col}`}
                               courseId={node.courseId}
                               label={node.label}
+                              deptColor={deptColor}
                               compact
                             />
                           ))}
@@ -172,6 +173,7 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
                                   key={`${node.courseId}-${node.row}-${node.col}-m`}
                                   courseId={node.courseId}
                                   label={node.label}
+                                  deptColor={deptColor}
                                   compact
                                 />
                               ))}
@@ -188,7 +190,7 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
         })}
       </div>
 
-      <TrackLegend track={track} />
+      <TrackLegend track={track} deptColor={deptColor} />
     </div>
   );
 }
@@ -251,6 +253,7 @@ function GradeGrid({ track, deptColor }: { track: Track; deptColor?: string }) {
                       key={`${node.courseId}-${node.row}-${node.col}`}
                       courseId={node.courseId}
                       label={node.label}
+                      deptColor={deptColor}
                     />
                   ))}
                 </div>
@@ -273,6 +276,7 @@ function GradeGrid({ track, deptColor }: { track: Track; deptColor?: string }) {
                   key={`${node.courseId}-${node.row}-${node.col}-m`}
                   courseId={node.courseId}
                   label={node.label}
+                  deptColor={deptColor}
                 />
               ))}
             </div>
@@ -280,7 +284,7 @@ function GradeGrid({ track, deptColor }: { track: Track; deptColor?: string }) {
         ))}
       </div>
 
-      <TrackLegend track={track} />
+      <TrackLegend track={track} deptColor={deptColor} />
     </div>
   );
 }
@@ -291,10 +295,12 @@ function TrackNodeCard({
   courseId,
   label,
   compact,
+  deptColor,
 }: {
   courseId: string;
   label?: string;
   compact?: boolean;
+  deptColor?: string;
 }) {
   const course = getCourseById(courseId);
 
@@ -321,7 +327,7 @@ function TrackNodeCard({
         <span className="font-medium text-text leading-tight text-xs group-hover:text-mountie-blue transition-colors">
           {label || course.name}
         </span>
-        <LevelBadge level={course.level} />
+        <LevelBadge level={course.level} deptColor={deptColor} />
       </div>
       {!compact && (
         <p className="text-[10px] text-text-muted mt-0.5 font-mono">
@@ -332,7 +338,7 @@ function TrackNodeCard({
   );
 }
 
-function TrackLegend({ track }: { track: Track }) {
+function TrackLegend({ track, deptColor }: { track: Track; deptColor?: string }) {
   return (
     <div className="mt-6 p-4 bg-warm-gray rounded-lg">
       <p className="text-xs font-medium text-text-muted mb-2">Level Legend</p>
@@ -340,7 +346,7 @@ function TrackLegend({ track }: { track: Track }) {
         {(
           ["academic", "honors", "ap", "high-honors", "resource"] as const
         ).map((level) => (
-          <LevelBadge key={level} level={level} />
+          <LevelBadge key={level} level={level} deptColor={deptColor} />
         ))}
       </div>
       {track.edges.some((e) => e.label) && (

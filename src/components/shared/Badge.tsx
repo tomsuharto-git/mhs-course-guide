@@ -16,7 +16,18 @@ const LEVEL_LABELS: Record<CourseLevel, string> = {
   resource: "Resource",
 };
 
-export function LevelBadge({ level }: { level: CourseLevel }) {
+export function LevelBadge({ level, deptColor }: { level: CourseLevel; deptColor?: string }) {
+  if (deptColor) {
+    const themed = getDeptThemedStyle(level, deptColor);
+    return (
+      <span
+        className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded border transition-colors"
+        style={themed}
+      >
+        {LEVEL_LABELS[level]}
+      </span>
+    );
+  }
   return (
     <span
       className={`inline-flex items-center px-2 py-0.5 text-xs font-medium rounded border transition-colors ${LEVEL_STYLES[level]}`}
@@ -24,6 +35,22 @@ export function LevelBadge({ level }: { level: CourseLevel }) {
       {LEVEL_LABELS[level]}
     </span>
   );
+}
+
+function getDeptThemedStyle(level: CourseLevel, color: string): React.CSSProperties {
+  switch (level) {
+    case "ap":
+      return { backgroundColor: color, color: "white", borderColor: color };
+    case "high-honors":
+      return { backgroundColor: color, color: "white", borderColor: color, opacity: 0.85 };
+    case "honors":
+      return { backgroundColor: "transparent", color, borderColor: color };
+    case "resource":
+      return { backgroundColor: `${color}15`, color, borderColor: `${color}30` };
+    case "academic":
+    default:
+      return { backgroundColor: "#f1f5f9", color: "#475569", borderColor: "#e2e8f0" };
+  }
 }
 
 export function GradeBadge({ grades }: { grades: number[] }) {
