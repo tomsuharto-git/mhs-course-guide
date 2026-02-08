@@ -90,14 +90,9 @@ export default function HomePage() {
 
       {/* Departments */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-16">
-        <div className="flex items-baseline justify-between mb-8">
-          <h2 className="text-xl sm:text-2xl font-[family-name:var(--font-heading)] text-text">
-            Departments
-          </h2>
-          <Link href="/courses" className="link-arrow text-xs text-mountie-blue font-medium hover:underline underline-offset-4 inline-flex items-center gap-1">
-            View all courses <span className="arrow">&rarr;</span>
-          </Link>
-        </div>
+        <h2 className="text-xl sm:text-2xl font-[family-name:var(--font-heading)] text-text mb-8">
+          Departments
+        </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {ALL_DEPTS.map((dept) => {
             const meta = DEPARTMENT_META[dept];
