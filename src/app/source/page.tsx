@@ -9,8 +9,9 @@ export default function SourcePage() {
         </h1>
         <p className="text-text-muted mt-2 text-[15px] leading-relaxed">
           Everything on this site is derived from Montclair High School&apos;s
-          official 2026–2027 Program of Studies. View the full document below
-          or download a copy.
+          official 2026–2027 Program of Studies.
+          <br />
+          View the full document below or download a copy.
         </p>
         <a
           href={PDF_PATH}

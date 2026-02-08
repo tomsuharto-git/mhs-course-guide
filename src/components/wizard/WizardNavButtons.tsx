@@ -20,8 +20,8 @@ export function WizardNavButtons({
   const isLast = currentStep === WIZARD_STEPS.length - 1;
   const nextStep = WIZARD_STEPS[currentStep + 1];
   const nextColor = nextStep
-    ? DEPARTMENT_META[nextStep.department as Department]?.color
-    : undefined;
+    ? DEPARTMENT_META[nextStep.department as Department]?.color ?? '#374151'
+    : '#374151';
 
   const defaultNextLabel = isLast
     ? 'Done'
