@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { allTracks } from "@/data/tracks";
 import { DEPARTMENT_META } from "@/data/types";
-import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
+import { DepartmentIconRaw } from "@/components/shared/DepartmentIcon";
 
 export const metadata = {
   title: "Course Tracks | MHS Course Guide",
@@ -20,7 +20,7 @@ export default function TracksPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {allTracks.map((track) => {
           const deptMeta = DEPARTMENT_META[track.department];
           const courseCount = new Set(track.nodes.map(n => n.courseId)).size;
@@ -28,35 +28,30 @@ export default function TracksPage() {
             <Link
               key={track.id}
               href={`/tracks/${track.id}`}
-              className="group bg-white border border-border rounded-xl card-hover overflow-hidden"
+              className="dept-btn group flex items-center gap-3 px-4 py-4 rounded-xl border-2 transition-colors duration-200 btn-hover"
+              style={
+                {
+                  borderColor: deptMeta.color,
+                  "--dept-color": deptMeta.color,
+                } as React.CSSProperties
+              }
             >
-              {/* Color block header */}
               <div
-                className="relative h-20"
-                style={{ backgroundColor: deptMeta.color }}
+                className="dept-icon w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border-2 transition-colors duration-200"
+                style={{ borderColor: deptMeta.color, color: deptMeta.color }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-black/[0.15]" />
+                <DepartmentIconRaw department={track.department} className="w-5 h-5" />
               </div>
-
-              {/* Icon badge overlapping boundary */}
-              <div className="-mt-6 ml-4 relative z-10">
-                <DepartmentIcon department={track.department} size="lg" />
-              </div>
-
-              {/* Content */}
-              <div className="px-4 pt-2.5 pb-4">
-                <h2 className="text-lg font-[family-name:var(--font-heading)] text-text tracking-wide uppercase leading-tight">
-                  {track.name}
-                </h2>
-                <p className="text-xs text-text-muted mt-1 line-clamp-2 leading-relaxed">
-                  {track.description}
-                </p>
-                <p
-                  className="link-arrow text-xs font-medium mt-2.5 inline-flex items-center gap-1"
+              <div className="min-w-0">
+                <span
+                  className="text-xl font-[family-name:var(--font-heading)] tracking-wide leading-tight transition-colors duration-200 block"
                   style={{ color: deptMeta.color }}
                 >
-                  {courseCount} courses <span className="arrow">&rarr;</span>
-                </p>
+                  {track.name}
+                </span>
+                <span className="text-[11px] text-text-muted transition-colors duration-200 group-hover:text-white/70">
+                  {courseCount} courses
+                </span>
               </div>
             </Link>
           );
