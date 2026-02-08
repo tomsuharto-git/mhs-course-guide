@@ -5,6 +5,7 @@ import { DEPARTMENT_META, Department } from "@/data/types";
 import { TrackFlowchart } from "@/components/tracks/TrackFlowchart";
 import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
 import { graduationRequirements } from "@/data/graduation-requirements";
+import { DEPARTMENT_INTROS } from "@/data/department-intros";
 
 const DEPT_TO_REQ_AREAS: Record<Department, string[]> = {
   english: ["English Language Arts"],
@@ -43,6 +44,7 @@ export default async function TrackDetailPage({
   if (!track) return notFound();
 
   const deptMeta = DEPARTMENT_META[track.department];
+  const deptIntro = DEPARTMENT_INTROS[track.department];
   const reqAreas = DEPT_TO_REQ_AREAS[track.department];
   const deptReqs = graduationRequirements.filter((r) =>
     reqAreas.includes(r.area)
@@ -70,6 +72,12 @@ export default async function TrackDetailPage({
           </div>
         </div>
         <p className="text-sm text-text-muted mt-2">{track.description}</p>
+
+        {deptIntro && (
+          <p className="text-sm text-text-muted mt-3 leading-relaxed max-w-3xl">
+            {deptIntro}
+          </p>
+        )}
       </div>
 
       {deptReqs.length > 0 && (
