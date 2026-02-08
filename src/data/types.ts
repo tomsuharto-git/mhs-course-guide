@@ -77,5 +77,5 @@ export const DEPARTMENT_META: Record<Department, { label: string; color: string 
   'visual-performing-arts': { label: 'Visual & Performing Arts', color: '#e91e8c' },
   'health-pe': { label: 'Health & PE', color: '#1e6b3a' },
   'career-technical': { label: 'Career & Technical Ed', color: '#4f46e5' },
-  'special-education': { label: 'Special Education', color: '#ca8a04' },
+  'special-education': { label: 'Special Education', color: '#eab308' },
 };
