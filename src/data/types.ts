@@ -69,13 +69,13 @@ export interface GraduationRequirement {
 }
 
 export const DEPARTMENT_META: Record<Department, { label: string; color: string }> = {
-  english: { label: 'English', color: '#254093' },
-  math: { label: 'Mathematics', color: '#1e6b3a' },
-  science: { label: 'Science', color: '#8b5e3c' },
-  'social-studies': { label: 'Social Studies', color: '#7c3aed' },
-  'world-languages': { label: 'World Languages', color: '#b45309' },
-  'visual-performing-arts': { label: 'Visual & Performing Arts', color: '#be185d' },
-  'health-pe': { label: 'Health & PE', color: '#059669' },
+  english: { label: 'English', color: '#7c3aed' },
+  math: { label: 'Mathematics', color: '#dc2626' },
+  science: { label: 'Science', color: '#059669' },
+  'social-studies': { label: 'Social Studies', color: '#ea580c' },
+  'world-languages': { label: 'World Languages', color: '#8b5e3c' },
+  'visual-performing-arts': { label: 'Visual & Performing Arts', color: '#e91e8c' },
+  'health-pe': { label: 'Health & PE', color: '#1e6b3a' },
   'career-technical': { label: 'Career & Technical Ed', color: '#4f46e5' },
-  'special-education': { label: 'Special Education', color: '#64748b' },
+  'special-education': { label: 'Special Education', color: '#ca8a04' },
 };
