@@ -103,11 +103,17 @@ export function ProgramTabs({
               className="relative flex-1 px-4 py-3 text-sm font-medium transition-colors cursor-pointer text-center"
               style={{
                 color: isActive ? accentColor : undefined,
+                backgroundColor: isActive ? `${accentColor}10` : undefined,
               }}
             >
-              <span className="relative z-10">{p.shortName}</span>
+              <span className="relative z-10 font-semibold">{p.shortName}</span>
               {p.shortName !== p.name && (
-                <span className="hidden sm:inline text-xs font-normal text-text-muted ml-1.5">
+                <span
+                  className="hidden sm:inline text-xs font-normal ml-1.5"
+                  style={{
+                    color: isActive ? `${accentColor}99` : undefined,
+                  }}
+                >
                   {p.name.length > 30
                     ? p.name.slice(0, 28) + "\u2026"
                     : p.name}
