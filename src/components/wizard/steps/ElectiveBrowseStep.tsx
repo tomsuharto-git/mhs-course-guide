@@ -369,16 +369,18 @@ function ElectiveCourseCard({
   if (inPlan) {
     return (
       <div
-        className="px-2 py-1.5 rounded-md border border-transparent flex items-center justify-between gap-1"
+        className="px-2 py-1.5 rounded-md border border-transparent"
         style={{ backgroundColor: deptColor, borderColor: deptColor }}
       >
-        <div className="flex items-center gap-1.5 min-w-0">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0">
+        <div className="flex items-start gap-1.5">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 mt-0.5">
             <path d="M2 5l2.5 2.5L8 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          <span className="text-xs font-medium text-white leading-tight truncate">{label || course.name}</span>
+          <span className="text-xs font-medium text-white leading-tight">{label || course.name}</span>
         </div>
-        <LevelBadge level={course.level} deptColor={deptColor} inverted />
+        <div className="mt-1">
+          <LevelBadge level={course.level} deptColor={deptColor} inverted />
+        </div>
       </div>
     );
   }
@@ -386,11 +388,11 @@ function ElectiveCourseCard({
   if (isAdding) {
     return (
       <div className="px-2 py-1.5 rounded-md border border-border bg-white">
-        <div className="flex items-center justify-between gap-1 mb-1.5">
-          <span className="text-xs font-medium text-text leading-tight truncate">{label || course.name}</span>
+        <span className="text-xs font-medium text-text leading-tight">{label || course.name}</span>
+        <div className="mt-1 mb-1.5">
           <LevelBadge level={course.level} deptColor={deptColor} />
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 flex-wrap">
           <span className="text-[10px] text-text-muted mr-0.5">Grade:</span>
           {eligibleGrades.map((g) => (
             <button
@@ -410,22 +412,24 @@ function ElectiveCourseCard({
   }
 
   return (
-    <div className="group px-2 py-1.5 rounded-md border border-border hover:border-border/80 bg-white flex items-center justify-between gap-1 transition-colors">
-      <div className="flex items-center gap-1.5 min-w-0">
-        <span className="text-xs font-medium text-text leading-tight truncate">{label || course.name}</span>
+    <div className="group px-2 py-1.5 rounded-md border border-border hover:border-border/80 bg-white transition-colors">
+      <div className="flex items-start justify-between gap-1">
+        <span className="text-xs font-medium text-text leading-tight">{label || course.name}</span>
+        <button
+          onClick={onStartAdd}
+          disabled={eligibleGrades.length === 0}
+          className={`text-[10px] font-medium px-1.5 py-0.5 rounded shrink-0 transition-colors ${
+            eligibleGrades.length > 0
+              ? 'bg-mountie-blue/10 text-mountie-blue hover:bg-mountie-blue/20'
+              : 'bg-border/30 text-text-muted/40 cursor-not-allowed'
+          }`}
+        >
+          Add
+        </button>
+      </div>
+      <div className="mt-1">
         <LevelBadge level={course.level} deptColor={deptColor} />
       </div>
-      <button
-        onClick={onStartAdd}
-        disabled={eligibleGrades.length === 0}
-        className={`text-[10px] font-medium px-1.5 py-0.5 rounded shrink-0 transition-colors ${
-          eligibleGrades.length > 0
-            ? 'bg-mountie-blue/10 text-mountie-blue hover:bg-mountie-blue/20'
-            : 'bg-border/30 text-text-muted/40 cursor-not-allowed'
-        }`}
-      >
-        Add
-      </button>
     </div>
   );
 }
