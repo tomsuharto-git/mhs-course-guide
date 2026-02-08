@@ -7,13 +7,6 @@ import { LevelBadge } from "@/components/shared/Badge";
 
 const DEFAULT_GRADE_LABELS = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
 
-// Pathway tiers — thin left accent color, neutral background
-const STRONG_TIERS = new Set(["honors / ap", "honors", "accelerated"]);
-function getPathwayAccent(label: string, deptColor?: string): string | undefined {
-  const key = label.split("\n")[0].toLowerCase().trim();
-  if (STRONG_TIERS.has(key)) return deptColor;
-  return undefined;
-}
 
 function ChevronRight() {
   return (
@@ -83,22 +76,16 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
                       : ""
                   }
                 >
-                  {isFirstInGroup && (() => {
-                    const accent = getPathwayAccent(group!.label, deptColor);
-                    return (
-                      <td
-                        rowSpan={groupSpan}
-                        className="px-3 py-3 border border-border align-middle text-center bg-warm-gray relative"
-                      >
-                        {accent && (
-                          <span className="absolute left-0 top-0 bottom-0 w-1 rounded-l-sm" style={{ backgroundColor: accent }} />
-                        )}
-                        <span className="text-xs font-bold text-text uppercase tracking-wider whitespace-pre-line leading-relaxed">
-                          {group!.label}
-                        </span>
-                      </td>
-                    );
-                  })()}
+                  {isFirstInGroup && (
+                    <td
+                      rowSpan={groupSpan}
+                      className="px-3 py-3 border border-border align-middle text-center bg-warm-gray"
+                    >
+                      <span className="text-xs font-bold text-text uppercase tracking-wider whitespace-pre-line leading-relaxed">
+                        {group!.label}
+                      </span>
+                    </td>
+                  )}
                   {track.columns.map((_, colIdx) => {
                     const cellNodes = rowNodes.filter(
                       (n) => n.col === colIdx
@@ -132,13 +119,9 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
       {/* Mobile: grouped sections */}
       <div className="md:hidden space-y-4">
         {track.rowGroups?.map((group) => {
-          const accent = getPathwayAccent(group.label, deptColor);
           return (
             <div key={group.label} className="bg-white border border-border rounded-xl overflow-hidden">
-              <div className="px-4 py-2.5 bg-warm-gray border-b border-border flex items-center gap-2">
-                {accent && (
-                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: accent }} />
-                )}
+              <div className="px-4 py-2.5 bg-warm-gray border-b border-border">
                 <p className="text-xs font-bold text-text uppercase tracking-wider whitespace-pre-line">
                   {track.rowGroupHeader ? `${track.rowGroupHeader}: ` : ""}{group.label}
                 </p>
