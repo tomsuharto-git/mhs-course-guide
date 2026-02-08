@@ -5,7 +5,7 @@ import { CoursePlan } from '@/lib/journey/plan-state';
 import { WizardState } from '@/data/wizard/types';
 import { getCourseById, allCourses } from '@/data/courses';
 import { isPrerequisiteMet } from '@/lib/journey/prerequisite-engine';
-import { calculateProgress } from '@/lib/journey/credit-calculator';
+import { calculateProgress, creditsForGrade } from '@/lib/journey/credit-calculator';
 import { graduationRequirements } from '@/data/graduation-requirements';
 import { DEPARTMENT_META, Track, TrackRowGroup } from '@/data/types';
 import { LevelBadge } from '@/components/shared/Badge';
@@ -95,11 +95,22 @@ export function ElectiveBrowseStep({
   const track = activeTabData.track;
   const deptColor = activeTabData.color;
 
+  const FULL_THRESHOLD = 35; // 7 periods × 5 cr
+
+  const gradeCredits = useMemo(() => {
+    const map: Record<number, number> = {};
+    for (const g of [9, 10, 11, 12]) {
+      map[g] = creditsForGrade(plan, g, allCourses);
+    }
+    return map;
+  }, [plan]);
+
   const getEligibleGrades = (courseId: string) => {
     const course = getCourseById(courseId);
     if (!course) return [];
     return course.grades.filter((g) => {
       if (planCourseIds.has(course.id)) return false;
+      if (gradeCredits[g] >= FULL_THRESHOLD) return false;
       return isPrerequisiteMet(course, completedByGrade[g] ?? new Set(), allCourseIds);
     });
   };
@@ -120,6 +131,14 @@ export function ElectiveBrowseStep({
         <RequirementBadge label="Financial Lit" earned={finLitProgress?.earned ?? 0} required={finLitProgress?.required ?? 2.5} met={finLitProgress?.met ?? false} />
       </div>
 
+      {/* Elective selections summary */}
+      <ElectivesSummary
+        plan={plan}
+        planCourseIds={planCourseIds}
+        gradeCredits={gradeCredits}
+        removeCourse={removeCourse}
+      />
+
       {/* Finance auto-add callout */}
       {financeAutoAdded.current && planCourseIds.has('finance') && (
         <div className="mb-5 px-3 py-2.5 rounded-lg bg-indigo-50 border border-indigo-200/60 text-xs text-indigo-800 leading-relaxed">
@@ -130,22 +149,25 @@ export function ElectiveBrowseStep({
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="flex gap-1 mb-5 border-b border-border">
-        {TABS.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => { setActiveTab(tab.id); setAddingCourse(null); }}
-            className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors -mb-px ${
-              activeTab === tab.id
-                ? 'border-current text-text'
-                : 'border-transparent text-text-muted hover:text-text'
-            }`}
-            style={activeTab === tab.id ? { borderColor: tab.color } : undefined}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* Department toggle */}
+      <div className="flex gap-2 mb-5">
+        {TABS.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => { setActiveTab(tab.id); setAddingCourse(null); }}
+              className={`flex-1 py-3 px-4 rounded-lg text-lg font-[family-name:var(--font-heading)] uppercase tracking-wider transition-all ${
+                isActive
+                  ? 'text-white shadow-sm'
+                  : 'text-text-muted bg-warm-gray hover:bg-border/50'
+              }`}
+              style={isActive ? { backgroundColor: tab.color } : undefined}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Desktop: Progression table */}
@@ -159,6 +181,7 @@ export function ElectiveBrowseStep({
           onAdd={handleAdd}
           onRemove={removeCourse}
           getEligibleGrades={getEligibleGrades}
+          gradeCredits={gradeCredits}
         />
       </div>
 
@@ -173,6 +196,7 @@ export function ElectiveBrowseStep({
           onAdd={handleAdd}
           onRemove={removeCourse}
           getEligibleGrades={getEligibleGrades}
+          gradeCredits={gradeCredits}
         />
       </div>
 
@@ -205,6 +229,7 @@ interface TableProps {
   onAdd: (courseId: string, grade: number) => void;
   onRemove: (grade: number, courseId: string) => void;
   getEligibleGrades: (courseId: string) => number[];
+  gradeCredits: Record<number, number>;
 }
 
 function DisciplineTable({
@@ -216,6 +241,7 @@ function DisciplineTable({
   onAdd,
   onRemove,
   getEligibleGrades,
+  gradeCredits,
 }: TableProps) {
   const maxRow = Math.max(...track.nodes.map((n) => n.row));
   const allRows = Array.from({ length: maxRow + 1 }, (_, i) => i);
@@ -278,6 +304,7 @@ function DisciplineTable({
                           onStartAdd={() => onStartAdd(node.courseId)}
                           onCancelAdd={() => onStartAdd(null)}
                           onAdd={(grade) => onAdd(node.courseId, grade)}
+                          gradeCredits={gradeCredits}
                         />
                       ))}
                     </div>
@@ -303,6 +330,7 @@ function DisciplineMobile({
   onAdd,
   onRemove,
   getEligibleGrades,
+  gradeCredits,
 }: TableProps) {
   const groups = track.rowGroups ?? [];
 
@@ -345,6 +373,7 @@ function DisciplineMobile({
                               onStartAdd={() => onStartAdd(node.courseId)}
                               onCancelAdd={() => onStartAdd(null)}
                               onAdd={(grade) => onAdd(node.courseId, grade)}
+                              gradeCredits={gradeCredits}
                             />
                           ))}
                         </div>
@@ -370,6 +399,7 @@ function ElectiveCourseCard({
   inPlan,
   isAdding,
   eligibleGrades,
+  gradeCredits,
   onStartAdd,
   onCancelAdd,
   onAdd,
@@ -380,6 +410,7 @@ function ElectiveCourseCard({
   inPlan: boolean;
   isAdding: boolean;
   eligibleGrades: number[];
+  gradeCredits: Record<number, number>;
   onStartAdd: () => void;
   onCancelAdd: () => void;
   onAdd: (grade: number) => void;
@@ -393,6 +424,15 @@ function ElectiveCourseCard({
       </div>
     );
   }
+
+  // Auto-add to the best grade if only one has room
+  const handleStartAdd = () => {
+    if (eligibleGrades.length === 1) {
+      onAdd(eligibleGrades[0]);
+    } else if (eligibleGrades.length > 1) {
+      onStartAdd();
+    }
+  };
 
   if (inPlan) {
     return (
@@ -414,6 +454,9 @@ function ElectiveCourseCard({
   }
 
   if (isAdding) {
+    // Sort grades by most room available
+    const sorted = [...eligibleGrades].sort((a, b) => (gradeCredits[a] ?? 0) - (gradeCredits[b] ?? 0));
+
     return (
       <div className="px-2 py-1.5 rounded-md border border-border bg-white">
         <span className="text-xs font-medium text-text leading-tight">{label || course.name}</span>
@@ -421,14 +464,13 @@ function ElectiveCourseCard({
           <LevelBadge level={course.level} deptColor={deptColor} />
         </div>
         <div className="flex items-center gap-1 flex-wrap">
-          <span className="text-[10px] text-text-muted mr-0.5">Grade:</span>
-          {eligibleGrades.map((g) => (
+          {sorted.map((g) => (
             <button
               key={g}
               onClick={() => onAdd(g)}
               className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-mountie-blue text-white hover:bg-mountie-dark transition-colors"
             >
-              {g}
+              G{g} <span className="opacity-70">({gradeCredits[g] ?? 0}cr)</span>
             </button>
           ))}
           <button onClick={onCancelAdd} className="text-[10px] text-text-muted ml-auto hover:text-text">
@@ -444,7 +486,7 @@ function ElectiveCourseCard({
       <div className="flex items-start justify-between gap-1">
         <span className="text-xs font-medium text-text leading-tight">{label || course.name}</span>
         <button
-          onClick={onStartAdd}
+          onClick={handleStartAdd}
           disabled={eligibleGrades.length === 0}
           className={`text-[10px] font-medium px-1.5 py-0.5 rounded shrink-0 transition-colors ${
             eligibleGrades.length > 0
@@ -452,12 +494,133 @@ function ElectiveCourseCard({
               : 'bg-border/30 text-text-muted/40 cursor-not-allowed'
           }`}
         >
-          Add
+          {eligibleGrades.length === 0 ? 'Full' : 'Add'}
         </button>
       </div>
       <div className="mt-1">
         <LevelBadge level={course.level} deptColor={deptColor} />
       </div>
+    </div>
+  );
+}
+
+// ─── Electives Summary Panel ────────────────────────────────────────────────
+
+const ELECTIVE_DEPTS = new Set(['visual-performing-arts', 'career-technical']);
+const GRADE_LABELS: Record<number, string> = { 9: 'Grade 9', 10: 'Grade 10', 11: 'Grade 11', 12: 'Grade 12' };
+const FULL_CREDIT_THRESHOLD = 35;
+
+function ElectivesSummary({
+  plan,
+  planCourseIds,
+  gradeCredits,
+  removeCourse,
+}: {
+  plan: CoursePlan;
+  planCourseIds: Set<string>;
+  gradeCredits: Record<number, number>;
+  removeCourse: (grade: number, courseId: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  // Collect all elective course IDs from both tracks
+  const electiveIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const node of vpaTrack.nodes) ids.add(node.courseId);
+    for (const node of careerTechnicalTrack.nodes) ids.add(node.courseId);
+    return ids;
+  }, []);
+
+  // Find electives in the plan, grouped by grade
+  const byGrade = useMemo(() => {
+    const result: Record<number, { id: string; name: string; credits: number; dept: string }[]> = {};
+    for (const grade of [9, 10, 11, 12]) {
+      const courses = (plan[grade] ?? [])
+        .filter((id) => electiveIds.has(id))
+        .map((id) => {
+          const c = getCourseById(id);
+          return c ? { id: c.id, name: c.name, credits: c.credits, dept: c.department } : null;
+        })
+        .filter((c): c is NonNullable<typeof c> => c !== null);
+      if (courses.length > 0) result[grade] = courses;
+    }
+    return result;
+  }, [plan, electiveIds]);
+
+  const totalElectives = Object.values(byGrade).flat().length;
+  if (totalElectives === 0) return null;
+
+  const totalElectiveCredits = Object.values(byGrade).flat().reduce((sum, c) => sum + c.credits, 0);
+
+  return (
+    <div className="mb-5 rounded-lg border border-border bg-white overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-warm-gray/50 transition-colors"
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-text">Your Electives</span>
+          <span className="text-[11px] px-2 py-0.5 rounded-full bg-mountie-blue/10 text-mountie-blue font-medium tabular-nums">
+            {totalElectives} course{totalElectives !== 1 ? 's' : ''} &middot; {totalElectiveCredits} cr
+          </span>
+        </div>
+        <svg
+          width="16" height="16" viewBox="0 0 16 16" fill="none"
+          className={`text-text-muted transition-transform ${open ? 'rotate-180' : ''}`}
+        >
+          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="px-3 pb-3 border-t border-border/60">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
+            {([9, 10, 11, 12] as const).map((grade) => {
+              const courses = byGrade[grade];
+              const credits = gradeCredits[grade] ?? 0;
+              const isFull = credits >= FULL_CREDIT_THRESHOLD;
+
+              return (
+                <div key={grade}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+                      {GRADE_LABELS[grade]}
+                    </span>
+                    <span className={`text-[10px] tabular-nums font-medium ${
+                      isFull ? 'text-amber-600' : 'text-text-muted'
+                    }`}>
+                      {credits} cr{isFull ? ' (full)' : ''}
+                    </span>
+                  </div>
+                  {courses && courses.length > 0 ? (
+                    <div className="space-y-1">
+                      {courses.map((c) => (
+                        <div
+                          key={c.id}
+                          className="flex items-center justify-between gap-1 px-2 py-1 rounded bg-warm-gray/70 group"
+                        >
+                          <span className="text-[11px] text-text leading-tight">{c.name}</span>
+                          <button
+                            onClick={() => removeCourse(grade, c.id)}
+                            className="text-text-muted/40 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                            title="Remove"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            </svg>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-[10px] text-text-muted/40 py-1">No electives</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
