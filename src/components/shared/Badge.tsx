@@ -49,7 +49,7 @@ function getDeptThemedStyle(level: CourseLevel, color: string): React.CSSPropert
       return { backgroundColor: `${color}15`, color, borderColor: `${color}30` };
     case "academic":
     default:
-      return { backgroundColor: "#f1f5f9", color: "#475569", borderColor: "#e2e8f0" };
+      return { backgroundColor: `${color}10`, color: `${color}99`, borderColor: `${color}20` };
   }
 }
 
