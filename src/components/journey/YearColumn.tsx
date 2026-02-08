@@ -38,13 +38,15 @@ export function YearColumn({
     .filter((c): c is Course => c !== undefined);
   const credits = creditsForGrade(plan, grade, allCourses);
 
-  // Only warn when the grade looks "done" (4+ courses selected)
+  // 7 periods × 5 cr = 35 cr is a full schedule; 37.5+ means double-booking
   const hasEnoughCourses = courses.length >= 4;
-  const creditWarning = hasEnoughCourses && credits > 35
-    ? "high"
-    : hasEnoughCourses && credits < 25
-      ? "low"
-      : null;
+  const creditWarning = credits > 37.5
+    ? "overloaded"
+    : credits > 32.5
+      ? "heavy"
+      : hasEnoughCourses && credits < 25
+        ? "low"
+        : null;
 
   return (
     <div className="bg-white rounded-xl border border-border shadow-sm flex flex-col min-h-[320px]">
@@ -60,19 +62,24 @@ export function YearColumn({
           {credits > 0 && (
             <span
               className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                creditWarning === "high"
-                  ? "bg-amber-50 text-amber-700"
-                  : creditWarning === "low"
-                    ? "bg-red-50 text-red-600"
-                    : "bg-warm-gray text-text-muted"
+                creditWarning === "overloaded"
+                  ? "bg-red-50 text-red-600"
+                  : creditWarning === "heavy"
+                    ? "bg-amber-50 text-amber-700"
+                    : creditWarning === "low"
+                      ? "bg-red-50 text-red-600"
+                      : "bg-warm-gray text-text-muted"
               }`}
             >
               {credits} cr
             </span>
           )}
         </div>
-        {creditWarning === "high" && (
-          <p className="text-[11px] text-amber-600 mt-1">Heavy load — consider balancing</p>
+        {creditWarning === "overloaded" && (
+          <p className="text-[11px] text-red-500 mt-1">Exceeds a 7-period schedule — remove some courses</p>
+        )}
+        {creditWarning === "heavy" && (
+          <p className="text-[11px] text-amber-600 mt-1">Heavy load — may not fit in 7 periods</p>
         )}
         {creditWarning === "low" && (
           <p className="text-[11px] text-red-500 mt-1">Below typical minimum (25 cr)</p>
