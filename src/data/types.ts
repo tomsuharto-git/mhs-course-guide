@@ -70,7 +70,7 @@ export interface GraduationRequirement {
 
 export const DEPARTMENT_META: Record<Department, { label: string; color: string }> = {
   english: { label: 'English', color: '#7c3aed' },
-  math: { label: 'Mathematics', color: '#dc2626' },
+  math: { label: 'Mathematics', color: '#b91c1c' },
   science: { label: 'Science', color: '#059669' },
   'social-studies': { label: 'Social Studies', color: '#ea580c' },
   'world-languages': { label: 'World Languages', color: '#8b5e3c' },
