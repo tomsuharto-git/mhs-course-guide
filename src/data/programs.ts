@@ -2,7 +2,7 @@ export interface SpecialProgram {
   id: string;
   name: string;
   shortName: string;
-  type: 'slc' | 'dual-enrollment' | 'internship' | 'research';
+  type: 'slc' | 'dual-enrollment' | 'internship' | 'research' | 'vocational';
   grades: number[];
   credits?: number;
   creditsNote?: string;
@@ -115,6 +115,27 @@ export const specialPrograms: SpecialProgram[] = [
     description:
       'A dual enrollment program between Montclair High School and Essex County College. High school juniors and seniors have the opportunity to take courses after school at Montclair High School. Essex County College courses are selected by MHS staff based on collective student interest. Choices span nearly all areas of campus, including Computer Science, Math, English Writing, Psychology, Anthropology, Sociology, Political Science, German, Music, and Earth and Environmental Studies. Also includes dual enrollment opportunities with Kean University.',
     prerequisite: 'Apply through the School Counseling Office in junior or senior year',
+  },
+
+  // ============================================================
+  // VOCATIONAL / SHARED-TIME PROGRAMS
+  // ============================================================
+  {
+    id: 'ecvts',
+    name: 'Essex County Vocational Technical School (ECVTS) Shared-Time Program',
+    shortName: 'ECVTS',
+    type: 'vocational',
+    grades: [9, 10, 11, 12],
+    prerequisite: 'Apply during freshman year. Must be on track for graduation.',
+    description:
+      'The Shared-Time Program at Essex County West Caldwell Tech provides students with a unique opportunity to enroll in Career & Technical Education (CTE) programs while continuing their regular studies at their home high school. This program is only available at the West Caldwell Tech campus and is open exclusively to students applying during their freshman year. Shared-Time students attend CTE courses for three periods per day, with freshmen and sophomores attending morning classes (Periods 1-3) and juniors and seniors attending afternoon classes (Periods 7-9). Students complete their remaining coursework at their home high school for the rest of the day. Most programs consist of four years of study, equipping students with the technical skills and knowledge needed for entry-level jobs or further education in their chosen field.',
+    highlights: [
+      'Three CTE periods per day at West Caldwell Tech campus',
+      'Workplace readiness skills: cosmetology licensure, job shadowing, structured learning experiences',
+      'Open to general education, special education, and English learner freshmen',
+      'Must apply during freshman year and meet all graduation requirements',
+      'Four-year program preparing for workforce and higher education',
+    ],
   },
 
   // ============================================================

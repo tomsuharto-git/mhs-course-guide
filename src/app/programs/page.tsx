@@ -24,6 +24,14 @@ const SECTIONS = [
       p.type === "dual-enrollment",
   },
   {
+    id: "vocational",
+    title: "Vocational & Shared-Time",
+    description:
+      "Career & Technical Education programs at Essex County Vocational Technical School.",
+    color: "#b45309",
+    filter: (p: (typeof specialPrograms)[number]) => p.type === "vocational",
+  },
+  {
     id: "experiential",
     title: "Internships & Research",
     description: "Real-world experience and hands-on research opportunities.",

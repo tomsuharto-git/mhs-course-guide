@@ -31,6 +31,8 @@ const JUMP_LINKS = [
   { href: "#honors-contract", label: "Honors Contract" },
   { href: "#gpa", label: "GPA" },
   { href: "#college", label: "College Planning" },
+  { href: "#independent-study", label: "Independent Study" },
+  { href: "#external-coursework", label: "External Coursework" },
 ];
 
 export default function SelectionPage() {
@@ -343,6 +345,84 @@ export default function SelectionPage() {
             prefer three or four years of one language; some require at least
             two. Consult your school counselor and the college directly.
           </p>
+        </div>
+      </Section>
+
+      <hr className="section-divider" />
+
+      {/* Independent Study */}
+      <Section id="independent-study" title="Independent Study">
+        <div className="prose-card">
+          <p>
+            Students who have demonstrated maturity and responsibility may be
+            permitted to decide what use to make of their non-class time each
+            day. The student who proves eligible for this freedom will have a
+            valuable opportunity to utilize the full resources of the school,
+            faculty and community to prepare for the greater independence and
+            self-monitoring that most young people will assume upon completing
+            high school.
+          </p>
+          <p>
+            Independent Studies can only be offered for courses that have a
+            curriculum written that has been approved by the Board of Education.
+            It must be a course that is already offered at Montclair High School,
+            but does not fit into the student&rsquo;s schedule. If you are
+            interested in pursuing an Independent Study, please see your School
+            Counselor for more information.
+          </p>
+        </div>
+      </Section>
+
+      <hr className="section-divider" />
+
+      {/* External Coursework */}
+      <Section id="external-coursework" title="External Coursework">
+        <div className="prose-card">
+          <p>
+            Montclair High School recognizes the need for students to earn
+            credits through alternative educational programs. External courses
+            can be taken for <strong>advancement</strong> or{" "}
+            <strong>remediation</strong> only:
+          </p>
+
+          <div className="not-prose grid gap-3 sm:grid-cols-2 my-4">
+            <div className="bg-blue-50 rounded-lg p-4 border border-mountie-blue/20 card-hover">
+              <h4 className="text-sm font-semibold text-mountie-blue mb-1">
+                Advancement
+              </h4>
+              <p className="text-xs text-text-muted leading-relaxed">
+                Satisfy prerequisites for higher-level courses or fulfill
+                graduation requirements. No credit awarded for rising 9th grade
+                students. Requires <strong>120 hours</strong> of coursework.
+                Must be approved by school administration{" "}
+                <strong>prior to enrollment</strong>.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 card-hover">
+              <h4 className="text-sm font-semibold text-slate-700 mb-1">
+                Remediation
+              </h4>
+              <p className="text-xs text-text-muted leading-relaxed">
+                Earn credit for courses with an F or NC received during the
+                school year. Requires <strong>60 hours</strong> of coursework.
+                Must be approved by school administration{" "}
+                <strong>prior to enrollment</strong>.
+              </p>
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              Administration reserves the right to assess a student&rsquo;s
+              mastery of knowledge and skills before deciding to award credit.
+            </li>
+            <li>
+              Approval for graduation requirements will only be granted when the
+              student cannot fit a graduation required course into their
+              four-year plan at MHS.
+            </li>
+          </ul>
         </div>
       </Section>
 
