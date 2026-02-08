@@ -28,7 +28,7 @@ export function CourseCard({ course }: { course: Course }) {
               {course.name}
             </h3>
           </div>
-          <LevelBadge level={course.level} />
+          <LevelBadge level={course.level} deptColor={deptMeta.color} />
         </div>
 
         <p className="text-xs text-text-muted line-clamp-2 group-hover:line-clamp-none mb-3 leading-relaxed transition-all">

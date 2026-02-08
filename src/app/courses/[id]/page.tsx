@@ -74,7 +74,7 @@ export default async function CourseDetailPage({
             </div>
           </div>
           <div className="flex flex-wrap gap-2 mt-4">
-            <LevelBadge level={course.level} />
+            <LevelBadge level={course.level} deptColor={deptMeta.color} />
             <GradeBadge grades={course.grades} />
             <CreditsBadge credits={course.credits} duration={course.duration} />
             <span
@@ -175,7 +175,7 @@ export default async function CourseDetailPage({
                               <span className="text-text-muted/60 text-xs ml-2 font-mono">{c!.code}</span>
                             </div>
                           </div>
-                          <LevelBadge level={c!.level} />
+                          <LevelBadge level={c!.level} deptColor={deptMeta.color} />
                         </Link>
                       ))}
                     </div>
@@ -219,7 +219,7 @@ export default async function CourseDetailPage({
                       <span className="text-text-muted/60 text-xs ml-2 font-mono">{c.code}</span>
                     </div>
                   </div>
-                  <LevelBadge level={c.level} />
+                  <LevelBadge level={c.level} deptColor={deptMeta.color} />
                 </Link>
               ))}
             </div>
