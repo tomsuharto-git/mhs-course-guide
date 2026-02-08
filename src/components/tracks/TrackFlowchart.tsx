@@ -7,22 +7,19 @@ import { LevelBadge } from "@/components/shared/Badge";
 
 const DEFAULT_GRADE_LABELS = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
 
-// Pathway label colors — distinct enough to scan at a glance
-const PATHWAY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  // Honors / AP / Accelerated variants
-  "honors / ap": { bg: "#254093", text: "#ffffff", border: "#254093" },
-  "honors": { bg: "#254093", text: "#ffffff", border: "#254093" },
-  "accelerated": { bg: "#1a2d6b", text: "#ffffff", border: "#1a2d6b" },
-  // Academic
-  "academic": { bg: "#f0efe8", text: "#1a1a1a", border: "#d0cfc8" },
-  // Resource / Foundation
-  "resource": { bg: "#ecfdf5", text: "#047857", border: "#a7f3d0" },
-  "math foundation": { bg: "#ecfdf5", text: "#047857", border: "#a7f3d0" },
-};
+// Pathway tiers — determines which color treatment to apply
+const STRONG_TIERS = new Set(["honors / ap", "honors", "accelerated"]);
+const RESOURCE_TIERS = new Set(["resource", "math foundation"]);
 
-function getPathwayStyle(label: string) {
+type PathwayStyle = { bg: string; text: string; border: string };
+const NEUTRAL: PathwayStyle = { bg: "#f0efe8", text: "#1a1a1a", border: "#d0cfc8" };
+const RESOURCE: PathwayStyle = { bg: "#ecfdf5", text: "#047857", border: "#a7f3d0" };
+
+function getPathwayStyle(label: string, deptColor?: string): PathwayStyle {
   const key = label.split("\n")[0].toLowerCase().trim();
-  return PATHWAY_COLORS[key] ?? { bg: "#f0efe8", text: "#1a1a1a", border: "#d0cfc8" };
+  if (RESOURCE_TIERS.has(key)) return RESOURCE;
+  if (STRONG_TIERS.has(key) && deptColor) return { bg: deptColor, text: "#ffffff", border: deptColor };
+  return NEUTRAL;
 }
 
 function ChevronRight() {
@@ -98,9 +95,9 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
                       rowSpan={groupSpan}
                       className="px-3 py-3 border border-border align-middle text-center"
                       style={{
-                        backgroundColor: getPathwayStyle(group!.label).bg,
-                        color: getPathwayStyle(group!.label).text,
-                        borderColor: getPathwayStyle(group!.label).border,
+                        backgroundColor: getPathwayStyle(group!.label, deptColor).bg,
+                        color: getPathwayStyle(group!.label, deptColor).text,
+                        borderColor: getPathwayStyle(group!.label, deptColor).border,
                       }}
                     >
                       <span className="text-xs font-bold uppercase tracking-wider whitespace-pre-line leading-relaxed">
@@ -140,7 +137,7 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
       {/* Mobile: grouped sections */}
       <div className="md:hidden space-y-4">
         {track.rowGroups?.map((group) => {
-          const style = getPathwayStyle(group.label);
+          const style = getPathwayStyle(group.label, deptColor);
           return (
             <div key={group.label} className="bg-white border border-border rounded-xl overflow-hidden">
               <div
