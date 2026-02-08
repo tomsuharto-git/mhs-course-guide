@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { DEPARTMENT_META, Department } from "@/data/types";
-import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
+import { DepartmentIconRaw } from "@/components/shared/DepartmentIcon";
 import { allCourses } from "@/data/courses";
 import { allTracks } from "@/data/tracks";
 
@@ -100,17 +100,26 @@ export default function HomePage() {
               <Link
                 key={dept}
                 href={deptHref(dept)}
-                className="group relative flex items-center gap-3 px-4 py-4 rounded-xl text-white overflow-hidden btn-hover"
-                style={{ backgroundColor: meta.color }}
+                className="dept-btn group flex items-center gap-3 px-4 py-4 rounded-xl border-2 transition-colors duration-200 btn-hover"
+                style={
+                  {
+                    borderColor: meta.color,
+                    "--dept-color": meta.color,
+                  } as React.CSSProperties
+                }
               >
-                {/* Hover brighten */}
-                <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-200 rounded-xl" />
-                <div className="relative z-10 flex items-center gap-3">
-                  <DepartmentIcon department={dept} size="md" variant="glass" />
-                  <span className="text-xl font-[family-name:var(--font-heading)] tracking-wide leading-tight">
-                    {meta.label}
-                  </span>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-white shrink-0 shadow-sm"
+                  style={{ backgroundColor: meta.color }}
+                >
+                  <DepartmentIconRaw department={dept} className="w-5 h-5" />
                 </div>
+                <span
+                  className="text-xl font-[family-name:var(--font-heading)] tracking-wide leading-tight transition-colors duration-200"
+                  style={{ color: meta.color }}
+                >
+                  {meta.label}
+                </span>
               </Link>
             );
           })}

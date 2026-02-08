@@ -210,6 +210,14 @@ h1 {
   font-style: italic;
 }
 
+/* Department button — outline → fill on hover */
+.dept-btn:hover {
+  background-color: var(--dept-color);
+}
+.dept-btn:hover span {
+  color: white !important;
+}
+
 /* Section divider — subtle visual break */
 .section-divider {
   border: none;
