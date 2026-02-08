@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { href: "/courses", label: "Courses" },
   { href: "/tracks", label: "Tracks" },
+  { href: "/courses", label: "Courses" },
   { href: "/programs", label: "Programs" },
   { href: "/requirements", label: "Requirements" },
   { href: "/selection", label: "Selection" },

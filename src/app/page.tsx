@@ -2,6 +2,14 @@ import Link from "next/link";
 import { DEPARTMENT_META, Department } from "@/data/types";
 import { DepartmentIcon } from "@/components/shared/DepartmentIcon";
 import { allCourses } from "@/data/courses";
+import { allTracks } from "@/data/tracks";
+
+/** Departments that have a dedicated track page */
+const DEPTS_WITH_TRACKS = new Set(allTracks.map((t) => t.department));
+
+function deptHref(dept: Department): string {
+  return DEPTS_WITH_TRACKS.has(dept) ? `/tracks/${dept}` : `/courses?dept=${dept}`;
+}
 
 const CORE_DEPTS: Department[] = [
   "english", "math", "science", "social-studies",
@@ -94,7 +102,7 @@ export default function HomePage() {
             return (
               <Link
                 key={dept}
-                href={`/courses?dept=${dept}`}
+                href={deptHref(dept)}
                 className="group relative p-5 sm:p-6 bg-white rounded-xl border border-border card-hover overflow-hidden"
               >
                 <div
@@ -124,7 +132,7 @@ export default function HomePage() {
             return (
               <Link
                 key={dept}
-                href={`/courses?dept=${dept}`}
+                href={deptHref(dept)}
                 className="group flex items-center gap-3 px-4 py-2.5 bg-white rounded-lg border border-border card-hover"
               >
                 <DepartmentIcon department={dept} size="sm" />
