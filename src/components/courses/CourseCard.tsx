@@ -9,9 +9,16 @@ export function CourseCard({ course }: { course: Course }) {
     <Link
       href={`/courses/${course.id}`}
       className="group block bg-white rounded-xl border border-border card-hover overflow-hidden"
+      style={{ '--dept-color': deptMeta.color } as React.CSSProperties}
     >
-      {/* Color accent bar */}
-      <div className="h-0.5" style={{ backgroundColor: deptMeta.color }} />
+      {/* Color accent bar — grows on hover */}
+      <div
+        className="h-0.5 transition-all duration-200 group-hover:h-1"
+        style={{
+          backgroundColor: deptMeta.color,
+          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+      />
 
       <div className="p-4">
         <div className="flex items-start justify-between gap-3 mb-2">
@@ -24,7 +31,7 @@ export function CourseCard({ course }: { course: Course }) {
           <LevelBadge level={course.level} />
         </div>
 
-        <p className="text-xs text-text-muted line-clamp-2 mb-3 leading-relaxed">
+        <p className="text-xs text-text-muted line-clamp-2 group-hover:line-clamp-none mb-3 leading-relaxed transition-all">
           {course.description}
         </p>
 

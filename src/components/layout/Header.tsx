@@ -39,16 +39,23 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
+                  className={`nav-link relative px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 ${
                     active
                       ? "text-mountie-blue"
                       : "text-text-muted hover:text-text hover:bg-warm-gray"
                   }`}
                 >
                   {item.label}
-                  {active && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-mountie-blue rounded-full" />
-                  )}
+                  <span
+                    className={`absolute bottom-0 left-1/2 h-0.5 bg-mountie-blue rounded-full transition-all duration-200 ${
+                      active
+                        ? "w-[calc(100%-24px)] -translate-x-1/2"
+                        : "w-0 -translate-x-1/2 group-hover:w-1/2"
+                    }`}
+                    style={{
+                      transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    }}
+                  />
                 </Link>
               );
             })}

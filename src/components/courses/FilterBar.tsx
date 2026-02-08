@@ -31,8 +31,8 @@ function FilterGroup({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      <p className="text-[11px] font-medium text-text-muted uppercase tracking-wider shrink-0 w-14">{title}</p>
+    <div className="flex items-center gap-2.5 flex-wrap">
+      <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wider shrink-0 w-14">{title}</p>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   );
@@ -52,7 +52,7 @@ function Chip({
       onClick={onClick}
       className={`chip-interactive px-2.5 py-1 text-xs rounded-full border cursor-pointer ${
         active
-          ? "bg-mountie-blue text-white border-mountie-blue"
+          ? "bg-mountie-blue text-white border-mountie-blue shadow-[0_2px_6px_-2px_rgba(37,64,147,0.3)]"
           : "bg-white text-text-muted border-border hover:border-mountie-blue/40 hover:text-text"
       }`}
     >

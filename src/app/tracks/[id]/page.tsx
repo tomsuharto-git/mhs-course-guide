@@ -51,7 +51,7 @@ export default async function TrackDetailPage({
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <Link
         href="/tracks"
         className="link-back inline-flex items-center gap-1 text-sm text-text-muted hover:text-mountie-blue mb-6 transition-colors"
@@ -62,7 +62,7 @@ export default async function TrackDetailPage({
         All Tracks
       </Link>
 
-      <div className="mb-8">
+      <div className="mb-10">
         <div className="flex items-center gap-3 mb-2">
           <DepartmentIcon department={track.department} />
           <div>
@@ -71,41 +71,45 @@ export default async function TrackDetailPage({
             </h1>
           </div>
         </div>
-        <p className="text-sm text-text-muted mt-2">{track.description}</p>
+        <p className="text-sm text-text-muted mt-2 max-w-2xl leading-relaxed">{track.description}</p>
 
         {deptIntro && (
-          <p className="text-sm text-text-muted mt-3 leading-relaxed max-w-3xl">
-            {deptIntro}
-          </p>
+          <div className="mt-4 p-4 bg-warm-gray/60 rounded-lg border border-border/50">
+            <p className="text-sm text-text-muted leading-relaxed max-w-2xl">
+              {deptIntro}
+            </p>
+          </div>
         )}
       </div>
 
       {deptReqs.length > 0 && (
-        <div className="mb-8 bg-white border border-border rounded-xl overflow-hidden">
-          <div className="h-0.5" style={{ backgroundColor: deptMeta.color }} />
-          <div className="p-4">
-          <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
-            Graduation Requirements
-          </h2>
-          <div className="space-y-2">
-            {deptReqs.map((req) => (
-              <div key={req.area} className="flex items-baseline justify-between gap-4">
-                <div>
-                  <span className="text-sm font-medium text-text">{req.area}</span>
-                  <span className="text-xs text-text-muted ml-2">{req.notes}</span>
-                </div>
-                <span className="text-sm font-bold text-mountie-blue whitespace-nowrap">
-                  {req.credits} credits
-                </span>
+        <div className="mb-10 bg-white border border-border rounded-xl overflow-hidden">
+          <div className="flex">
+            <div className="w-1 shrink-0 rounded-l-xl" style={{ backgroundColor: deptMeta.color }} />
+            <div className="p-4 flex-1">
+              <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+                Graduation Requirements
+              </h2>
+              <div className="space-y-2">
+                {deptReqs.map((req) => (
+                  <div key={req.area} className="flex items-baseline justify-between gap-4">
+                    <div>
+                      <span className="text-sm font-medium text-text">{req.area}</span>
+                      <span className="text-xs text-text-muted ml-2">{req.notes}</span>
+                    </div>
+                    <span className="text-sm font-bold text-mountie-blue whitespace-nowrap">
+                      {req.credits} credits
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <p className="text-xs text-text-muted mt-3 pt-3 border-t border-border">
-            MHS requires {122} total credits for graduation.{" "}
-            <Link href="/requirements" className="text-mountie-blue hover:underline">
-              View all requirements &rarr;
-            </Link>
-          </p>
+              <p className="text-xs text-text-muted mt-3 pt-3 border-t border-border">
+                MHS requires {122} total credits for graduation.{" "}
+                <Link href="/requirements" className="text-mountie-blue hover:underline">
+                  View all requirements &rarr;
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       )}

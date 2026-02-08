@@ -77,7 +77,7 @@ export function DepartmentIcon({
 
   return (
     <div
-      className={`${sizeClasses} rounded-lg flex items-center justify-center text-white`}
+      className={`${sizeClasses} rounded-lg flex items-center justify-center text-white shadow-sm transition-transform duration-200`}
       style={{ backgroundColor: meta.color }}
     >
       {icons[department]}

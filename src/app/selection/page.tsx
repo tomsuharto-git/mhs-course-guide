@@ -14,8 +14,8 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-20 mb-10">
-      <h2 className="text-lg font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-3">
+    <section id={id} className="scroll-mt-20 mb-14">
+      <h2 className="text-lg font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-4">
         {title}
       </h2>
       {children}
@@ -35,12 +35,12 @@ const JUMP_LINKS = [
 
 export default function SelectionPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      <div className="mb-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <div className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] text-text tracking-wide">
           Selection &amp; Scheduling
         </h1>
-        <p className="text-sm text-text-muted mt-2 max-w-lg">
+        <p className="text-[15px] text-text-muted mt-2 max-w-lg">
           How course selection, scheduling, levels, and grading work at
           Montclair High School.
         </p>
@@ -50,7 +50,7 @@ export default function SelectionPage() {
             <a
               key={l.href}
               href={l.href}
-              className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-mountie-blue bg-mountie-blue/5 border border-mountie-blue/20 transition-colors hover:bg-mountie-blue/10"
+              className="chip-interactive inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg text-mountie-blue bg-mountie-blue/5 border border-mountie-blue/20 hover:bg-mountie-blue/10"
             >
               {l.label}
             </a>
@@ -74,6 +74,8 @@ export default function SelectionPage() {
           </p>
         </div>
       </Section>
+
+      <hr className="section-divider" />
 
       {/* Credit Requirements & Scheduling */}
       <Section id="credits" title="Credit Requirements & Scheduling Guidelines">
@@ -136,6 +138,8 @@ export default function SelectionPage() {
         </div>
       </Section>
 
+      <hr className="section-divider" />
+
       {/* Course Instructional Levels */}
       <Section id="levels" title="Course Instructional Levels">
         <div className="prose-card">
@@ -146,7 +150,7 @@ export default function SelectionPage() {
           </p>
 
           <div className="not-prose grid gap-3 sm:grid-cols-2 my-4">
-            <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+            <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 card-hover">
               <h4 className="text-sm font-semibold text-slate-700 mb-1">
                 Academic (A)
               </h4>
@@ -157,7 +161,7 @@ export default function SelectionPage() {
               </p>
             </div>
 
-            <div className="bg-blue-50 rounded-lg p-4 border border-mountie-blue/20">
+            <div className="bg-blue-50 rounded-lg p-4 border border-mountie-blue/20 card-hover">
               <h4 className="text-sm font-semibold text-mountie-blue mb-1">
                 Honors (H)
               </h4>
@@ -169,7 +173,7 @@ export default function SelectionPage() {
               </p>
             </div>
 
-            <div className="bg-mountie-blue rounded-lg p-4 border border-mountie-blue sm:col-span-2">
+            <div className="bg-mountie-blue rounded-lg p-4 border border-mountie-blue sm:col-span-2 card-hover">
               <h4 className="text-sm font-semibold text-white mb-1">
                 Advanced Placement (AP) &amp; High Honors (HH)
               </h4>
@@ -190,6 +194,8 @@ export default function SelectionPage() {
           </p>
         </div>
       </Section>
+
+      <hr className="section-divider" />
 
       {/* Course Overrides */}
       <Section id="overrides" title="Course Overrides">
@@ -222,6 +228,8 @@ export default function SelectionPage() {
         </div>
       </Section>
 
+      <hr className="section-divider" />
+
       {/* Contracting for Honors */}
       <Section id="honors-contract" title="Contracting for Honors">
         <div className="prose-card">
@@ -253,6 +261,8 @@ export default function SelectionPage() {
           </ol>
         </div>
       </Section>
+
+      <hr className="section-divider" />
 
       {/* GPA */}
       <Section id="gpa" title="Grade Point Average (GPA)">
@@ -308,6 +318,8 @@ export default function SelectionPage() {
         </div>
       </Section>
 
+      <hr className="section-divider" />
+
       {/* Planning for College */}
       <Section id="college" title="Planning for a College Education">
         <div className="prose-card">
@@ -338,15 +350,15 @@ export default function SelectionPage() {
       <div className="flex flex-wrap gap-3 mt-4 pt-6 border-t border-border text-sm">
         <Link
           href="/requirements"
-          className="text-mountie-blue hover:underline"
+          className="link-underline text-mountie-blue font-medium"
         >
-          Graduation Requirements &rarr;
+          Graduation Requirements
         </Link>
-        <Link href="/tracks" className="text-mountie-blue hover:underline">
-          Course Tracks &rarr;
+        <Link href="/tracks" className="link-underline text-mountie-blue font-medium">
+          Course Tracks
         </Link>
-        <Link href="/courses" className="text-mountie-blue hover:underline">
-          Browse All Courses &rarr;
+        <Link href="/courses" className="link-underline text-mountie-blue font-medium">
+          Browse All Courses
         </Link>
       </div>
     </div>

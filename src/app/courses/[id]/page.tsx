@@ -49,7 +49,7 @@ export default async function CourseDetailPage({
   const textPrereqs = course.prerequisites.filter((p) => !getCourseById(p));
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <Link
         href="/courses"
         className="link-back inline-flex items-center gap-1 text-sm text-text-muted hover:text-mountie-blue mb-6 transition-colors"
@@ -61,7 +61,7 @@ export default async function CourseDetailPage({
       </Link>
 
       {/* Header card with department color accent */}
-      <div className="bg-white border border-border rounded-xl overflow-hidden mb-6">
+      <div className="bg-white border border-border rounded-xl overflow-hidden mb-8">
         <div className="h-1" style={{ backgroundColor: deptMeta.color }} />
         <div className="p-5 sm:p-6">
           <div className="flex items-start gap-3 mb-3">
@@ -92,13 +92,13 @@ export default async function CourseDetailPage({
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Description */}
         <div>
           <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
             Description
           </h2>
-          <p className="text-sm text-text leading-relaxed">{course.description}</p>
+          <p className="text-[15px] text-text leading-relaxed">{course.description}</p>
         </div>
 
         {/* Notes */}
@@ -112,7 +112,7 @@ export default async function CourseDetailPage({
         {/* Prerequisites */}
         {(prereqCourses.length > 0 || textPrereqs.length > 0) && (
           <div>
-            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
               Prerequisites
             </h2>
             <div className="space-y-1.5">
@@ -120,7 +120,7 @@ export default async function CourseDetailPage({
                 <Link
                   key={pc!.id}
                   href={`/courses/${pc!.id}`}
-                  className="group flex items-center gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm"
+                  className="group flex items-center gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm hover:border-mountie-blue/30"
                 >
                   <svg className="w-4 h-4 text-text-muted/40 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="m15 18-6-6 6-6" />
@@ -143,7 +143,7 @@ export default async function CourseDetailPage({
         {/* Next in Pathway — pathway-table tracks (Science, Math) */}
         {pathwayNext && (
           <div>
-            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
               Next in pathway
             </h2>
             <div className="space-y-3">
@@ -164,7 +164,7 @@ export default async function CourseDetailPage({
                         <Link
                           key={c!.id}
                           href={`/courses/${c!.id}`}
-                          className="group flex items-center justify-between gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm"
+                          className="group flex items-center justify-between gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm hover:border-mountie-blue/30"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <svg className="w-4 h-4 text-text-muted/40 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -200,7 +200,7 @@ export default async function CourseDetailPage({
         {/* Fallback: Leads to (non-pathway tracks) */}
         {!pathwayNext && leadsTo.length > 0 && (
           <div>
-            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
               This course leads to
             </h2>
             <div className="space-y-1.5">
@@ -208,7 +208,7 @@ export default async function CourseDetailPage({
                 <Link
                   key={c.id}
                   href={`/courses/${c.id}`}
-                  className="group flex items-center justify-between gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm"
+                  className="group flex items-center justify-between gap-3 p-3 bg-white border border-border rounded-lg card-hover text-sm hover:border-mountie-blue/30"
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <svg className="w-4 h-4 text-text-muted/40 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -229,7 +229,7 @@ export default async function CourseDetailPage({
         {/* Fulfills */}
         {course.fulfills.length > 0 && (
           <div>
-            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
               Fulfills graduation requirements
             </h2>
             <div className="flex flex-wrap gap-1.5">

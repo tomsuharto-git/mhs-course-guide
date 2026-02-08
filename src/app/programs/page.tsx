@@ -22,11 +22,16 @@ function ProgramCard({ program }: { program: SpecialProgram }) {
         : `Grades ${program.grades[0]}\u2013${program.grades[program.grades.length - 1]}`;
 
   return (
-    <div className="bg-white border border-border rounded-xl p-5 sm:p-6">
+    <div className="bg-white border border-border rounded-xl p-5 sm:p-6 card-hover">
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <span
-          className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded"
-          style={{ backgroundColor: `${color}15`, color, border: `1px solid ${color}30` }}
+          className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded"
+          style={{
+            backgroundColor: `${color}15`,
+            color,
+            border: `1px solid ${color}30`,
+            boxShadow: `0 1px 4px -1px ${color}20`,
+          }}
         >
           {label}
         </span>
@@ -96,12 +101,12 @@ export default function ProgramsPage() {
   const experiential = specialPrograms.filter((p) => p.type === "internship" || p.type === "research");
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-      <div className="mb-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <div className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] text-text tracking-wide">
           Special Programs
         </h1>
-        <p className="text-sm text-text-muted mt-2 max-w-lg">
+        <p className="text-[15px] text-text-muted mt-2 max-w-lg">
           MHS offers small learning communities, dual enrollment, internships, and research
           programs beyond the standard course catalog.
         </p>
@@ -136,35 +141,39 @@ export default function ProgramsPage() {
       </div>
 
       {/* SLCs */}
-      <h2 id="slc" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 scroll-mt-20">
+      <h2 id="slc" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 mt-14 scroll-mt-20">
         Small Learning Communities
       </h2>
       <p className="text-sm text-text-muted mb-4">
         Interdisciplinary, multi-year, team-taught programs. Students enrolled in CGI or CSJ who wish
         to leave must consult their School Counselor to schedule an exit meeting with the SLC Lead Teacher.
       </p>
-      <div className="space-y-4 mb-10">
+      <div className="space-y-4 mb-14">
         {slcs.map((p) => (
           <ProgramCard key={p.id} program={p} />
         ))}
       </div>
 
+      <hr className="section-divider" />
+
       {/* Dual Enrollment */}
-      <h2 id="dual" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 scroll-mt-20">
+      <h2 id="dual" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 mt-14 scroll-mt-20">
         Dual Enrollment
       </h2>
       <p className="text-sm text-text-muted mb-4">
         Earn college credits while enrolled at MHS through partnerships with Montclair State University,
         Essex County College, and Kean University.
       </p>
-      <div className="space-y-4 mb-10">
+      <div className="space-y-4 mb-14">
         {dualEnrollment.map((p) => (
           <ProgramCard key={p.id} program={p} />
         ))}
       </div>
 
+      <hr className="section-divider" />
+
       {/* Internships & Research */}
-      <h2 id="experiential" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 scroll-mt-20">
+      <h2 id="experiential" className="text-xl font-[family-name:var(--font-heading)] text-text uppercase tracking-wide mb-1 mt-14 scroll-mt-20">
         Internships &amp; Research
       </h2>
       <p className="text-sm text-text-muted mb-4">

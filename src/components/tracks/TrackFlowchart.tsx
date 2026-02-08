@@ -273,10 +273,10 @@ function TrackNodeCard({
   return (
     <Link
       href={`/courses/${courseId}`}
-      className={`block ${compact ? "px-2 py-1.5" : "p-2.5"} bg-white border border-border rounded-md card-hover text-sm`}
+      className={`group block ${compact ? "px-2 py-1.5" : "p-2.5"} bg-white border border-border rounded-md card-hover text-sm hover:border-mountie-blue/30`}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="font-medium text-text leading-tight text-xs">
+        <span className="font-medium text-text leading-tight text-xs group-hover:text-mountie-blue transition-colors">
           {label || course.name}
         </span>
         <LevelBadge level={course.level} />

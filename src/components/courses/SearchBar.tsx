@@ -25,7 +25,8 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search courses by name, code, or keyword..."
-        className="w-full pl-11 pr-10 py-3 border border-border rounded-xl bg-white text-sm placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-mountie-blue/20 focus:border-mountie-blue transition-all"
+        className="w-full pl-11 pr-10 py-3 border border-border rounded-xl bg-white text-sm placeholder:text-text-muted/40 focus:outline-none focus:ring-2 focus:ring-mountie-blue/25 focus:border-mountie-blue focus:shadow-[0_0_0_4px_rgba(37,64,147,0.06)] transition-all duration-200"
+        style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
       />
       {value && (
         <button
