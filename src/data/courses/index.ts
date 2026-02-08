@@ -7,6 +7,7 @@ import { worldLanguageCourses } from './world-languages';
 import { vpaCourses } from './visual-performing-arts';
 import { careerTechnicalCourses } from './career-technical';
 import { healthPeCourses } from './health-pe';
+import { specialEducationCourses } from './special-education';
 
 export {
   englishCourses,
@@ -17,6 +18,7 @@ export {
   vpaCourses,
   careerTechnicalCourses,
   healthPeCourses,
+  specialEducationCourses,
 };
 
 export const allCourses: Course[] = [
@@ -28,6 +30,7 @@ export const allCourses: Course[] = [
   ...vpaCourses,
   ...careerTechnicalCourses,
   ...healthPeCourses,
+  ...specialEducationCourses,
 ];
 
 export const coursesByDepartment: Record<Department, Course[]> = {
@@ -39,7 +42,7 @@ export const coursesByDepartment: Record<Department, Course[]> = {
   'visual-performing-arts': vpaCourses,
   'health-pe': healthPeCourses,
   'career-technical': careerTechnicalCourses,
-  'special-education': [],
+  'special-education': specialEducationCourses,
 };
 
 export function getCourseById(id: string): Course | undefined {
