@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: "MHS Course Guide 2026-2027",
   description:
     "Searchable course catalog and track flowcharts for Montclair High School's 2026-2027 Program of Studies.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/programs", label: "Programs" },
   { href: "/requirements", label: "Requirements" },
   { href: "/details", label: "Details" },
+  { href: "/source", label: "Source" },
 ];
 
 export function Header() {
