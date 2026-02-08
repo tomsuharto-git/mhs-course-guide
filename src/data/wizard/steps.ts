@@ -1,0 +1,68 @@
+import { WizardStepDef } from './types';
+
+export const WIZARD_STEPS: WizardStepDef[] = [
+  {
+    id: 'english',
+    department: 'english',
+    label: 'English',
+    shortLabel: 'Eng',
+    type: 'pathway-select',
+    subtitle: 'Choose your English pathway for all four years',
+  },
+  {
+    id: 'math',
+    department: 'math',
+    label: 'Math',
+    shortLabel: 'Math',
+    type: 'math-entry',
+    subtitle: 'Start from your 8th grade math level',
+  },
+  {
+    id: 'science',
+    department: 'science',
+    label: 'Science',
+    shortLabel: 'Sci',
+    type: 'pathway-select',
+    subtitle: 'Choose your Science pathway',
+  },
+  {
+    id: 'social-studies',
+    department: 'social-studies',
+    label: 'Social Studies',
+    shortLabel: 'SS',
+    type: 'pathway-select',
+    subtitle: 'Choose your Social Studies pathway',
+  },
+  {
+    id: 'world-languages',
+    department: 'world-languages',
+    label: 'World Languages',
+    shortLabel: 'Lang',
+    type: 'language-select',
+    subtitle: 'Pick a language and how many years',
+  },
+  {
+    id: 'health-pe',
+    department: 'health-pe',
+    label: 'Health & PE',
+    shortLabel: 'H&PE',
+    type: 'auto-fill',
+    subtitle: 'Required courses auto-added to your plan',
+  },
+  {
+    id: 'electives',
+    department: 'review',
+    label: 'Electives',
+    shortLabel: 'Elec',
+    type: 'elective-browse',
+    subtitle: 'Browse Visual & Performing Arts and Career & Technical Ed',
+  },
+  {
+    id: 'review',
+    department: 'review',
+    label: 'Review',
+    shortLabel: 'Review',
+    type: 'review',
+    subtitle: 'Review your full 4-year plan',
+  },
+];

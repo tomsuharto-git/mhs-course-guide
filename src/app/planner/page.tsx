@@ -1,4 +1,4 @@
-import { JourneyPlanner } from "@/components/journey/JourneyPlanner";
+import { PlannerWizard } from "@/components/wizard/PlannerWizard";
 
 export const metadata = {
   title: "Planner | MHS Course Guide",
@@ -10,13 +10,13 @@ export default function PlannerPage() {
     <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-[family-name:var(--font-heading)] text-text tracking-wide">
-          Planner
+          Plan Your Courses
         </h1>
         <p className="text-[15px] text-text-muted mt-2 max-w-lg">
-          Plan your 4-year course schedule. Courses are filtered by prerequisites and grade level.
+          Build your 4-year schedule step by step. Choose pathways for each department and we&apos;ll fill in the courses.
         </p>
       </div>
-      <JourneyPlanner />
+      <PlannerWizard />
     </div>
   );
 }

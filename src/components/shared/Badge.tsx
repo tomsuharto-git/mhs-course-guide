@@ -16,7 +16,17 @@ const LEVEL_LABELS: Record<CourseLevel, string> = {
   resource: "Resource",
 };
 
-export function LevelBadge({ level, deptColor }: { level: CourseLevel; deptColor?: string }) {
+export function LevelBadge({ level, deptColor, inverted }: { level: CourseLevel; deptColor?: string; inverted?: boolean }) {
+  if (inverted) {
+    return (
+      <span
+        className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded border transition-colors"
+        style={{ backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', borderColor: 'rgba(255,255,255,0.4)' }}
+      >
+        {LEVEL_LABELS[level]}
+      </span>
+    );
+  }
   if (deptColor) {
     const themed = getDeptThemedStyle(level, deptColor);
     return (

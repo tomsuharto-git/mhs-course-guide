@@ -35,7 +35,6 @@ export function CoursePicker({
   const [search, setSearch] = useState("");
   const [deptFilter, setDeptFilter] = useState<Department | null>(null);
   const [levelFilter, setLevelFilter] = useState<CourseLevel | null>(null);
-  const [showFilters, setShowFilters] = useState(false);
 
   // Lock body scroll while picker is open
   useEffect(() => {
@@ -110,6 +109,16 @@ export function CoursePicker({
     return counts;
   }, [plan]);
 
+  // Departments that already have a core course selected for this grade
+  const filledDepartments = useMemo(() => {
+    const filled = new Set<Department>();
+    for (const id of plan[activeGrade] ?? []) {
+      const course = getCourseById(id);
+      if (course) filled.add(course.department);
+    }
+    return filled;
+  }, [plan, activeGrade]);
+
   const hasActiveFilters = deptFilter !== null || levelFilter !== null;
 
   const clearFilters = () => {
@@ -167,82 +176,73 @@ export function CoursePicker({
             ))}
           </div>
 
-          {/* Search + filter toggle row */}
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search courses..."
-              autoFocus
-              className="flex-1 px-3 py-2 text-sm bg-white border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-mountie-blue/40 focus:border-mountie-blue/40 placeholder:text-text-muted/50"
-            />
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`shrink-0 px-3 py-2 text-xs font-medium rounded-lg border transition-colors ${
-                showFilters || hasActiveFilters
-                  ? "bg-mountie-blue/5 text-mountie-blue border-mountie-blue/20"
-                  : "bg-white text-text-muted border-border hover:border-text-muted/40"
-              }`}
-            >
-              Filters
-              {hasActiveFilters && (
-                <span className="ml-1 w-1.5 h-1.5 bg-mountie-blue rounded-full inline-block" />
-              )}
-            </button>
-          </div>
+          {/* Search */}
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search courses..."
+            autoFocus
+            className="w-full px-3 py-2 text-sm bg-white border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-mountie-blue/40 focus:border-mountie-blue/40 placeholder:text-text-muted/50"
+          />
 
-          {/* Collapsible filter chips */}
-          {showFilters && (
-            <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/40">
-              {ALL_DEPARTMENTS.filter((d) => d !== "special-education").map((dept) => {
-                const meta = DEPARTMENT_META[dept];
-                const active = deptFilter === dept;
-                return (
-                  <button
-                    key={dept}
-                    onClick={() => setDeptFilter(active ? null : dept)}
-                    className={`chip-interactive px-2.5 py-1 text-[11px] font-medium rounded-full border transition-colors ${
-                      active
-                        ? "text-white"
-                        : "bg-white text-text-muted border-border hover:border-text-muted/40"
-                    }`}
-                    style={active ? { backgroundColor: meta.color, borderColor: meta.color } : undefined}
-                  >
-                    {meta.label}
-                  </button>
-                );
-              })}
-
-              <span className="w-px h-5 bg-border self-center mx-0.5" />
-
-              {ALL_LEVELS.map((lvl) => {
-                const active = levelFilter === lvl.value;
-                return (
-                  <button
-                    key={lvl.value}
-                    onClick={() => setLevelFilter(active ? null : lvl.value)}
-                    className={`chip-interactive px-2.5 py-1 text-[11px] font-medium rounded-full border transition-colors ${
-                      active
-                        ? "bg-mountie-blue text-white border-mountie-blue"
-                        : "bg-white text-text-muted border-border hover:border-text-muted/40"
-                    }`}
-                  >
-                    {lvl.label}
-                  </button>
-                );
-              })}
-
-              {hasActiveFilters && (
+          {/* Filter chips — always visible */}
+          <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/40">
+            {ALL_DEPARTMENTS.filter((d) => d !== "special-education").map((dept) => {
+              const meta = DEPARTMENT_META[dept];
+              const active = deptFilter === dept;
+              const filled = filledDepartments.has(dept);
+              return (
                 <button
-                  onClick={clearFilters}
-                  className="px-2 py-1 text-[11px] text-text-muted hover:text-text transition-colors"
+                  key={dept}
+                  onClick={() => setDeptFilter(active ? null : dept)}
+                  className={`chip-interactive px-2.5 py-1 text-[11px] font-medium rounded-full border transition-colors ${
+                    active
+                      ? "text-white"
+                      : filled
+                        ? "bg-warm-gray/60 text-text-muted/50 border-border/50 line-through decoration-text-muted/30"
+                        : "bg-white text-text-muted border-border hover:border-text-muted/40"
+                  }`}
+                  style={active ? { backgroundColor: meta.color, borderColor: meta.color } : undefined}
                 >
-                  Clear filters
+                  {filled && !active && (
+                    <svg className="inline w-3 h-3 mr-0.5 -mt-px" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2.5-2.5a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z" />
+                    </svg>
+                  )}
+                  {meta.label}
                 </button>
-              )}
-            </div>
-          )}
+              );
+            })}
+
+            <span className="w-px h-5 bg-border self-center mx-0.5" />
+
+            {ALL_LEVELS.map((lvl) => {
+              const active = levelFilter === lvl.value;
+              return (
+                <button
+                  key={lvl.value}
+                  onClick={() => setLevelFilter(active ? null : lvl.value)}
+                  className={`chip-interactive px-2.5 py-1 text-[11px] font-medium rounded-full border transition-colors ${
+                    active
+                      ? "bg-mountie-blue text-white border-mountie-blue"
+                      : "bg-white text-text-muted border-border hover:border-text-muted/40"
+                  }`}
+                >
+                  {lvl.label}
+                </button>
+              );
+            })}
+
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="px-2 py-1 text-[11px] text-text-muted hover:text-text transition-colors"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Selected courses summary for this grade */}

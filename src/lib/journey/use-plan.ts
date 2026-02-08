@@ -48,9 +48,28 @@ export function usePlan() {
     setPlan({ 9: [], 10: [], 11: [], 12: [] });
   }, []);
 
+  // Atomic batch: remove courseIds from specified grades, then add new ones
+  const batchUpdate = useCallback(
+    (removes: { grade: number; courseId: string }[], adds: { grade: number; courseId: string }[]) => {
+      setPlan((prev) => {
+        const next = { ...prev };
+        for (const { grade, courseId } of removes) {
+          next[grade] = (next[grade] ?? []).filter((id) => id !== courseId);
+        }
+        for (const { grade, courseId } of adds) {
+          if (!next[grade]?.includes(courseId)) {
+            next[grade] = [...(next[grade] ?? []), courseId];
+          }
+        }
+        return next;
+      });
+    },
+    []
+  );
+
   const shareUrl = useCallback(() => {
     return getShareUrl(plan);
   }, [plan]);
 
-  return { plan, loaded, addCourse, removeCourse, clearGrade, clearAll, shareUrl };
+  return { plan, loaded, addCourse, removeCourse, clearGrade, clearAll, batchUpdate, shareUrl };
 }

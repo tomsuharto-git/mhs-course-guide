@@ -28,7 +28,7 @@ export function Header() {
             </span>
             <span className="text-border hidden sm:block">|</span>
             <span className="text-text-muted text-xs tracking-wide hidden sm:inline uppercase">
-              Course Guide
+              The Unofficial Course Guide
             </span>
           </Link>
 

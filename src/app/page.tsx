@@ -37,9 +37,9 @@ export default function HomePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-16 sm:pb-24">
           <div className="max-w-3xl">
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-[family-name:var(--font-heading)] leading-[0.9] tracking-wide">
-              Course
+              The Unofficial
               <br />
-              Guide
+              Course Guide
               <br />
               <span className="text-white/40">2026–27</span>
             </h1>
