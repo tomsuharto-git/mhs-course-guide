@@ -9,12 +9,9 @@ const DEFAULT_GRADE_LABELS = ["Grade 9", "Grade 10", "Grade 11", "Grade 12"];
 
 // Pathway tiers — thin left accent color, neutral background
 const STRONG_TIERS = new Set(["honors / ap", "honors", "accelerated"]);
-const RESOURCE_TIERS = new Set(["resource", "math foundation"]);
-
 function getPathwayAccent(label: string, deptColor?: string): string | undefined {
   const key = label.split("\n")[0].toLowerCase().trim();
   if (STRONG_TIERS.has(key)) return deptColor;
-  if (RESOURCE_TIERS.has(key)) return "#059669";
   return undefined;
 }
 
