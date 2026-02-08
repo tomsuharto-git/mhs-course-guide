@@ -43,7 +43,7 @@ function PathwayTable({ track, deptColor }: { track: Track; deptColor?: string }
     <div>
       {/* Desktop: HTML table with rowspan for pathway groups */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
+        <table className="w-full border-collapse text-sm" style={{ tableLayout: 'fixed' }}>
           <thead>
             <tr>
               <th className="text-left px-3 py-2.5 text-xs font-semibold text-text-muted uppercase tracking-wider bg-warm-gray border border-border w-36">
