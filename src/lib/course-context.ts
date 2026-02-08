@@ -6,6 +6,7 @@ import {
   promotionRequirements,
 } from "@/data/graduation-requirements";
 import { allTracks } from "@/data/tracks";
+import { compressedDescriptions } from "./compressed-descriptions";
 
 export function buildCourseContext(): string {
   const sections: string[] = [];
@@ -48,7 +49,7 @@ export function buildCourseContext(): string {
       sections.push(
         `- ${c.name} (${c.code}) [${c.id}] — ${c.level}, Grades ${c.grades.join(",")}, ${c.credits}cr, ${c.duration}${prereqs}${fulfills}${notes}`
       );
-      sections.push(`  ${c.description}`);
+      sections.push(`  ${compressedDescriptions[c.id] || c.description}`);
     }
   }
 
