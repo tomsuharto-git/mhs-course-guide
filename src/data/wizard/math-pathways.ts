@@ -71,8 +71,8 @@ export const mathEntryPoints: MathEntryPoint[] = [
   },
   {
     id: 'need-algebra',
-    label: 'Need Algebra I',
-    description: 'Completed Pre-Algebra or need Algebra I in 9th grade',
+    label: 'Completed Pre-Algebra',
+    description: 'Finished Pre-Algebra in 8th grade — starting Algebra I in 9th grade',
     pathways: [
       {
         id: 'math-alg1-honors',
