@@ -217,6 +217,11 @@ h1 {
 .dept-btn:hover span {
   color: white !important;
 }
+.dept-btn:hover .dept-icon {
+  background-color: var(--dept-color);
+  border-color: white !important;
+  color: white !important;
+}
 
 /* Section divider — subtle visual break */
 .section-divider {

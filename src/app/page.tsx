@@ -109,8 +109,8 @@ export default function HomePage() {
                 }
               >
                 <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center text-white shrink-0 shadow-sm"
-                  style={{ backgroundColor: meta.color }}
+                  className="dept-icon w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border-2 transition-colors duration-200"
+                  style={{ borderColor: meta.color, color: meta.color }}
                 >
                   <DepartmentIconRaw department={dept} className="w-5 h-5" />
                 </div>
