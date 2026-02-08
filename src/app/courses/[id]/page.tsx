@@ -51,13 +51,13 @@ export default async function CourseDetailPage({
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <Link
-        href="/courses"
+        href={track ? `/tracks/${track.id}` : `/courses?dept=${course.department}`}
         className="link-back inline-flex items-center gap-1 text-sm text-text-muted hover:text-mountie-blue mb-6 transition-colors"
       >
         <svg className="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="m15 18-6-6 6-6" />
         </svg>
-        All Courses
+        {deptMeta.label}
       </Link>
 
       {/* Header card with department color accent */}
