@@ -7,7 +7,7 @@ import { getCourseById, allCourses } from '@/data/courses';
 import { isPrerequisiteMet } from '@/lib/journey/prerequisite-engine';
 import { calculateProgress, creditsForGrade } from '@/lib/journey/credit-calculator';
 import { graduationRequirements } from '@/data/graduation-requirements';
-import { DEPARTMENT_META, Track, TrackRowGroup } from '@/data/types';
+import { DEPARTMENT_META, Track, TrackRowGroup, Course } from '@/data/types';
 import { LevelBadge } from '@/components/shared/Badge';
 import { WizardHeader } from '../WizardHeader';
 import { WizardNavButtons } from '../WizardNavButtons';
@@ -521,7 +521,7 @@ function ElectivesSummary({
   gradeCredits: Record<number, number>;
   removeCourse: (grade: number, courseId: string) => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   // Collect all elective course IDs from both tracks
   const electiveIds = useMemo(() => {
@@ -531,17 +531,14 @@ function ElectivesSummary({
     return ids;
   }, []);
 
-  // Find electives in the plan, grouped by grade
+  // Find electives in the plan, grouped by grade — keep full course data
   const byGrade = useMemo(() => {
-    const result: Record<number, { id: string; name: string; credits: number; dept: string }[]> = {};
+    const result: Record<number, Course[]> = {};
     for (const grade of [9, 10, 11, 12]) {
       const courses = (plan[grade] ?? [])
         .filter((id) => electiveIds.has(id))
-        .map((id) => {
-          const c = getCourseById(id);
-          return c ? { id: c.id, name: c.name, credits: c.credits, dept: c.department } : null;
-        })
-        .filter((c): c is NonNullable<typeof c> => c !== null);
+        .map((id) => getCourseById(id))
+        .filter((c): c is Course => c !== undefined);
       if (courses.length > 0) result[grade] = courses;
     }
     return result;
@@ -555,7 +552,7 @@ function ElectivesSummary({
   return (
     <div className="mb-5 rounded-lg border border-border bg-white overflow-hidden">
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => setCollapsed(!collapsed)}
         className="w-full flex items-center justify-between px-3 py-2.5 hover:bg-warm-gray/50 transition-colors"
       >
         <div className="flex items-center gap-2">
@@ -566,13 +563,13 @@ function ElectivesSummary({
         </div>
         <svg
           width="16" height="16" viewBox="0 0 16 16" fill="none"
-          className={`text-text-muted transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`text-text-muted transition-transform ${collapsed ? '' : 'rotate-180'}`}
         >
           <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
 
-      {open && (
+      {!collapsed && (
         <div className="px-3 pb-3 border-t border-border/60">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
             {([9, 10, 11, 12] as const).map((grade) => {
@@ -594,23 +591,32 @@ function ElectivesSummary({
                   </div>
                   {courses && courses.length > 0 ? (
                     <div className="space-y-1">
-                      {courses.map((c) => (
-                        <div
-                          key={c.id}
-                          className="flex items-center justify-between gap-1 px-2 py-1 rounded bg-warm-gray/70 group"
-                        >
-                          <span className="text-[11px] text-text leading-tight">{c.name}</span>
-                          <button
-                            onClick={() => removeCourse(grade, c.id)}
-                            className="text-text-muted/40 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                            title="Remove"
+                      {courses.map((c) => {
+                        const deptColor = DEPARTMENT_META[c.department]?.color ?? '#666';
+                        return (
+                          <div
+                            key={c.id}
+                            className="group px-2 py-1.5 rounded-md border border-transparent"
+                            style={{ backgroundColor: deptColor, borderColor: deptColor }}
                           >
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                              <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                            </svg>
-                          </button>
-                        </div>
-                      ))}
+                            <div className="flex items-start justify-between gap-1">
+                              <span className="text-xs font-medium text-white leading-tight">{c.name}</span>
+                              <button
+                                onClick={() => removeCourse(grade, c.id)}
+                                className="text-white/40 hover:text-white transition-colors shrink-0"
+                                title="Remove"
+                              >
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                  <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                                </svg>
+                              </button>
+                            </div>
+                            <div className="mt-1">
+                              <LevelBadge level={c.level} deptColor={deptColor} inverted />
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   ) : (
                     <p className="text-[10px] text-text-muted/40 py-1">No electives</p>
