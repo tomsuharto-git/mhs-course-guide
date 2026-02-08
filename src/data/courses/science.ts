@@ -67,7 +67,7 @@ export const scienceCourses: Course[] = [
     duration: 'full-year',
     description:
       'Designed for students interested in health care careers and/or the human body. Provides a solid foundation in human anatomy and physiology, focusing on structure-function relationships of molecules, cells, tissues, and organs; homeostasis; interrelationships of organ systems; and pathological/diseased states. A midterm and final are required. Students can opt for High Honors level and earn 4 college credits through the Project Acceleration program at Seton Hall University with a C or higher.',
-    prerequisites: ['bio-h', 'chem-h'],
+    prerequisites: ['bio-h', 'chem-h', 'chem'],
     tags: ['elective'],
     fulfills: ['Science'],
     notes:
@@ -445,7 +445,7 @@ export const scienceCourses: Course[] = [
     duration: 'semester',
     description:
       'Explores one of the fastest growing fields in the criminal justice system. Students gain an understanding of the fundamentals of criminal investigation and how it is applied in a court of law. Students learn by doing: analyzing lab data, interacting with guest speakers, exploring the Internet, and becoming familiar with various texts. Tools are designed to engage a wide variety of learners — students participate in activities that closely resemble those used by law enforcement personnel, forensic scientists, and attorneys.',
-    prerequisites: ['bio-h', 'chem-h'],
+    prerequisites: ['bio-h', 'chem-h', 'chem'],
     tags: ['elective'],
     fulfills: [],
     contractHonors: true,

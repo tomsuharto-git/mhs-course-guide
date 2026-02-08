@@ -77,6 +77,20 @@ export function PathwayCard({
                 const activeChoice = gradeChoices[choiceKey] ?? courseId;
                 const course = getCourseById(activeChoice);
 
+                // Empty grade slot — no course assigned for this year
+                if (!courseId && (!choices || choices.length === 0)) {
+                  return (
+                    <div key={grade} className="min-w-0">
+                      <div className="text-[10px] font-medium text-text-muted uppercase tracking-wider mb-1">
+                        {GRADE_LABELS[grade]}
+                      </div>
+                      <div className="rounded-lg border border-dashed border-border/50 px-2 py-1.5 text-center">
+                        <span className="text-[11px] text-text-muted/50">&mdash;</span>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <div key={grade} className="min-w-0">
                     <div className="text-[10px] font-medium text-text-muted uppercase tracking-wider mb-1">

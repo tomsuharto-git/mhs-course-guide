@@ -22,6 +22,11 @@ export const englishPathways: PathwayOption[] = [
     description: 'College-prep English across all four years',
     level: 'academic',
     courses: { 9: 'world-lit-h', 10: 'eng-10', 11: 'eng-11', 12: 'eng-12' },
+    choices: {
+      10: ['eng-10', 'eng-10-h'],
+      11: ['eng-11', 'eng-11-h'],
+      12: ['eng-12', 'eng-12-h', 'ap-eng-lit'],
+    },
   },
   {
     id: 'english-resource',
@@ -44,7 +49,7 @@ export const sciencePathways: PathwayOption[] = [
     level: 'honors',
     courses: { 9: 'bio-h', 10: 'geosci-h', 11: 'chem-h', 12: 'ap-chem' },
     choices: {
-      12: ['ap-chem', 'ap-bio', 'ap-physics-1', 'ap-enviro'],
+      12: ['ap-chem', 'ap-bio', 'ap-physics-1', 'ap-enviro', 'physics-h', 'enviro-h'],
     },
   },
   {
@@ -54,8 +59,8 @@ export const sciencePathways: PathwayOption[] = [
     level: 'academic',
     courses: { 9: 'bio-h', 10: 'geosci', 11: 'chem', 12: 'physics' },
     choices: {
-      11: ['chem', 'enviro'],
-      12: ['physics', 'enviro', 'anatomy-h', 'forensic-sci'],
+      11: ['chem', 'chem-h', 'enviro', 'enviro-h'],
+      12: ['physics', 'physics-h', 'enviro', 'enviro-h', 'anatomy-h', 'forensic-sci'],
     },
   },
   {
@@ -66,6 +71,7 @@ export const sciencePathways: PathwayOption[] = [
     courses: { 9: 'bio-r', 10: 'geosci-r', 11: 'chem-r', 12: 'enviro-r' },
     choices: {
       11: ['chem-r', 'enviro-r'],
+      12: ['enviro-r', 'chem-r'],
     },
   },
 ];
@@ -84,7 +90,7 @@ export const socialStudiesPathways: PathwayOption[] = [
     choices: {
       12: [
         'ap-euro-hist', 'ap-world-hist', 'ap-human-geo', 'ap-psych',
-        'ap-african-am-studies', 'holocaust-genocide',
+        'ap-african-am-studies', 'holocaust-genocide', 'microecon-h',
       ],
     },
   },
@@ -95,9 +101,11 @@ export const socialStudiesPathways: PathwayOption[] = [
     level: 'honors',
     courses: { 9: 'global-studies-h', 10: 'us-hist-1-h', 11: 'us-hist-2-h', 12: 'holocaust-genocide' },
     choices: {
+      11: ['us-hist-2-h', 'ap-us-hist'],
       12: [
         'holocaust-genocide', 'african-am-hist', 'cultural-pluralism',
-        'women-of-world', 'am-foreign-policy-h', 'microecon-h', 'macroecon-h',
+        'women-of-world', 'am-foreign-policy-h', 'microecon-h',
+        'ap-euro-hist', 'ap-human-geo', 'ap-african-am-studies',
       ],
     },
   },
@@ -110,7 +118,7 @@ export const socialStudiesPathways: PathwayOption[] = [
     choices: {
       12: [
         'holocaust-genocide', 'african-am-hist', 'cultural-pluralism',
-        'women-of-world', '20th-century-culture',
+        'women-of-world', '20th-century-culture', 'am-foreign-policy-h', 'microecon-h',
       ],
     },
   },
@@ -121,7 +129,7 @@ export const socialStudiesPathways: PathwayOption[] = [
     level: 'resource',
     courses: { 9: 'global-studies-r', 10: 'us-hist-1-r', 11: 'us-hist-2-r', 12: 'holocaust-genocide' },
     choices: {
-      12: ['holocaust-genocide', 'african-am-hist', 'cultural-pluralism'],
+      12: ['holocaust-genocide', 'african-am-hist', 'cultural-pluralism', 'women-of-world'],
     },
   },
 ];

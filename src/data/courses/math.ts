@@ -308,7 +308,7 @@ export const mathCourses: Course[] = [
     duration: 'full-year',
     description:
       'This course will provide the student with a rigorous course in calculus with in-depth instruction in the basic concepts of calculus. The course is designed for those students not planning to take the Advanced Placement Examination in Calculus. At the completion of the course, the student will have a clear understanding of the theory of limits, derivatives, integrals, and their applications. Topics covered include maxima and minima, related rates, area and volume, exponential, logarithmic, and trigonometric functions. As recommended by the National Council of Teachers of Mathematics (NCTM), students who enroll in this course should have a mastery of algebra, geometry, and trigonometry.',
-    prerequisites: ['precalc-h'],
+    prerequisites: ['precalc-h', 'ap-precalc-calc', 'ap-precalc'],
     tags: ['core'],
     fulfills: ['Math'],
     notes:

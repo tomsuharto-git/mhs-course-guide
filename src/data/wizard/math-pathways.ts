@@ -13,8 +13,8 @@ export const mathEntryPoints: MathEntryPoint[] = [
         level: 'ap',
         courses: { 9: 'alg-2-trig-h', 10: 'ap-precalc-calc', 11: 'ap-calc-bc', 12: 'calc-3-hh' },
         choices: {
-          11: ['ap-calc-bc', 'ap-calc-ab'],
-          12: ['calc-3-hh', 'ap-stats'],
+          11: ['ap-calc-bc', 'ap-calc-ab', 'calc-h'],
+          12: ['calc-3-hh', 'ap-stats', 'ap-calc-bc', 'ap-calc-ab'],
         },
       },
       {
@@ -24,8 +24,8 @@ export const mathEntryPoints: MathEntryPoint[] = [
         level: 'honors',
         courses: { 9: 'alg-2-trig-h', 10: 'ap-precalc-calc', 11: 'ap-calc-ab', 12: 'ap-stats' },
         choices: {
-          11: ['ap-calc-ab', 'calc-h'],
-          12: ['ap-stats', 'ap-calc-bc'],
+          11: ['ap-calc-ab', 'calc-h', 'ap-stats'],
+          12: ['ap-stats', 'ap-calc-bc', 'ap-calc-ab'],
         },
       },
     ],
@@ -42,7 +42,7 @@ export const mathEntryPoints: MathEntryPoint[] = [
         level: 'honors',
         courses: { 9: 'geom-h', 10: 'alg-2-trig-h', 11: 'ap-precalc-calc', 12: 'ap-calc-ab' },
         choices: {
-          12: ['ap-calc-ab', 'ap-calc-bc', 'ap-stats'],
+          12: ['ap-calc-ab', 'ap-calc-bc', 'ap-stats', 'calc-h'],
         },
       },
       {
@@ -81,7 +81,7 @@ export const mathEntryPoints: MathEntryPoint[] = [
         level: 'honors',
         courses: { 9: 'alg-1-h', 10: 'geom-h', 11: 'alg-2-h', 12: 'precalc-h' },
         choices: {
-          12: ['precalc-h', 'prob-stats-h'],
+          12: ['precalc-h', 'ap-precalc', 'ap-stats', 'prob-stats-h'],
         },
       },
       {
@@ -91,7 +91,7 @@ export const mathEntryPoints: MathEntryPoint[] = [
         level: 'academic',
         courses: { 9: 'alg-1', 10: 'geom', 11: 'alg-2', 12: 'precalc' },
         choices: {
-          12: ['precalc', 'prob-stats'],
+          12: ['precalc', 'prob-stats', 'prob-stats-h'],
         },
       },
     ],

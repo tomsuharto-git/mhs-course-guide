@@ -33,6 +33,12 @@ export interface MathEntryPoint {
   pathways: PathwayOption[];
 }
 
+export interface LanguageEntryPoint {
+  id: string;
+  label: string;
+  pathways: PathwayOption[];
+}
+
 export interface LanguageOption {
   id: string;
   label: string;
@@ -49,12 +55,8 @@ export interface WizardState {
     mathEntry?: string;
     science?: string;
     'social-studies'?: string;
-  };
-  languageConfig?: {
-    language: string;
-    track: 'academic' | 'honors';
-    startGrade: number;
-    years: number;
+    'world-languages'?: string;
+    languageEntry?: string;
   };
   gradeChoices: Record<string, string>;  // "english-11" → courseId
 }

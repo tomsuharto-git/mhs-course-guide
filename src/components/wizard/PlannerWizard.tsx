@@ -117,12 +117,12 @@ export function PlannerWizard() {
     }));
   }, []);
 
-  const setLanguageConfig = useCallback(
-    (config: WizardState['languageConfig']) => {
-      setWizard((prev) => ({ ...prev, languageConfig: config }));
-    },
-    []
-  );
+  const setLanguageEntry = useCallback((entryId: string) => {
+    setWizard((prev) => ({
+      ...prev,
+      selections: { ...prev.selections, languageEntry: entryId || undefined },
+    }));
+  }, []);
 
   const handleStartOver = useCallback(() => {
     clearAll();
@@ -135,7 +135,7 @@ export function PlannerWizard() {
   if (wizard.selections.math) completedSteps.add(1);
   if (wizard.selections.science) completedSteps.add(2);
   if (wizard.selections['social-studies']) completedSteps.add(3);
-  if (wizard.languageConfig) completedSteps.add(4);
+  if (wizard.selections['world-languages']) completedSteps.add(4);
   const healthCourses = ['health-9', 'drivers-ed-10', 'health-11', 'health-12'];
   if (healthCourses.some((id) =>
     [9, 10, 11, 12].some((g) => (plan[g] ?? []).includes(id))
@@ -169,7 +169,7 @@ export function PlannerWizard() {
         applyPathway={applyPathway}
         setGradeChoice={setGradeChoice}
         setMathEntry={setMathEntry}
-        setLanguageConfig={setLanguageConfig}
+        setLanguageEntry={setLanguageEntry}
         clearDepartmentCourses={clearDepartmentCourses}
         goNext={goNext}
         goBack={goBack}

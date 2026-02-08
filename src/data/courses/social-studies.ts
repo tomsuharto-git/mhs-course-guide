@@ -122,7 +122,7 @@ export const socialStudiesCourses: Course[] = [
     credits: 5,
     duration: 'full-year',
     description: 'Studies the twentieth and twenty-first centuries: World War I, the Versailles Treaty, international leadership vs. isolationism, the Twenties, the Great Depression and the New Deal, World War II, the postwar world, the Cold War, Civil Rights, the counterculture of the 60s, Vietnam, Watergate, Reaganomics, and the Age of the Internet and Technology. Requires self-motivated study averaging three hours per week, competent reading of historical writings, newspapers, and magazines. Students develop skills in note taking, library research, preparation of research papers, and expository essays. Satisfies the second year of the two-year U.S. History requirement.',
-    prerequisites: ['us-hist-1-h'],
+    prerequisites: ['us-hist-1-h', 'us-hist-1-hh'],
     tags: ['core', 'grade-11'],
     fulfills: ['Social Studies', 'US History'],
     notes: 'Placement: A/B on midterm and final exams, A/B final grade in history class, and teacher recommendation.',

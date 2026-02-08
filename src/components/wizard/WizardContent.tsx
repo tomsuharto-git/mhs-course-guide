@@ -21,7 +21,7 @@ interface WizardContentProps {
   applyPathway: (department: string, pathwayId: string, courses: Record<number, string>) => void;
   setGradeChoice: (key: string, courseId: string, grade: number, department: string) => void;
   setMathEntry: (entryId: string) => void;
-  setLanguageConfig: (config: WizardState['languageConfig']) => void;
+  setLanguageEntry: (entryId: string) => void;
   clearDepartmentCourses: (department: string) => void;
   goNext: () => void;
   goBack: () => void;
@@ -39,7 +39,7 @@ export function WizardContent({
   applyPathway,
   setGradeChoice,
   setMathEntry,
-  setLanguageConfig,
+  setLanguageEntry,
   clearDepartmentCourses,
   goNext,
   goBack,
@@ -88,7 +88,8 @@ export function WizardContent({
           <LanguageSelectStep
             {...sharedProps}
             applyPathway={applyPathway}
-            setLanguageConfig={setLanguageConfig}
+            setGradeChoice={setGradeChoice}
+            setLanguageEntry={setLanguageEntry}
             clearDepartmentCourses={clearDepartmentCourses}
           />
           <CreditSummaryBar plan={plan} />

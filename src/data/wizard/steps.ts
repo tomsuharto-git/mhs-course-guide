@@ -39,7 +39,7 @@ export const WIZARD_STEPS: WizardStepDef[] = [
     label: 'World Languages',
     shortLabel: 'Lang',
     type: 'language-select',
-    subtitle: 'Pick a language and how many years',
+    subtitle: 'Pick a language and choose your track',
   },
   {
     id: 'health-pe',
