@@ -81,6 +81,18 @@ export default async function TrackDetailPage({
       {/* ── Pathway table — the main content ── */}
       <TrackFlowchart track={track} deptColor={deptMeta.color} />
 
+      {/* ── Department overview ── */}
+      {deptMeta.overview && (
+        <div className="mt-10 pt-8 border-t border-border">
+          <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+            {deptMeta.label} Department
+          </h2>
+          <p className="text-sm text-text-muted leading-relaxed max-w-3xl">
+            {deptMeta.overview}
+          </p>
+        </div>
+      )}
+
       {/* ── Graduation requirements — reference, not navigation ── */}
       {deptReqs.length > 0 && (
         <div className="mt-10 pt-8 border-t border-border">

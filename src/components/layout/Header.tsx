@@ -7,9 +7,10 @@ import { useState } from "react";
 const NAV_ITEMS = [
   { href: "/tracks", label: "Tracks" },
   { href: "/courses", label: "Courses" },
+  { href: "/planner", label: "Planner" },
   { href: "/programs", label: "Programs" },
   { href: "/requirements", label: "Requirements" },
-  { href: "/selection", label: "Selection" },
+  { href: "/details", label: "Details" },
 ];
 
 export function Header() {

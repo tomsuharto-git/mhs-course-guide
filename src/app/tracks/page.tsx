@@ -63,7 +63,7 @@ export default function TracksPage() {
           <strong className="text-text">Note:</strong> Flowcharts outline recommended pathways. Actual
           course selections should be made with your school counselor and
           current teacher. Course overrides may be available &mdash; see the{" "}
-          <Link href="/selection" className="text-mountie-blue hover:underline">
+          <Link href="/details" className="text-mountie-blue hover:underline">
             Selection &amp; Scheduling
           </Link>{" "}
           page for details.
