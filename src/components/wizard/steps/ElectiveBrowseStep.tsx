@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { CoursePlan } from '@/lib/journey/plan-state';
 import { WizardState } from '@/data/wizard/types';
 import { getCourseById, allCourses } from '@/data/courses';
@@ -65,6 +65,24 @@ export function ElectiveBrowseStep({
 
   const allCourseIds = useMemo(() => new Set(allCourses.map((c) => c.id)), []);
 
+  // Auto-add Finance if no Financial Literacy course is in the plan
+  const FIN_LIT_COURSES = ['finance', 'microecon-h', 'macroecon-h', 'monetary-policy-h'];
+  const hasFinLit = FIN_LIT_COURSES.some((id) => planCourseIds.has(id));
+  const financeAutoAdded = useRef(false);
+
+  useEffect(() => {
+    if (!hasFinLit && !financeAutoAdded.current) {
+      // Find the least-loaded eligible grade for finance
+      const finCourse = getCourseById('finance');
+      if (finCourse) {
+        const grade = finCourse.grades.find((g) => !(plan[g] ?? []).includes('finance')) ?? 9;
+        addCourse(grade, 'finance');
+        financeAutoAdded.current = true;
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const progress = useMemo(
     () => calculateProgress(plan, allCourses, graduationRequirements),
     [plan]
@@ -101,6 +119,16 @@ export function ElectiveBrowseStep({
         <RequirementBadge label="CTE" earned={cteProgress?.earned ?? 0} required={cteProgress?.required ?? 5} met={cteProgress?.met ?? false} />
         <RequirementBadge label="Financial Lit" earned={finLitProgress?.earned ?? 0} required={finLitProgress?.required ?? 2.5} met={finLitProgress?.met ?? false} />
       </div>
+
+      {/* Finance auto-add callout */}
+      {financeAutoAdded.current && planCourseIds.has('finance') && (
+        <div className="mb-5 px-3 py-2.5 rounded-lg bg-indigo-50 border border-indigo-200/60 text-xs text-indigo-800 leading-relaxed">
+          <span className="font-semibold">Finance</span> was automatically added to your plan.
+          New Jersey requires 2.5 credits of Financial Literacy to graduate. Since your Social Studies
+          pathway doesn&apos;t include Microeconomics or Macroeconomics, this CTE course covers the requirement.
+          You can remove it if you plan to take an economics course instead.
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-1 mb-5 border-b border-border">
