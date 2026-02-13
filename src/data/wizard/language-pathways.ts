@@ -37,6 +37,14 @@ export const languageEntryPoints: LanguageEntryPoint[] = [
         courses: { 9: 'spanish-1', 10: 'spanish-2', 11: 'spanish-3', 12: 'spanish-4' },
       },
       {
+        id: 'spanish-3yr',
+        label: '3 Years',
+        description: 'Three-year sequence through Level III',
+        level: 'honors',
+        courses: { 9: 'spanish-1-h', 10: 'spanish-2-h', 11: 'spanish-3-h' },
+        choices: { 9: ['spanish-1-h', 'spanish-1'], 10: ['spanish-2-h', 'spanish-2'], 11: ['spanish-3-h', 'spanish-3'] },
+      },
+      {
         id: 'spanish-2yr',
         label: '2 Years',
         description: 'Meets most college language requirements',
@@ -73,6 +81,13 @@ export const languageEntryPoints: LanguageEntryPoint[] = [
         courses: { 9: 'french-1-h', 10: 'french-2-h', 11: 'french-3-h', 12: 'french-4-h' },
       },
       {
+        id: 'french-3yr',
+        label: '3 Years',
+        description: 'Three-year sequence through Level III',
+        level: 'honors',
+        courses: { 9: 'french-1-h', 10: 'french-2-h', 11: 'french-3-h' },
+      },
+      {
         id: 'french-2yr',
         label: '2 Years',
         description: 'Meets most college language requirements',
@@ -107,6 +122,13 @@ export const languageEntryPoints: LanguageEntryPoint[] = [
         courses: { 9: 'mandarin-1-h', 10: 'mandarin-2-h', 11: 'mandarin-3-h', 12: 'mandarin-4-h' },
       },
       {
+        id: 'mandarin-3yr',
+        label: '3 Years',
+        description: 'Three-year sequence through Level III',
+        level: 'honors',
+        courses: { 9: 'mandarin-1-h', 10: 'mandarin-2-h', 11: 'mandarin-3-h' },
+      },
+      {
         id: 'mandarin-2yr',
         label: '2 Years',
         description: 'Meets most college language requirements',
@@ -132,6 +154,13 @@ export const languageEntryPoints: LanguageEntryPoint[] = [
         description: 'Full honors sequence from German I through IV',
         level: 'honors',
         courses: { 9: 'german-1-h', 10: 'german-2-h', 11: 'german-3-h', 12: 'german-4-h' },
+      },
+      {
+        id: 'german-3yr',
+        label: '3 Years',
+        description: 'Three-year sequence through Level III',
+        level: 'honors',
+        courses: { 9: 'german-1-h', 10: 'german-2-h', 11: 'german-3-h' },
       },
       {
         id: 'german-2yr',
@@ -161,6 +190,13 @@ export const languageEntryPoints: LanguageEntryPoint[] = [
         courses: { 9: 'italian-1-h', 10: 'italian-2-h', 11: 'italian-3-h', 12: 'italian-4-h' },
       },
       {
+        id: 'italian-3yr',
+        label: '3 Years',
+        description: 'Three-year sequence through Level III',
+        level: 'honors',
+        courses: { 9: 'italian-1-h', 10: 'italian-2-h', 11: 'italian-3-h' },
+      },
+      {
         id: 'italian-2yr',
         label: '2 Years',
         description: 'Meets most college language requirements',
@@ -186,6 +222,13 @@ export const languageEntryPoints: LanguageEntryPoint[] = [
         description: 'Full honors sequence from Latin I through IV',
         level: 'honors',
         courses: { 9: 'latin-1-h', 10: 'latin-2-h', 11: 'latin-3-h', 12: 'latin-4-h' },
+      },
+      {
+        id: 'latin-3yr',
+        label: '3 Years',
+        description: 'Three-year sequence through Level III',
+        level: 'honors',
+        courses: { 9: 'latin-1-h', 10: 'latin-2-h', 11: 'latin-3-h' },
       },
       {
         id: 'latin-2yr',
