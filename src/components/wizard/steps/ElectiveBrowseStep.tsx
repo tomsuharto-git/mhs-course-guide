@@ -175,6 +175,7 @@ export function ElectiveBrowseStep({
         <DisciplineTable
           track={track}
           deptColor={deptColor}
+          plan={plan}
           planCourseIds={planCourseIds}
           addingCourse={addingCourse}
           onStartAdd={setAddingCourse}
@@ -190,6 +191,7 @@ export function ElectiveBrowseStep({
         <DisciplineMobile
           track={track}
           deptColor={deptColor}
+          plan={plan}
           planCourseIds={planCourseIds}
           addingCourse={addingCourse}
           onStartAdd={setAddingCourse}
@@ -223,6 +225,7 @@ function ChevronRight() {
 interface TableProps {
   track: Track;
   deptColor: string;
+  plan: CoursePlan;
   planCourseIds: Set<string>;
   addingCourse: string | null;
   onStartAdd: (courseId: string | null) => void;
@@ -235,6 +238,7 @@ interface TableProps {
 function DisciplineTable({
   track,
   deptColor,
+  plan,
   planCourseIds,
   addingCourse,
   onStartAdd,
@@ -304,6 +308,8 @@ function DisciplineTable({
                           onStartAdd={() => onStartAdd(node.courseId)}
                           onCancelAdd={() => onStartAdd(null)}
                           onAdd={(grade) => onAdd(node.courseId, grade)}
+                          onRemove={onRemove}
+                          plan={plan}
                           gradeCredits={gradeCredits}
                         />
                       ))}
@@ -324,6 +330,7 @@ function DisciplineTable({
 function DisciplineMobile({
   track,
   deptColor,
+  plan,
   planCourseIds,
   addingCourse,
   onStartAdd,
@@ -373,6 +380,8 @@ function DisciplineMobile({
                               onStartAdd={() => onStartAdd(node.courseId)}
                               onCancelAdd={() => onStartAdd(null)}
                               onAdd={(grade) => onAdd(node.courseId, grade)}
+                              onRemove={onRemove}
+                              plan={plan}
                               gradeCredits={gradeCredits}
                             />
                           ))}
@@ -400,9 +409,11 @@ function ElectiveCourseCard({
   isAdding,
   eligibleGrades,
   gradeCredits,
+  plan,
   onStartAdd,
   onCancelAdd,
   onAdd,
+  onRemove,
 }: {
   courseId: string;
   label?: string;
@@ -411,9 +422,11 @@ function ElectiveCourseCard({
   isAdding: boolean;
   eligibleGrades: number[];
   gradeCredits: Record<number, number>;
+  plan: CoursePlan;
   onStartAdd: () => void;
   onCancelAdd: () => void;
   onAdd: (grade: number) => void;
+  onRemove: (grade: number, courseId: string) => void;
 }) {
   const course = getCourseById(courseId);
   if (!course) {
@@ -435,6 +448,7 @@ function ElectiveCourseCard({
   };
 
   if (inPlan) {
+    const addedGrade = ([9, 10, 11, 12] as const).find((g) => (plan[g] ?? []).includes(courseId));
     return (
       <div
         className="px-2 py-1.5 rounded-md border border-transparent"
@@ -445,6 +459,17 @@ function ElectiveCourseCard({
             <path d="M2 5l2.5 2.5L8 3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span className="text-xs font-medium text-white leading-tight">{label || course.name}</span>
+          {addedGrade && (
+            <button
+              onClick={() => onRemove(addedGrade, courseId)}
+              className="ml-auto shrink-0 text-white/40 hover:text-white transition-colors"
+              title="Remove"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
         </div>
         <div className="mt-1">
           <LevelBadge level={course.level} deptColor={deptColor} inverted />
@@ -473,7 +498,10 @@ function ElectiveCourseCard({
               G{g} <span className="opacity-70">({gradeCredits[g] ?? 0}cr)</span>
             </button>
           ))}
-          <button onClick={onCancelAdd} className="text-[10px] text-text-muted ml-auto hover:text-text">
+          <button
+            onClick={onCancelAdd}
+            className="text-[10px] font-medium px-1.5 py-0.5 rounded border border-border text-text-muted hover:bg-warm-gray hover:text-text transition-colors ml-auto"
+          >
             Cancel
           </button>
         </div>

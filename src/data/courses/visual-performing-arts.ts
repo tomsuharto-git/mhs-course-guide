@@ -243,10 +243,11 @@ export const vpaCourses: Course[] = [
     duration: 'full-year',
     description:
       'Art I is an intermediate-level course designed to advance and refine students\u2019 drawing, painting, and critique skills through a hands-on studio art experience. Students build technical skills while solving various artistic challenges using a variety of media. Emphasis is placed on composition, the Elements of Art and Principles of Design, and observational drawing skills as well as color theory and life drawing. Students will expand their visual vocabulary and critique skills through speaking and writing about art. Artists and world cultures will be examined as students discover how they are relevant to art history and their individual works.',
-    prerequisites: ['art-foundations'],
+    prerequisites: [],
+    prerequisiteNote: 'Art Foundations or Departmental Recommendation through Portfolio Review',
     tags: ['visual-art'],
     fulfills: ['VPA'],
-    notes: 'Prerequisite: Art Foundations and Departmental Recommendation through Portfolio Review.',
+    notes: 'Prerequisite: Art Foundations or Departmental Recommendation through Portfolio Review.',
   },
   {
     id: 'art-2-h',
