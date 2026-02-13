@@ -1,3 +1,5 @@
+import { allCourses } from '@/data/courses';
+
 export interface CoursePlan {
   [grade: number]: string[];
 }
@@ -38,16 +40,54 @@ export function loadPlan(): CoursePlan {
   return { ...EMPTY_PLAN, 9: [], 10: [], 11: [], 12: [] };
 }
 
+// ─── Compact encoding using course codes ─────────────────────────────────────
+// Format: #p=CODE,CODE|CODE,CODE|CODE,CODE|CODE,CODE
+// Grades 9-12 separated by |, courses within a grade separated by ,
+// Course codes (e.g. "1101H", "3205") are much shorter than IDs
+
+function idToCode(id: string): string | null {
+  const course = allCourses.find((c) => c.id === id);
+  return course?.code ?? null;
+}
+
+function codeToId(code: string): string | null {
+  const course = allCourses.find((c) => c.code === code);
+  return course?.id ?? null;
+}
+
 export function encodePlanToHash(plan: CoursePlan): string {
-  const json = JSON.stringify(plan);
-  return '#plan=' + btoa(json);
+  const grades = [9, 10, 11, 12].map((g) =>
+    (plan[g] ?? []).map((id) => idToCode(id)).filter(Boolean).join(',')
+  );
+  return '#p=' + grades.join('|');
 }
 
 export function decodePlanFromHash(hash: string): CoursePlan | null {
+  // New compact format: #p=CODE,CODE|CODE,CODE|...
+  const compactMatch = hash.match(/^#p=(.*)$/);
+  if (compactMatch) {
+    try {
+      const grades = compactMatch[1].split('|');
+      if (grades.length !== 4) return null;
+      const plan: CoursePlan = { 9: [], 10: [], 11: [], 12: [] };
+      [9, 10, 11, 12].forEach((g, i) => {
+        plan[g] = grades[i]
+          .split(',')
+          .filter(Boolean)
+          .map((code) => codeToId(code))
+          .filter((id): id is string => id !== null);
+      });
+      return plan;
+    } catch {
+      return null;
+    }
+  }
+
+  // Legacy base64 format: #plan=BASE64
   try {
-    const match = hash.match(/^#plan=(.+)$/);
-    if (!match) return null;
-    const json = atob(match[1]);
+    const legacyMatch = hash.match(/^#plan=(.+)$/);
+    if (!legacyMatch) return null;
+    const json = atob(legacyMatch[1]);
     const parsed = JSON.parse(json);
     if (parsed && typeof parsed === 'object' && Array.isArray(parsed[9])) {
       return { 9: parsed[9] ?? [], 10: parsed[10] ?? [], 11: parsed[11] ?? [], 12: parsed[12] ?? [] };
