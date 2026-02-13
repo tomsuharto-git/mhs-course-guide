@@ -3,8 +3,8 @@ import { MathEntryPoint } from './types';
 export const mathEntryPoints: MathEntryPoint[] = [
   {
     id: 'completed-geometry-accel',
-    label: 'Completed Geometry Accelerated',
-    description: 'Finished accelerated Geometry in 8th grade — ready for Algebra II/Trig Honors',
+    label: 'Algebra B Accel (*Opt Geo. Accel.)',
+    description: 'Starting Algebra 2/Trig H or Algebra 2 H in 9th grade',
     pathways: [
       {
         id: 'math-geom-accel-ap',
@@ -32,8 +32,8 @@ export const mathEntryPoints: MathEntryPoint[] = [
   },
   {
     id: 'completed-algebra-accel',
-    label: 'Completed Algebra Accelerated',
-    description: 'Finished accelerated Algebra I in 8th grade — ready for Geometry',
+    label: 'Algebra B Accel. or Algebra B',
+    description: 'Starting Geometry H or Geometry in 9th grade',
     pathways: [
       {
         id: 'math-alg-accel-honors-fast',
@@ -71,8 +71,8 @@ export const mathEntryPoints: MathEntryPoint[] = [
   },
   {
     id: 'need-algebra',
-    label: 'Completed Pre-Algebra',
-    description: 'Finished Pre-Algebra in 8th grade — starting Algebra I in 9th grade',
+    label: 'Algebra B',
+    description: 'Starting Algebra I H or Algebra I in 9th grade',
     pathways: [
       {
         id: 'math-alg1-honors',
@@ -98,8 +98,8 @@ export const mathEntryPoints: MathEntryPoint[] = [
   },
   {
     id: 'resource',
-    label: 'Resource',
-    description: 'Modified math instruction with IEP support',
+    label: 'Math Foundation',
+    description: 'Starting Algebra I RCS or Algebra I ICS in 9th grade',
     pathways: [
       {
         id: 'math-resource',

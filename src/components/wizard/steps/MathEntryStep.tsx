@@ -74,7 +74,7 @@ export function MathEntryStep({
         <WizardHeader stepIndex={stepIndex} />
 
         <p className="text-sm text-text-muted mb-4">
-          What math did you complete in 8th grade?
+          What was your middle school math level?
         </p>
 
         <div className="space-y-2">
