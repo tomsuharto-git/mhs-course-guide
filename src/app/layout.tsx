@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { Analytics } from "@vercel/analytics/next";
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-heading",
@@ -41,6 +42,7 @@ export default function RootLayout({
         <main className="min-h-[calc(100vh-160px)]">{children}</main>
         <Footer />
         <ChatWidget />
+        <Analytics />
       </body>
     </html>
   );
