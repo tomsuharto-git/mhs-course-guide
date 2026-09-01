@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="border-t border-border bg-white">
@@ -13,12 +15,40 @@ export function Footer() {
             </p>
           </div>
           <p className="text-xs text-text-muted">
-            Source: 2026–2027 Program of Studies
+            Source: 2026&ndash;2027 Program of Studies
           </p>
         </div>
-        <p className="text-[11px] text-text-muted/50 mt-4 pt-4 border-t border-border">
-          Unofficial parent-built reference. Always confirm with your school counselor.
-        </p>
+
+        <div className="mt-4 pt-4 border-t border-border">
+          <p className="text-xs text-text-muted leading-relaxed max-w-3xl">
+            <span className="font-semibold text-text">
+              Unofficial parent-built reference.
+            </span>{" "}
+            Not affiliated with, endorsed by, or operated by Montclair High
+            School or Montclair Public Schools. Always confirm course selections
+            and graduation requirements with your school counselor.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3">
+            <Link
+              href="/privacy"
+              className="text-xs text-text-muted hover:text-mountie-blue underline underline-offset-2"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs text-text-muted hover:text-mountie-blue underline underline-offset-2"
+            >
+              Terms of Use
+            </Link>
+            <a
+              href="mailto:tomsuharto@gmail.com"
+              className="text-xs text-text-muted hover:text-mountie-blue underline underline-offset-2"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   );
