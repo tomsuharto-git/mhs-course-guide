@@ -40,11 +40,12 @@ export function YearColumn({
 
   // 7 periods × 5 cr = 35 cr is a full schedule; 37.5+ means double-booking
   const hasEnoughCourses = courses.length >= 4;
+  const lowThreshold = grade <= 11 ? 35 : 30;
   const creditWarning = credits > 37.5
     ? "overloaded"
     : credits > 32.5
       ? "heavy"
-      : hasEnoughCourses && credits < 25
+      : hasEnoughCourses && credits < lowThreshold
         ? "low"
         : null;
 
@@ -82,7 +83,7 @@ export function YearColumn({
           <p className="text-[11px] text-amber-600 mt-1">Heavy load — may not fit in 7 periods</p>
         )}
         {creditWarning === "low" && (
-          <p className="text-[11px] text-red-500 mt-1">Below typical minimum (25 cr)</p>
+          <p className="text-[11px] text-red-500 mt-1">Below recommended minimum ({lowThreshold} cr)</p>
         )}
       </div>
 

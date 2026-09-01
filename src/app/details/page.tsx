@@ -412,6 +412,17 @@ export default function SelectionPage() {
             </div>
           </div>
 
+          <h3>Approved Programs</h3>
+          <p>
+            External courses must be taken through an accredited institution.
+            Common options include <strong>Johns Hopkins CTY</strong>,{" "}
+            <strong>Newark Academy</strong>, <strong>MKA</strong>{" "}
+            (Montclair Kimberley Academy), and accredited colleges or
+            universities. Students must submit an{" "}
+            <strong>External Course Request Form</strong> and receive
+            approval from administration before enrolling.
+          </p>
+
           <ul>
             <li>
               Administration reserves the right to assess a student&rsquo;s

@@ -124,6 +124,14 @@ export function ElectiveBrowseStep({
     <div>
       <WizardHeader stepIndex={stepIndex} />
 
+      {/* Scheduling info callout */}
+      <div className="mb-5 px-3 py-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-text-muted leading-relaxed">
+        <span className="font-semibold text-text">No study halls for freshmen.</span>{' '}
+        All nine periods must be filled with courses. When you submit course requests in Genesis,
+        you&apos;ll be asked to <span className="font-semibold text-text">rank 6 elective choices</span> so
+        the scheduler has alternates if your first picks don&apos;t fit.
+      </div>
+
       {/* Requirement badges */}
       <div className="flex flex-wrap gap-2 mb-5">
         <RequirementBadge label="VPA" earned={vpaProgress?.earned ?? 0} required={vpaProgress?.required ?? 5} met={vpaProgress?.met ?? false} />

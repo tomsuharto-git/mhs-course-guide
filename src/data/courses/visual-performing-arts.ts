@@ -616,6 +616,7 @@ export const vpaCourses: Course[] = [
     description:
       'This course is designed to give more advanced choral students the opportunity to participate in a choral ensemble appropriate to their ability level. It requires that students demonstrate an intermediate level of vocal training, musicianship, and vocal ability. Students must have good tone quality, intonation, diction and be able to demonstrate good breath support. In addition, students must display proper rehearsal etiquette, and a strong level of commitment to the ensemble\u2019s occasional performances outside of school. Emphasis is placed on improving music theory skills through piano, sight-reading and ear-training skills, extending the vocal range, greater breath control, and improved vocal production.',
     prerequisites: [],
+    prerequisiteNote: 'Audition prior to admission',
     tags: ['music', 'ensemble'],
     fulfills: ['VPA'],
     notes: 'Prerequisite: Audition prior to admission.',
@@ -632,6 +633,7 @@ export const vpaCourses: Course[] = [
     description:
       'Madrigal Choir is a select group of singers who attain high standards of musicianship. Members of the group are dedicated to hard work and are committed to high quality performance. It is targeted specifically to those students with three or more years of vocal training (be it private lessons, high school choirs, community choirs, or similar experiences). Emphasis is placed on improving music theory skills through piano, sight-reading and ear-training skills, extending the vocal range, greater breath control and improved vocal production. Students must display proper rehearsal etiquette, and a high level of commitment to the ensemble\u2019s occasional performances outside of school.',
     prerequisites: [],
+    prerequisiteNote: 'Audition prior to admission',
     tags: ['music', 'ensemble'],
     fulfills: ['VPA'],
     notes: 'Prerequisite: Audition prior to admission.',

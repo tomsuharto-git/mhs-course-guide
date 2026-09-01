@@ -140,6 +140,14 @@ export default async function CourseDetailPage({
           </div>
         )}
 
+        {/* Prerequisite note (when no linked prereq courses) */}
+        {course.prerequisiteNote && prereqCourses.length === 0 && (
+          <div className="bg-amber-50/50 border border-amber-200/60 rounded-lg p-4">
+            <p className="text-xs font-semibold text-amber-800 uppercase tracking-wider mb-1">Prerequisite</p>
+            <p className="text-sm text-amber-800">{course.prerequisiteNote}</p>
+          </div>
+        )}
+
         {/* Next in Pathway — pathway-table tracks (Science, Math) */}
         {pathwayNext && (
           <div>

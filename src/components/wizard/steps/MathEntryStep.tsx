@@ -98,6 +98,13 @@ export function MathEntryStep({
           ))}
         </div>
 
+        <div className="mt-4 px-3 py-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs text-text-muted leading-relaxed">
+          <span className="font-semibold text-text">Want to accelerate?</span>{' '}
+          Students starting in Algebra I can double up later (e.g. Geometry H + Algebra II H
+          concurrently) to reach Calculus by senior year. Talk to your counselor about whether
+          this is a good fit.
+        </div>
+
         <WizardNavButtons
           currentStep={stepIndex}
           onNext={goNext}

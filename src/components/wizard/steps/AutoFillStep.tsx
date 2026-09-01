@@ -55,9 +55,16 @@ export function AutoFillStep({
     <div>
       <WizardHeader stepIndex={stepIndex} />
 
-      <p className="text-sm text-text-muted mb-5">
+      <p className="text-sm text-text-muted mb-3">
         These required Health & PE courses have been added to your plan. Every student takes them.
       </p>
+
+      <div className="mb-5 px-3 py-2.5 rounded-lg bg-indigo-50 border border-indigo-200/60 text-xs text-indigo-800 leading-relaxed">
+        <span className="font-semibold">Dance can substitute for PE.</span>{' '}
+        If you plan to take a dance course (5 cr VPA), it can replace a PE quarter (1.25 cr).
+        Your total Health &amp; PE credits will differ, but the graduation requirement is still met.
+        You&apos;ll be able to add dance in the elective step.
+      </div>
 
       <div className="space-y-2">
         {entries.map(({ grade, course, inPlan }) => (
