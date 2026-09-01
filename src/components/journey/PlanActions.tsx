@@ -1,12 +1,44 @@
 "use client";
 
 import { useState } from "react";
+import { CoursePlan } from "@/lib/journey/plan-state";
+import { getCourseById } from "@/data/courses";
+
+const GRADE_LABELS: Record<number, string> = {
+  9: 'Grade 9 (Freshman)',
+  10: 'Grade 10 (Sophomore)',
+  11: 'Grade 11 (Junior)',
+  12: 'Grade 12 (Senior)',
+};
+
+function buildPlanText(plan: CoursePlan): string {
+  const lines = ['MHS 4-Year Course Plan', ''];
+  for (const grade of [9, 10, 11, 12]) {
+    const ids = plan[grade] ?? [];
+    lines.push(GRADE_LABELS[grade]);
+    if (ids.length === 0) {
+      lines.push('  (none selected)');
+    } else {
+      for (const id of ids) {
+        const course = getCourseById(id);
+        if (course) {
+          const suffix = course.duration === 'semester' ? ' (semester)' : '';
+          lines.push(`  ${course.name}${suffix}`);
+        }
+      }
+    }
+    lines.push('');
+  }
+  return lines.join('\n');
+}
 
 export function PlanActions({
+  plan,
   onShareUrl,
   onClearAll,
   isEmpty,
 }: {
+  plan: CoursePlan;
   onShareUrl: () => string;
   onClearAll: () => void;
   isEmpty: boolean;
@@ -16,13 +48,26 @@ export function PlanActions({
 
   const handleShare = async () => {
     const url = onShareUrl();
+    const text = buildPlanText(plan);
+    const shareBody = text + 'View/edit: ' + url + '\n';
+
+    // Try native share (mobile share sheet)
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'MHS Course Plan', text: shareBody });
+        return;
+      } catch {
+        // User cancelled or share failed — fall through to clipboard
+      }
+    }
+
+    // Clipboard fallback
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(shareBody);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback: prompt
-      window.prompt("Copy this link:", url);
+      window.prompt("Copy your plan:", shareBody);
     }
   };
 

@@ -59,6 +59,7 @@ export function JourneyPlanner() {
         <div className="w-full lg:w-[272px] shrink-0 space-y-4 lg:sticky lg:top-20 lg:self-start">
           <GraduationProgress plan={plan} />
           <PlanActions
+            plan={plan}
             onShareUrl={shareUrl}
             onClearAll={clearAll}
             isEmpty={isEmpty}

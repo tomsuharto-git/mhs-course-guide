@@ -113,6 +113,7 @@ export function ReviewStep({
         <GraduationProgress plan={plan} />
         <div className="mt-4">
           <PlanActions
+            plan={plan}
             onShareUrl={shareUrl}
             onClearAll={clearAll}
             isEmpty={isEmpty}
@@ -122,6 +123,7 @@ export function ReviewStep({
 
       <div className="hidden lg:block">
         <PlanActions
+          plan={plan}
           onShareUrl={shareUrl}
           onClearAll={clearAll}
           isEmpty={isEmpty}
