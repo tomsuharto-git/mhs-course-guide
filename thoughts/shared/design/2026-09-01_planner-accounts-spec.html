@@ -1,0 +1,985 @@
+<title>MHS Planner Accounts</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* ─── Frame tokens: adapt to the viewer's theme ─────────────────────────── */
+:root{
+  --bg:#E9E9ED; --surface:#FFFFFF; --sunk:#DEDEE4;
+  --tx:#16171B; --tx-mid:#4A4C54; --tx-dim:#6C6E77;
+  --line:#D2D3D9; --line-soft:#E2E3E8;
+  --accent:#254093; --accent-soft:rgba(37,64,147,.10);
+  --warn:#9A5B08; --warn-soft:rgba(180,83,9,.10);
+  --ok:#15703D; --ok-soft:rgba(21,112,61,.10);
+  --shadow:0 1px 2px rgba(16,18,24,.06),0 12px 32px -14px rgba(16,18,24,.22);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101218; --surface:#191C23; --sunk:#14161C;
+    --tx:#E4E5E9; --tx-mid:#B4B6BE; --tx-dim:#8B8D96;
+    --line:#272B34; --line-soft:#20242C;
+    --accent:#8098DE; --accent-soft:rgba(128,152,222,.14);
+    --warn:#E0A458; --warn-soft:rgba(224,164,88,.13);
+    --ok:#67C08D; --ok-soft:rgba(103,192,141,.13);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101218; --surface:#191C23; --sunk:#14161C;
+  --tx:#E4E5E9; --tx-mid:#B4B6BE; --tx-dim:#8B8D96;
+  --line:#272B34; --line-soft:#20242C;
+  --accent:#8098DE; --accent-soft:rgba(128,152,222,.14);
+  --warn:#E0A458; --warn-soft:rgba(224,164,88,.13);
+  --ok:#67C08D; --ok-soft:rgba(103,192,141,.13);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 16px 40px -16px rgba(0,0,0,.7);
+}
+
+/* ─── Product tokens: FIXED. The MHS site is light-only, so the mocked
+       screens must not follow the viewer's theme. Never overridden. ─────── */
+:root{
+  --m-blue:#254093; --m-dark:#1a2d6b;
+  --m-cream:#FAFAF7; --m-warm:#f0efe8;
+  --m-tx:#1a1a1a; --m-mut:#71706b; --m-line:#e0dfd8;
+  --m-white:#ffffff;
+  --m-red:#dc2626; --m-red-bg:#fef2f2;
+  --m-amb:#b45309; --m-amb-bg:#fffbeb; --m-amb-ln:#fde68a;
+  --m-ind:#3730a3; --m-ind-bg:#eef2ff; --m-ind-ln:#c7d2fe;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--tx);
+  font-family:"DM Sans",system-ui,sans-serif;
+  font-size:15px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:56px 24px 96px}
+
+/* ─── Masthead ──────────────────────────────────────────────────────────── */
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--tx-dim);
+}
+h1{
+  font-family:"Bebas Neue",Impact,sans-serif;
+  font-size:clamp(40px,7vw,68px); line-height:.95; letter-spacing:.03em;
+  margin:12px 0 0; color:var(--tx); text-wrap:balance;
+}
+.lede{margin:16px 0 0;max-width:60ch;color:var(--tx-mid);font-size:17px}
+
+.legend{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;
+  padding-top:22px;border-top:1px solid var(--line);
+}
+.chip{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.05em;
+  padding:5px 10px;border-radius:999px;
+  border:1px solid var(--line);color:var(--tx-dim);background:var(--surface);
+}
+.chip b{color:var(--tx);font-weight:600}
+
+/* ─── Rules strip ───────────────────────────────────────────────────────── */
+.rules{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;margin:44px 0 8px;
+}
+.rule{background:var(--surface);padding:20px 20px 22px}
+.rule .n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;color:var(--accent);letter-spacing:.1em;
+}
+.rule p{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--tx-mid)}
+.rule p b{color:var(--tx);font-weight:600}
+
+/* ─── Steps ─────────────────────────────────────────────────────────────── */
+.step{margin-top:72px}
+.step-head{display:flex;gap:16px;align-items:baseline;margin-bottom:6px}
+.step-n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--accent);
+  padding-top:4px;flex:none;
+}
+h2{
+  font-family:"Bebas Neue",Impact,sans-serif;
+  font-size:30px;letter-spacing:.045em;margin:0;line-height:1.1;color:var(--tx);
+}
+.why{margin:0 0 20px 44px;max-width:64ch;color:var(--tx-mid);font-size:14.5px}
+@media(max-width:640px){.why{margin-left:0}}
+
+/* ─── Browser frame around each screen ──────────────────────────────────── */
+.screen-outer{
+  border:1px solid var(--line);border-radius:13px;background:var(--surface);
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.bar{
+  display:flex;align-items:center;gap:7px;
+  padding:9px 13px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);flex:none}
+.bar span{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;color:var(--tx-dim);margin-left:8px;letter-spacing:.02em;
+}
+.scroll{overflow-x:auto}
+.screen{min-width:880px;background:var(--m-cream);font-size:14px;color:var(--m-tx)}
+.screen.narrow{min-width:0}
+
+/* ─── Real MHS site chrome ──────────────────────────────────────────────── */
+.hdr{
+  height:56px;background:var(--m-white);border-bottom:1px solid var(--m-line);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;gap:20px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand .m{
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:20px;
+  color:var(--m-blue);letter-spacing:.08em;line-height:1;
+}
+.brand .pipe{color:var(--m-line)}
+.brand .sub{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--m-mut);
+}
+.nav{display:flex;align-items:center;gap:2px}
+.nav a{
+  font-size:13.5px;font-weight:500;color:var(--m-mut);
+  padding:6px 11px;border-radius:6px;text-decoration:none;position:relative;
+}
+.nav a.on{color:var(--m-blue)}
+.nav a.on::after{
+  content:"";position:absolute;left:11px;right:11px;bottom:0;
+  height:2px;border-radius:2px;background:var(--m-blue);
+}
+
+/* the proposed control */
+.usr{
+  width:32px;height:32px;border-radius:50%;flex:none;
+  border:1px solid var(--m-line);background:var(--m-white);
+  display:flex;align-items:center;justify-content:center;color:var(--m-mut);
+}
+.avatar{
+  width:32px;height:32px;border-radius:50%;flex:none;
+  background:var(--m-blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;letter-spacing:.02em;
+}
+
+/* ─── Planner body ──────────────────────────────────────────────────────── */
+.plan-body{padding:22px 24px 26px;display:flex;gap:20px;align-items:flex-start}
+.years{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.yr{
+  background:var(--m-white);border:1px solid var(--m-line);border-radius:12px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);display:flex;flex-direction:column;
+  min-height:210px;
+}
+.yr-h{padding:13px 13px 10px;border-bottom:1px solid rgba(224,223,216,.6)}
+.yr-h .top{display:flex;justify-content:space-between;align-items:baseline}
+.yr-h h3{
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:17px;
+  letter-spacing:.075em;margin:0;line-height:1.1;color:var(--m-tx);
+}
+.yr-h .lbl{font-size:11px;color:var(--m-mut)}
+.pill{
+  font-size:11px;font-weight:500;padding:2px 8px;border-radius:999px;
+  background:var(--m-warm);color:var(--m-mut);white-space:nowrap;
+}
+.pill.bad{background:var(--m-red-bg);color:var(--m-red)}
+.yr-h .warn{font-size:10.5px;color:var(--m-red);margin:4px 0 0}
+.slots{flex:1;padding:10px;display:flex;flex-direction:column;gap:7px}
+.slot{
+  border:1px solid var(--m-line);border-left:3px solid var(--m-blue);
+  border-radius:8px;padding:7px 9px;background:var(--m-white);
+}
+.slot .nm{font-size:12px;font-weight:500;line-height:1.3;color:var(--m-tx)}
+.slot .mt{font-size:10.5px;color:var(--m-mut);margin-top:2px}
+.slot.g2{border-left-color:#7c3aed}
+.slot.g3{border-left-color:#0d9488}
+.slot.g4{border-left-color:#b45309}
+.empty{text-align:center;padding:16px 6px;color:rgba(113,112,107,.45);font-size:11px;line-height:1.5}
+.addbtn{
+  margin:0 10px 10px;padding:7px;border:1px dashed var(--m-line);border-radius:8px;
+  text-align:center;font-size:11.5px;color:var(--m-mut);background:transparent;
+}
+.side{width:250px;flex:none;display:flex;flex-direction:column;gap:12px}
+.card{
+  background:var(--m-white);border:1px solid var(--m-line);border-radius:12px;
+  padding:14px;box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.card h4{
+  font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--m-mut);margin:0 0 10px;
+}
+.prog{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:6px;color:var(--m-tx)}
+.track{height:5px;border-radius:3px;background:var(--m-warm);overflow:hidden;margin-bottom:9px}
+.fill{height:100%;background:var(--m-blue);border-radius:3px}
+.btn{
+  display:block;width:100%;text-align:center;padding:8px;border-radius:8px;
+  font-size:12.5px;font-weight:500;border:1px solid var(--m-line);
+  background:var(--m-white);color:var(--m-tx);
+}
+.btn.pri{background:var(--m-blue);border-color:var(--m-blue);color:#fff}
+.btn.ghost{border:none;background:transparent;color:var(--m-mut)}
+.btn.danger{color:var(--m-red);border-color:#fecaca;background:var(--m-red-bg)}
+
+/* ─── Proposed: save prompt bar ─────────────────────────────────────────── */
+.savebar{
+  margin:0 24px 4px;padding:11px 14px;border-radius:10px;
+  background:var(--m-ind-bg);border:1px solid var(--m-ind-ln);
+  display:flex;align-items:center;gap:12px;
+}
+.savebar p{margin:0;font-size:12.5px;color:var(--m-ind);line-height:1.45;flex:1}
+.savebar p b{font-weight:700}
+.savebar .acts{display:flex;gap:8px;flex:none;align-items:center}
+.sm{
+  font-size:12px;font-weight:500;padding:6px 12px;border-radius:7px;
+  border:1px solid transparent;white-space:nowrap;
+}
+.sm.pri{background:var(--m-blue);color:#fff}
+.sm.gh{color:var(--m-ind);opacity:.75}
+
+/* ─── Modals ────────────────────────────────────────────────────────────── */
+.veil{background:rgba(26,26,26,.34);padding:34px 20px;display:flex;justify-content:center}
+.modal{
+  background:var(--m-white);border-radius:14px;width:100%;
+  box-shadow:0 20px 50px -12px rgba(0,0,0,.3);overflow:hidden;
+}
+.modal.sm-w{max-width:380px}
+.modal.md-w{max-width:560px}
+.modal-b{padding:24px}
+.modal h3{
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:23px;letter-spacing:.045em;
+  margin:0 0 6px;color:var(--m-tx);
+}
+.modal p.sub{margin:0 0 18px;font-size:13px;color:var(--m-mut);line-height:1.55}
+.oauth{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  padding:11px;border:1px solid var(--m-line);border-radius:9px;
+  font-size:13.5px;font-weight:500;background:var(--m-white);margin-bottom:9px;color:var(--m-tx);
+}
+.oauth.dark{background:#000;border-color:#000;color:#fff}
+.fine{font-size:10.5px;color:var(--m-mut);line-height:1.55;text-align:center;margin:16px 0 0}
+.fine a{color:var(--m-blue)}
+.clerk{
+  text-align:center;font-size:9.5px;color:rgba(113,112,107,.6);
+  padding:9px;border-top:1px solid var(--m-line);background:#fcfcfa;
+  letter-spacing:.03em;
+}
+
+/* conflict comparison */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:4px 0 6px}
+.opt{border:1px solid var(--m-line);border-radius:11px;padding:13px;background:#fdfdfb}
+.opt.sel{border-color:var(--m-blue);box-shadow:0 0 0 2px rgba(37,64,147,.13);background:var(--m-white)}
+.opt .cap{
+  font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--m-mut);margin-bottom:5px;
+}
+.opt .cnt{font-size:19px;font-weight:700;color:var(--m-tx);line-height:1.15}
+.opt .cnt small{font-size:11px;font-weight:400;color:var(--m-mut)}
+.opt ul{margin:9px 0 0;padding:0;list-style:none}
+.opt li{
+  font-size:11px;color:var(--m-mut);padding:2.5px 0;
+  border-top:1px solid rgba(224,223,216,.7);
+}
+.opt li:first-child{border-top:none}
+.opt .more{color:rgba(113,112,107,.6);font-style:italic}
+
+/* account menu */
+.menu-wrap{position:relative;padding:0 24px 30px;display:flex;justify-content:flex-end}
+.menu{
+  width:252px;background:var(--m-white);border:1px solid var(--m-line);
+  border-radius:11px;box-shadow:0 14px 34px -10px rgba(0,0,0,.22);overflow:hidden;
+}
+.menu .who{padding:13px 14px;border-bottom:1px solid var(--m-line)}
+.menu .who .em{font-size:12.5px;font-weight:500;color:var(--m-tx);word-break:break-all}
+.menu .who .st{font-size:10.5px;color:var(--ok-fixed,#15803d);margin-top:3px;display:flex;align-items:center;gap:5px}
+.menu .who .st i{width:5px;height:5px;border-radius:50%;background:#15803d;display:block}
+.menu .grp{padding:5px}
+.menu .grp.top{border-bottom:1px solid var(--m-line)}
+.mi{
+  display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:7px;
+  font-size:12.5px;color:var(--m-tx);
+}
+.mi.dz{color:var(--m-red)}
+.mi .ic{width:14px;text-align:center;opacity:.55;font-size:12px}
+
+/* shared-plan banner */
+.sharebar{
+  background:var(--m-amb-bg);border-bottom:1px solid var(--m-amb-ln);
+  padding:11px 24px;display:flex;align-items:center;gap:12px;
+}
+.sharebar p{margin:0;flex:1;font-size:12.5px;color:var(--m-amb);line-height:1.45}
+.sharebar p b{font-weight:700}
+
+/* ─── Annotations ───────────────────────────────────────────────────────── */
+.notes{
+  margin-top:14px;display:grid;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:11px;overflow:hidden;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
+.note{background:var(--surface);padding:13px 15px}
+.note .k{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:5px;
+}
+.note p{margin:0;font-size:13px;line-height:1.5;color:var(--tx-mid)}
+.note.w .k{color:var(--warn)}
+
+/* ─── Matrix ────────────────────────────────────────────────────────────── */
+.matrix{margin-top:72px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:13.5px}
+th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--tx-dim);
+  text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:500;
+}
+td{padding:13px 16px;border-bottom:1px solid var(--line-soft);color:var(--tx-mid);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.q{color:var(--tx);font-weight:500}
+.tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:.06em;padding:3px 8px;border-radius:5px;
+  background:var(--ok-soft);color:var(--ok);white-space:nowrap;
+}
+.tag.ask{background:var(--warn-soft);color:var(--warn)}
+
+.closing{
+  margin-top:64px;padding-top:28px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px;
+}
+.closing h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tx-dim);margin:0 0 9px;font-weight:500;
+}
+.closing p{margin:0 0 9px;font-size:13.5px;color:var(--tx-mid);line-height:1.55}
+.closing b{color:var(--tx)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ─── Added for the student model ───────────────────────────────────────── */
+.part{margin-top:84px;padding-top:26px;border-top:2px solid var(--tx);}
+.part .lbl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx);
+  font-weight:600;
+}
+.part h2{font-size:34px;margin-top:8px}
+.part p{margin:10px 0 0;max-width:64ch;color:var(--tx-mid);font-size:15px}
+
+/* component detail — no browser chrome */
+.detail{
+  border:1px solid var(--line);border-radius:13px;background:var(--sunk);
+  padding:26px;display:flex;flex-wrap:wrap;gap:18px;justify-content:center;
+}
+.detail .cap{
+  width:100%;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--tx-dim);
+  text-align:center;margin-bottom:-4px;
+}
+
+/* year states */
+.yr.done{background:#f7f7f4;border-color:#e6e5de}
+.yr.done .yr-h h3,.yr.done .slot .nm{color:#6f6e69}
+.yr.done .slot{background:#fbfbf9;border-left-color:#b9b8b1!important;border-color:#e6e5de}
+.yr.now{border-color:var(--m-blue);box-shadow:0 0 0 2px rgba(37,64,147,.13)}
+.st-chip{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:9px;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 7px;border-radius:4px;background:var(--m-warm);color:var(--m-mut);
+}
+.st-chip.now{background:var(--m-blue);color:#fff}
+.st-chip.soon{background:transparent;color:rgba(113,112,107,.65);border:1px solid var(--m-line)}
+
+/* locked slot */
+.slot{position:relative}
+.slot .lk{
+  position:absolute;top:6px;right:7px;width:15px;height:15px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(113,112,107,.35);
+}
+.slot.lock{border-color:var(--m-blue);background:rgba(37,64,147,.035)}
+.slot.lock .lk{color:var(--m-blue)}
+.slot.lock .nm{padding-right:16px}
+
+/* student switcher */
+.sw{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--m-line);background:var(--m-white);
+  border-radius:9px;padding:6px 11px;font-size:13px;color:var(--m-tx);font-weight:500;
+}
+.sw .dot-b{width:22px;height:22px;border-radius:50%;background:var(--m-blue);color:#fff;
+  font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sw .gr{font-size:11px;color:var(--m-mut);font-weight:400}
+.sw .car{color:var(--m-mut);font-size:10px}
+.sw-menu{
+  width:250px;background:var(--m-white);border:1px solid var(--m-line);border-radius:11px;
+  box-shadow:0 14px 34px -10px rgba(0,0,0,.22);overflow:hidden;
+}
+.sw-row{display:flex;align-items:center;gap:9px;padding:9px 11px;font-size:12.5px}
+.sw-row.on{background:rgba(37,64,147,.05)}
+.sw-row .gr{font-size:10.5px;color:var(--m-mut)}
+.sw-row .tick{margin-left:auto;color:var(--m-blue);font-size:11px}
+.sw-add{
+  border-top:1px solid var(--m-line);padding:9px 11px;font-size:12.5px;color:var(--m-blue);
+  display:flex;align-items:center;gap:8px;
+}
+
+/* grade picker */
+.gpick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 12px}
+.gp{
+  border:1px solid var(--m-line);border-radius:9px;padding:11px 6px;text-align:center;
+  background:var(--m-white);
+}
+.gp.sel{border-color:var(--m-blue);background:rgba(37,64,147,.05);box-shadow:0 0 0 2px rgba(37,64,147,.12)}
+.gp .g{font-family:"Bebas Neue",Impact,sans-serif;font-size:19px;letter-spacing:.05em;color:var(--m-tx);line-height:1.1}
+.gp .y{font-size:9.5px;color:var(--m-mut);margin-top:1px}
+.gp.sel .g{color:var(--m-blue)}
+
+/* data shape */
+.code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12.5px;line-height:1.65;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  overflow-x:auto;color:var(--tx-mid);white-space:pre;margin-top:16px;
+}
+.code b{color:var(--tx);font-weight:600}
+.code i{color:var(--accent);font-style:normal}
+.code em{color:var(--tx-dim);font-style:italic}
+
+/* ─── Form fields (add student) ─────────────────────────────────────────── */
+.f-lbl{font-size:11.5px;font-weight:500;color:var(--m-tx);display:block;margin:0 0 5px}
+.f-hint{font-size:10.5px;color:var(--m-mut);font-weight:400}
+.field{
+  border:1px solid var(--m-line);border-radius:8px;padding:9px 11px;
+  font-size:13px;color:var(--m-tx);background:var(--m-white);margin-bottom:14px;
+}
+.field.ph{color:rgba(113,112,107,.5)}
+.field.focus{border-color:var(--m-blue);box-shadow:0 0 0 2px rgba(37,64,147,.12)}
+.f-note{
+  display:flex;gap:8px;align-items:flex-start;
+  background:#f7f7f4;border:1px solid #e6e5de;border-radius:8px;
+  padding:9px 11px;font-size:11px;color:var(--m-mut);line-height:1.5;margin-bottom:4px;
+}
+.arrow-strip{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;
+}
+.arrow-strip .ar{color:var(--tx-dim);font-size:17px;flex:none}
+
+.addlink{
+  font-size:12px;color:var(--m-blue);font-weight:500;
+  display:inline-flex;align-items:center;gap:4px;white-space:nowrap;
+}
+.state-col{display:flex;flex-direction:column;gap:9px;align-items:center;width:255px}
+.state-col .t{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--tx-dim);text-align:center;
+}
+.state-col .t b{color:var(--accent);font-weight:600}
+</style>
+
+<div class="wrap">
+
+  <p class="eyebrow">MHS Course Guide · Interaction spec · Revision 2</p>
+  <h1>Students, not<br>just accounts</h1>
+  <p class="lede">A plan belongs to a student, not to a login. Once the planner knows what grade that student is in, half the interface gets smarter — and the scariest screen in the last revision mostly disappears.</p>
+
+  <div class="legend">
+    <span class="chip"><b>White screens</b> — the live site, real tokens</span>
+    <span class="chip"><b>Blue</b> — new, proposed</span>
+    <span class="chip"><b>Amber</b> — the share-link fix</span>
+    <span class="chip">Screens stay light in both themes — the site is light-only</span>
+  </div>
+
+  <div class="rules">
+    <div class="rule"><span class="n">RULE 01</span><p><b>No forced login.</b> Every feature works signed out, forever.</p></div>
+    <div class="rule"><span class="n">RULE 02</span><p><b>Plans belong to students.</b> An account holds students; a student holds a plan.</p></div>
+    <div class="rule"><span class="n">RULE 03</span><p><b>Accounts add sync, nothing else.</b> Grade, locks and second students all work signed out.</p></div>
+    <div class="rule"><span class="n">RULE 04</span><p><b>Ask at the right moment.</b> Never on arrival — only once there's work worth losing.</p></div>
+    <div class="rule"><span class="n">RULE 05</span><p><b>Nothing is destroyed silently.</b> Merges add; they never overwrite.</p></div>
+  </div>
+
+  <!-- ══ PART A ══════════════════════════════════════════════════════════ -->
+  <section class="part">
+    <span class="lbl">Part A</span>
+    <h2>The student model</h2>
+    <p>Three changes that need no account at all: knowing who the plan is for, what grade they're in, and which courses are already settled. This is the half that makes the planner better for everyone, signed in or not.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">A1</span><h2>One question, asked once</h2></div>
+    <p class="why">Appears the first time someone opens the planner. Skippable, changeable later, and answered by tapping a number. We store the graduation year rather than the grade, so it never goes stale in August.</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>First visit to /planner — no account needed</span></div>
+      <div class="veil">
+        <div class="modal sm-w" style="max-width:400px">
+          <div class="modal-b">
+            <h3>What grade are you in?</h3>
+            <p class="sub">This tells the planner which years are already behind you, so it stops treating finished years as decisions still to make.</p>
+            <div class="gpick">
+              <div class="gp"><div class="g">9</div><div class="y">Class of 2030</div></div>
+              <div class="gp sel"><div class="g">10</div><div class="y">Class of 2029</div></div>
+              <div class="gp"><div class="g">11</div><div class="y">Class of 2028</div></div>
+              <div class="gp"><div class="g">12</div><div class="y">Class of 2027</div></div>
+            </div>
+            <div style="display:flex;gap:9px;align-items:center">
+              <span class="sm gh" style="color:var(--m-mut);padding:8px 13px">Not yet at MHS</span>
+              <span class="sm pri" style="padding:8px 16px;margin-left:auto">Continue</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Ask grade, store year</span><p>"What grade are you in" is how a 14-year-old answers. <b>Class of 2029</b> is what survives contact with next September.</p></div>
+      <div class="note"><span class="k">Skippable</span><p>"Not yet at MHS" covers 8th graders planning ahead. The planner falls back to today's behaviour — everything is a future year.</p></div>
+      <div class="note w"><span class="k">Guests included</span><p>Stored in localStorage. No account, no prompt to make one. This is not an accounts feature.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">A2</span><h2>A planner that knows where you are</h2></div>
+    <p class="why">A sophomore's grade 9 is history and grade 10 is happening. Only 11 and 12 are speculative. Today the planner treats all four identically — which is why it warns a junior that a finished year is "below recommended minimum."</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>mhs-course-guide.vercel.app/planner — sophomore, signed out</span></div>
+      <div class="scroll"><div class="screen">
+        <div class="hdr">
+          <div class="brand"><span class="m">MHS</span><span class="pipe">|</span><span class="sub">The Unofficial Course Guide</span></div>
+          <nav class="nav"><a href="#">Tracks</a><a href="#">Courses</a><a href="#" class="on">Planner</a><a href="#">Programs</a><a href="#">Requirements</a><a href="#">Details</a></nav>
+          <div class="usr"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="6.5" r="3.2"/><path d="M3.8 17c.6-3.4 3.1-5.2 6.2-5.2s5.6 1.8 6.2 5.2"/></svg></div>
+        </div>
+        <div style="padding:18px 24px 0;display:flex;align-items:center;gap:14px">
+          <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:27px;letter-spacing:.05em">Four-Year Planner</div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:12px"><span class="addlink">+ Add student</span><div class="sw"><span class="dot-b">Z</span>Zavien <span class="gr">· Grade 10</span> <span class="car">▾</span></div></div>
+        </div>
+        <div class="plan-body" style="padding-top:16px">
+          <div class="years">
+            <div class="yr done">
+              <div class="yr-h"><div class="top"><div><h3>Grade 9</h3><div class="lbl">Freshman</div></div><span class="st-chip">Completed</span></div><div style="margin-top:6px"><span class="pill">35 cr earned</span></div></div>
+              <div class="slots">
+                <div class="slot"><div class="nm">English 9 Honors</div><div class="mt">1101H · 5 cr</div></div>
+                <div class="slot"><div class="nm">Geometry Honors</div><div class="mt">2203H · 5 cr</div></div>
+                <div class="slot"><div class="nm">Biology Honors</div><div class="mt">3301H · 5 cr</div></div>
+                <div class="slot"><div class="nm">World History H</div><div class="mt">4401H · 5 cr</div></div>
+              </div>
+              <div class="addbtn">Edit what you took</div>
+            </div>
+            <div class="yr now">
+              <div class="yr-h"><div class="top"><div><h3>Grade 10</h3><div class="lbl">Sophomore</div></div><span class="st-chip now">In progress</span></div><div style="margin-top:6px"><span class="pill">35 cr</span></div></div>
+              <div class="slots">
+                <div class="slot lock"><div class="nm">English 10 Honors</div><div class="mt">1102H · 5 cr</div><span class="lk"><svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor"><path d="M4 6V4.2a3 3 0 0 1 6 0V6h.6c.4 0 .7.3.7.7v5.6c0 .4-.3.7-.7.7H3.4a.7.7 0 0 1-.7-.7V6.7c0-.4.3-.7.7-.7H4zm1.3 0h3.4V4.2a1.7 1.7 0 1 0-3.4 0V6z"/></svg></span></div>
+                <div class="slot lock g2"><div class="nm">Algebra II Honors</div><div class="mt">2205H · 5 cr</div><span class="lk"><svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor"><path d="M4 6V4.2a3 3 0 0 1 6 0V6h.6c.4 0 .7.3.7.7v5.6c0 .4-.3.7-.7.7H3.4a.7.7 0 0 1-.7-.7V6.7c0-.4.3-.7.7-.7H4zm1.3 0h3.4V4.2a1.7 1.7 0 1 0-3.4 0V6z"/></svg></span></div>
+                <div class="slot g3"><div class="nm">Chemistry Honors</div><div class="mt">3303H · 5 cr</div></div>
+                <div class="slot g4"><div class="nm">US History I H</div><div class="mt">4402H · 5 cr</div></div>
+              </div>
+              <div class="addbtn">+ Add course</div>
+            </div>
+            <div class="yr">
+              <div class="yr-h"><div class="top"><div><h3>Grade 11</h3><div class="lbl">Junior</div></div><span class="st-chip soon">Planning</span></div><div style="margin-top:6px"><span class="pill">10 cr</span></div></div>
+              <div class="slots">
+                <div class="slot g2"><div class="nm">AP Calculus AB</div><div class="mt">2210A · 5 cr</div></div>
+                <div class="slot"><div class="nm">English 11 Honors</div><div class="mt">1103H · 5 cr</div></div>
+              </div>
+              <div class="addbtn">+ Add course</div>
+            </div>
+            <div class="yr">
+              <div class="yr-h"><div class="top"><div><h3>Grade 12</h3><div class="lbl">Senior</div></div><span class="st-chip soon">Planning</span></div></div>
+              <div class="slots"><div class="empty">Nothing planned yet<br>Finish remaining requirements and senior electives</div></div>
+              <div class="addbtn">+ Add course</div>
+            </div>
+          </div>
+          <div class="side">
+            <div class="card">
+              <h4>Graduation Progress</h4>
+              <div class="prog"><span>English</span><span><b>10</b> + 10 / 20 cr</span></div><div class="track"><div class="fill" style="width:50%"></div></div>
+              <div class="prog"><span>Mathematics</span><span><b>10</b> + 5 / 15 cr</span></div><div class="track"><div class="fill" style="width:66%"></div></div>
+              <div class="prog"><span>Science</span><span><b>10</b> + 0 / 15 cr</span></div><div class="track"><div class="fill" style="width:66%"></div></div>
+              <div class="prog"><span>Social Studies</span><span><b>10</b> + 0 / 15 cr</span></div><div class="track" style="margin-bottom:0"><div class="fill" style="width:66%"></div></div>
+              <p style="margin:11px 0 0;font-size:10.5px;color:var(--m-mut);line-height:1.5"><b style="color:var(--m-tx)">Bold</b> is earned. The rest is planned.</p>
+            </div>
+            <div class="card" style="display:flex;flex-direction:column;gap:7px">
+              <div class="btn pri">Share plan</div>
+              <div class="btn">Print / PDF</div>
+              <div class="btn ghost">Clear all</div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Warnings only where they apply</span><p>Credit warnings fire on current and future years. A finished year reports what was earned and stays quiet.</p></div>
+      <div class="note"><span class="k">Earned vs projected</span><p>Progress splits into credits banked and credits planned. That's the number a parent is actually looking for.</p></div>
+      <div class="note"><span class="k">Past stays editable</span><p>A junior arriving for the first time has to enter what they already took. Dimmed is a display state, not read-only.</p></div>
+      <div class="note w"><span class="k">Empty-state hints change</span><p>The current copy tells everyone to "start with your core classes." Wrong for three of the four years once grade is known.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">A3</span><h2>Locking what's confirmed</h2></div>
+    <p class="why">A lock is not decoration. The wizard and autofill write into the plan, and a course you've actually registered for needs protection from being overwritten by a suggestion engine.</p>
+    <div class="detail">
+      <span class="cap">Course card — three states</span>
+      <div style="width:210px"><div style="font-size:10px;color:var(--tx-dim);font-family:'IBM Plex Mono',monospace;margin-bottom:7px;letter-spacing:.06em">PLANNED</div>
+        <div class="slot" style="background:#fff"><div class="nm">Chemistry Honors</div><div class="mt">3303H · 5 cr</div><span class="lk"><svg width="10" height="10" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4.2 6V4.2a2.8 2.8 0 0 1 5.6 0"/><rect x="2.9" y="6" width="8.2" height="6.4" rx="1"/></svg></span></div>
+      </div>
+      <div style="width:210px"><div style="font-size:10px;color:var(--accent);font-family:'IBM Plex Mono',monospace;margin-bottom:7px;letter-spacing:.06em">CONFIRMED — LOCKED</div>
+        <div class="slot lock" style="border-left-color:var(--m-blue)"><div class="nm">English 10 Honors</div><div class="mt">1102H · 5 cr</div><span class="lk"><svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor"><path d="M4 6V4.2a3 3 0 0 1 6 0V6h.6c.4 0 .7.3.7.7v5.6c0 .4-.3.7-.7.7H3.4a.7.7 0 0 1-.7-.7V6.7c0-.4.3-.7.7-.7H4zm1.3 0h3.4V4.2a1.7 1.7 0 1 0-3.4 0V6z"/></svg></span></div>
+      </div>
+      <div style="width:210px"><div style="font-size:10px;color:var(--tx-dim);font-family:'IBM Plex Mono',monospace;margin-bottom:7px;letter-spacing:.06em">COMPLETED — AUTO</div>
+        <div class="slot" style="background:#fbfbf9;border-color:#e6e5de;border-left-color:#b9b8b1"><div class="nm" style="color:#6f6e69">Biology Honors</div><div class="mt">3301H · 5 cr earned</div></div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">One flag, not four states</span><p>Completed comes free from grade level. The only thing worth storing is <b>confirmed</b> — a single boolean per course.</p></div>
+      <div class="note"><span class="k">What the lock actually does</span><p>Autofill skips it, "Clear all" spares it, and removing it takes a second tap. It protects against machinery, not against you.</p></div>
+      <div class="note w"><span class="k">Naming</span><p>"Locked" describes the mechanism; <b>"Confirmed"</b> describes the student's world. Label it Confirmed, draw it as a lock.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">A4</span><h2>Two kids, one browser</h2></div>
+    <p class="why">A parent with a sophomore and a freshman needs two plans. This works signed out — students live in localStorage like everything else. An account syncs them; it doesn't unlock them.</p>
+    <div class="detail">
+      <span class="cap">Student switcher — closed, and open</span>
+      <div class="sw"><span class="dot-b">Z</span>Zavien <span class="gr">· Grade 10</span> <span class="car">▾</span></div>
+      <div class="sw-menu">
+        <div class="sw-row on"><span class="dot-b">Z</span><div>Zavien<div class="gr">Grade 10 · Class of 2029</div></div><span class="tick">✓</span></div>
+        <div class="sw-row"><span class="dot-b" style="background:#7c3aed">M</span><div>Maya<div class="gr">Grade 9 · Class of 2030</div></div></div>
+        <div class="sw-add">+ Add a student</div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Names are optional</span><p>Defaults to "Student 1". A first name or a nickname both work — the label is only ever shown back to you.</p></div>
+      <div class="note w"><span class="k">This is new data about a minor</span><p>Today the site stores no names at all. If someone types a real first name it goes in their account, so the privacy policy has to say so plainly.</p></div>
+      <div class="note"><span class="k">Hidden until needed</span><p>With one student the switcher shows the name and grade but no dropdown chrome. It only becomes a menu when there are two.</p></div>
+    </div>
+  </section>
+
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">A5</span><h2>Adding the second one</h2></div>
+    <p class="why">There is no "add student" for the first student — the grade question in A1 creates them silently. This screen only ever appears for the second, which is also the first moment names matter. Up to then there was nothing to tell apart.</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>Add a student — signed out, one existing unnamed plan</span></div>
+      <div class="veil">
+        <div class="modal sm-w" style="max-width:420px">
+          <div class="modal-b">
+            <h3>Add a student</h3>
+            <p class="sub">Each student keeps their own four-year plan. Nothing is shared between them.</p>
+
+            <span class="f-lbl">Name <span class="f-hint">— optional, only you ever see it</span></span>
+            <div class="field ph">First name or nickname</div>
+
+            <span class="f-lbl">What grade are they in?</span>
+            <div class="gpick">
+              <div class="gp sel"><div class="g">9</div><div class="y">Class of 2030</div></div>
+              <div class="gp"><div class="g">10</div><div class="y">Class of 2029</div></div>
+              <div class="gp"><div class="g">11</div><div class="y">Class of 2028</div></div>
+              <div class="gp"><div class="g">12</div><div class="y">Class of 2027</div></div>
+            </div>
+            <div style="margin:-4px 0 16px"><span class="sm gh" style="color:var(--m-mut);padding:0;font-size:11.5px">Not yet at MHS</span></div>
+
+            <span class="f-lbl">And your current plan — what should we call it?</span>
+            <div class="field focus">Zavien</div>
+
+            <div class="f-note">
+              <span style="flex:none;opacity:.6">◔</span>
+              <span>You're signed out, so both students stay on this device. Signing in later brings them with you.</span>
+            </div>
+
+            <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:16px">
+              <span class="sm gh" style="color:var(--m-mut);padding:8px 14px">Cancel</span>
+              <span class="sm pri" style="padding:8px 16px">Add student</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">It names the first one too</span><p>"Student 1" and "Student 2" are useless labels. The moment a second exists, the sheet asks you to name the one you already had — and only then.</p></div>
+      <div class="note"><span class="k">Grade is required, name isn't</span><p>Grade drives real logic. The name is a label. Skip it and you get "Student 2", which still works.</p></div>
+      <div class="note w"><span class="k">The account line is a statement, not a pitch</span><p>It says where the data lives and stops. No button, no upsell — this is a person doing something else.</p></div>
+    </div>
+
+    <div class="detail" style="margin-top:16px">
+      <span class="cap">The header slot — three states</span>
+      <div class="state-col">
+        <div class="t"><b>1 · Never added</b><br>link visible</div>
+        <div style="display:flex;align-items:center;gap:11px">
+          <span class="addlink">+ Add student</span>
+          <div class="sw"><span class="dot-b">Z</span>Zavien <span class="gr">· Gr 10</span> <span class="car">▾</span></div>
+        </div>
+      </div>
+      <div class="state-col">
+        <div class="t"><b>2 · Two students</b><br>link retires</div>
+        <div class="sw"><span class="dot-b">Z</span>Zavien <span class="gr">· Gr 10</span> <span class="car">▾</span></div>
+      </div>
+      <div class="state-col">
+        <div class="t"><b>3 · Menu open</b><br>add lives here now</div>
+        <div class="sw-menu" style="width:230px">
+          <div class="sw-row on"><span class="dot-b">Z</span><div>Zavien<div class="gr">Grade 10</div></div><span class="tick">✓</span></div>
+          <div class="sw-row"><span class="dot-b" style="background:#7c3aed">M</span><div>Maya<div class="gr">Grade 9</div></div></div>
+          <div class="sw-add">+ Add a student</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">The link retires itself</span><p>Visible only until you've added a second student. After that the switcher menu carries it, and the header goes quiet permanently.</p></div>
+      <div class="note"><span class="k">A link, not a button</span><p>Most people here are students with exactly one plan forever. The affordance has to be findable by parents without becoming clutter for everyone else.</p></div>
+      <div class="note w"><span class="k">Correcting the earlier draft</span><p>Revision 2 said the switcher shows "no chrome" with one student, which hid the feature completely. The caret is always there.</p></div>
+      <div class="note"><span class="k">Maya opens empty</span><p>A new student starts with an empty plan at their own grade. No copying — to reuse a sibling's plan, share it to yourself.</p></div>
+    </div>
+</section>
+
+  <div class="code"><b>The stored shape</b> — identical in localStorage and in the account
+{
+  <i>schema</i>: 2,
+  <i>activeStudent</i>: "s1",
+  <i>students</i>: [
+    {
+      <i>id</i>: "s1",
+      <i>label</i>: "Zavien",        <em>// optional, defaults to "Student 1"</em>
+      <i>classOf</i>: 2029,          <em>// grade is derived from this + today</em>
+      <i>plan</i>: {
+        9:  [ { <i>c</i>: "1101H" }, { <i>c</i>: "2203H" } ],
+        10: [ { <i>c</i>: "1102H", <i>confirmed</i>: true } ],
+        11: [], 12: []
+      }
+    }
+  ]
+}
+
+<em>Migration: today's plan is { 9: ["eng-9-h", ...] } — bare strings, no students.
+A v1 blob is read as one unnamed student with no classOf, so nobody loses a plan.
+~500 bytes per student against Clerk's 8KB cap: room for a dozen students.</em></div>
+
+  <!-- ══ PART B ══════════════════════════════════════════════════════════ -->
+  <section class="part">
+    <span class="lbl">Part B</span>
+    <h2>Accounts, which only sync</h2>
+    <p>Everything above already works without signing in. An account does exactly one thing: it carries those students to the next device. Which turns out to make the hardest screen from the last revision much softer.</p>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">B1</span><h2>The offer, and the icon</h2></div>
+    <p class="why">The icon is the entire permanent signed-out footprint. The bar appears on the fourth course added, never on arrival, and dismissing it is permanent.</p>
+    <div class="detail" style="flex-direction:column;align-items:stretch">
+      <span class="cap">Header control, signed out · and the planner's save offer</span>
+      <div style="background:var(--m-white);border:1px solid var(--m-line);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px">
+        <span style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;color:var(--m-blue);letter-spacing:.08em">MHS</span>
+        <span style="font-size:11px;color:var(--m-mut);text-transform:uppercase;letter-spacing:.06em">The Unofficial Course Guide</span>
+        <div class="usr" style="margin-left:auto"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="6.5" r="3.2"/><path d="M3.8 17c.6-3.4 3.1-5.2 6.2-5.2s5.6 1.8 6.2 5.2"/></svg></div>
+      </div>
+      <div class="savebar" style="margin:0">
+        <p><b>Save Zavien's plan?</b> 4 courses so far. Signing in keeps them on any device — phone, laptop, school Chromebook.</p>
+        <div class="acts"><span class="sm gh">Not now</span><span class="sm pri">Save plan</span></div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Named once there's a name</span><p>"Save Zavien's plan" beats "Save your plan" — it's concrete, and it quietly explains what an account holds.</p></div>
+      <div class="note w"><span class="k">Dismissal sticks</span><p>"Not now" writes a flag that survives the session, or it becomes the thing people learn to click past.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">B2</span><h2>Two buttons, no form</h2></div>
+    <p class="why">No password, no email verification, no birthday. Google and Apple both require account holders to be old enough under their own terms, so the age check is inherited and we never hold the answer.</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>Sign-in sheet</span></div>
+      <div class="veil">
+        <div class="modal sm-w">
+          <div class="modal-b">
+            <h3>Save your plans</h3>
+            <p class="sub">Your students and their courses stay with you on any device. That's all an account does — every feature works without one.</p>
+            <div class="oauth"><svg width="16" height="16" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.6 9.2c0-.6-.1-1.3-.2-1.9H9v3.5h4.8a4.1 4.1 0 0 1-1.8 2.7v2.3h2.9c1.7-1.6 2.7-3.9 2.7-6.6z"/><path fill="#34A853" d="M9 18c2.4 0 4.5-.8 6-2.2l-2.9-2.3c-.8.5-1.8.9-3.1.9-2.4 0-4.4-1.6-5.1-3.8H.9v2.3A9 9 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.9 10.6a5.4 5.4 0 0 1 0-3.4V4.9H.9a9 9 0 0 0 0 8.1l3-2.4z"/><path fill="#EA4335" d="M9 3.6c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 0 0 .9 4.9l3 2.3C4.6 5.2 6.6 3.6 9 3.6z"/></svg>Continue with Google</div>
+            <div class="oauth dark"><svg width="15" height="15" viewBox="0 0 18 18" fill="#fff"><path d="M12.5 9.6c0-2 1.6-3 1.7-3-.9-1.4-2.4-1.5-2.9-1.6-1.2-.1-2.4.7-3 .7s-1.6-.7-2.6-.7c-1.3 0-2.6.8-3.3 2-1.4 2.4-.4 6 1 8 .7 1 1.5 2 2.5 2 1 0 1.4-.6 2.6-.6s1.5.6 2.6.6 1.7-.9 2.4-1.8c.7-1 1-2 1-2.1 0 0-2-.8-2-3.5zM10.7 3.3c.5-.7.9-1.6.8-2.5-.8 0-1.8.5-2.4 1.2-.5.6-1 1.6-.8 2.5.9.1 1.8-.4 2.4-1.2z"/></svg>Continue with Apple</div>
+            <p class="fine">By continuing you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>. We store your students' course selections and the names you give them.</p>
+          </div>
+          <div class="clerk">Secured by Clerk</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">The fine print got more honest</span><p>Once labels exist, "we store your course selections and nothing else" stops being true. The copy now says what it holds.</p></div>
+      <div class="note w"><span class="k">Apple ships second</span><p>Needs a Services ID and key off the developer account. Drawn here because it's where it lives, not because it lands the same day.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">B3</span><h2>The merge stopped being scary</h2></div>
+    <p class="why">Last revision this was a two-way choice where one plan was destroyed. With students as containers there's a third option that loses nothing — and it's the default.</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>Sign-in — device plan differs from saved students</span></div>
+      <div class="veil">
+        <div class="modal md-w">
+          <div class="modal-b">
+            <h3>You have a plan on this device</h3>
+            <p class="sub">It doesn't match either student in your account. Nothing has been changed yet.</p>
+            <div class="vs" style="grid-template-columns:1fr">
+              <div class="opt sel" style="display:flex;align-items:center;gap:13px">
+                <div style="flex:1"><div class="cap">Add it as a new student</div><div style="font-size:12.5px;color:var(--m-tx);margin-top:3px">Keeps all three. You can rename or remove it after.</div></div>
+                <div class="cnt">12 <small>courses</small></div>
+              </div>
+            </div>
+            <p style="font-size:11px;color:var(--m-mut);margin:12px 0 7px;font-weight:500">Or fold it into an existing student — that one's courses are replaced:</p>
+            <div class="vs">
+              <div class="opt"><div class="cap">Replace Zavien</div><div class="cnt">16 <small>courses</small></div><ul><li>Grade 10 · Class of 2029</li><li class="more">Edited 3 weeks ago</li></ul></div>
+              <div class="opt"><div class="cap">Replace Maya</div><div class="cnt">9 <small>courses</small></div><ul><li>Grade 9 · Class of 2030</li><li class="more">Edited 2 days ago</li></ul></div>
+            </div>
+            <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:16px">
+              <span class="sm gh" style="color:var(--m-mut);padding:8px 14px">Discard device plan</span>
+              <span class="sm pri" style="padding:8px 16px">Add as new student</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Additive by default</span><p>The non-destructive option is primary and pre-selected. Replacing is available, demoted, and clearly labelled as replacement.</p></div>
+      <div class="note"><span class="k">Often never appears</span><p>If the device plan matches a student exactly, nothing is shown at all. First sign-in just adopts what's there.</p></div>
+      <div class="note w"><span class="k">The clutter risk</span><p>Sign in on three devices with three different plans and you get three students. Worth a cap, and worth making remove easy.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">B4</span><h2>Signed in</h2></div>
+    <p class="why">The menu leads with sync status, because the only thing a signed-in person wants to know is whether their work is safe. Students are listed here too, so the account's contents are never a mystery.</p>
+    <div class="detail">
+      <span class="cap">Account menu · and the three sync states</span>
+      <div class="menu">
+        <div class="who">
+          <div class="em">tomsuharto@gmail.com</div>
+          <div class="st"><i></i> All changes saved</div>
+        </div>
+        <div class="grp top">
+          <div class="sw-row" style="padding:7px 9px"><span class="dot-b">Z</span><div>Zavien<div class="gr">Grade 10</div></div></div>
+          <div class="sw-row" style="padding:7px 9px"><span class="dot-b" style="background:#7c3aed">M</span><div>Maya<div class="gr">Grade 9</div></div></div>
+          <div class="sw-add" style="border-top:none;padding:7px 9px">+ Add a student</div>
+        </div>
+        <div class="grp top">
+          <div class="mi"><span class="ic">↓</span> Download plans</div>
+          <div class="mi"><span class="ic">↗</span> Share plan</div>
+        </div>
+        <div class="grp">
+          <div class="mi"><span class="ic">→</span> Sign out</div>
+          <div class="mi dz"><span class="ic">×</span> Delete account</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:9px;justify-content:center">
+        <div style="background:#fff;border:1px solid var(--m-line);border-radius:8px;padding:9px 12px;font-size:11.5px;display:flex;align-items:center;gap:7px"><i style="width:5px;height:5px;border-radius:50%;background:#15803d;display:block"></i> All changes saved</div>
+        <div style="background:#fff;border:1px solid var(--m-amb-ln);border-radius:8px;padding:9px 12px;font-size:11.5px;color:var(--m-amb);display:flex;align-items:center;gap:7px"><i style="width:5px;height:5px;border-radius:50%;background:#b45309;display:block"></i> Saving…</div>
+        <div style="background:var(--m-red-bg);border:1px solid #fecaca;border-radius:8px;padding:9px 12px;font-size:11.5px;color:var(--m-red);display:flex;align-items:center;gap:7px"><i style="width:5px;height:5px;border-radius:50%;background:#dc2626;display:block"></i> Not saved — retrying</div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Honest status</span><p>Optimistic local write, visible degradation, never blocks editing. The local copy is never dropped on a failed write.</p></div>
+      <div class="note w"><span class="k">Sign-out clears the device</span><p>Shared Chromebooks. The next student shouldn't find someone's four-year plan sitting there.</p></div>
+      <div class="note"><span class="k">Download sits above delete</span><p>Anyone heading for delete passes the escape hatch first.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">B5</span><h2>A shared link stops overwriting things</h2></div>
+    <p class="why">Today, opening someone's link silently replaces your own plan. With accounts that bug would sync the damage to every device you own. A share link now writes nothing until you say so — and it lands on the same additive choice as B3.</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>/planner#p=1101H,2203H|…&amp;g=10</span></div>
+      <div class="scroll"><div class="screen">
+        <div class="hdr">
+          <div class="brand"><span class="m">MHS</span><span class="pipe">|</span><span class="sub">The Unofficial Course Guide</span></div>
+          <nav class="nav"><a href="#">Tracks</a><a href="#">Courses</a><a href="#" class="on">Planner</a><a href="#">Programs</a><a href="#">Requirements</a><a href="#">Details</a></nav>
+          <div class="avatar">TS</div>
+        </div>
+        <div class="sharebar">
+          <p><b>You're viewing a shared plan.</b> Nothing has been saved. Zavien's and Maya's plans are untouched.</p>
+          <div class="acts" style="display:flex;gap:8px"><span class="sm gh" style="color:var(--m-amb)">Discard</span><span class="sm pri">Save as a new student</span></div>
+        </div>
+        <div class="plan-body" style="padding-top:16px">
+          <div class="years">
+            <div class="yr done"><div class="yr-h"><div class="top"><div><h3>Grade 9</h3><div class="lbl">Freshman</div></div><span class="st-chip">Completed</span></div></div>
+              <div class="slots"><div class="slot"><div class="nm">English 9 Honors</div><div class="mt">1101H · 5 cr</div></div><div class="slot"><div class="nm">Geometry Honors</div><div class="mt">2203H · 5 cr</div></div></div></div>
+            <div class="yr now"><div class="yr-h"><div class="top"><div><h3>Grade 10</h3><div class="lbl">Sophomore</div></div><span class="st-chip now">In progress</span></div></div>
+              <div class="slots"><div class="slot g2"><div class="nm">Algebra II Honors</div><div class="mt">2205H · 5 cr</div></div><div class="slot g4"><div class="nm">AP World History</div><div class="mt">4405A · 5 cr</div></div></div></div>
+            <div class="yr"><div class="yr-h"><div class="top"><div><h3>Grade 11</h3><div class="lbl">Junior</div></div><span class="st-chip soon">Planning</span></div></div><div class="slots"><div class="slot g2"><div class="nm">AP Calculus AB</div><div class="mt">2210A · 5 cr</div></div></div></div>
+            <div class="yr"><div class="yr-h"><div class="top"><div><h3>Grade 12</h3><div class="lbl">Senior</div></div><span class="st-chip soon">Planning</span></div></div><div class="slots"><div class="slot g3"><div class="nm">AP Physics C</div><div class="mt">3310A · 5 cr</div></div></div></div>
+          </div>
+          <div class="side"><div class="card"><h4>Shared plan</h4><p style="margin:0;font-size:11.5px;color:var(--m-mut);line-height:1.55">Read-only. Save it as a new student to edit it, or discard it and go back to yours. Confirmed locks aren't shared.</p></div></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Ship this first</span><p>Stands alone, fixes a live data-loss bug, needs no auth and no student model.</p></div>
+      <div class="note"><span class="k">Grade rides along</span><p>The link gains <b>&amp;g=10</b> so a shared plan reads correctly. Old <b>#p=</b> links still parse — grade is simply unknown.</p></div>
+      <div class="note w"><span class="k">Locks don't travel</span><p>Confirmed is a fact about your registration, not about the courses. Sharing it would be meaningless to the recipient.</p></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <div class="step-head"><span class="step-n">B6</span><h2>Leaving completely</h2></div>
+    <p class="why">Deleting the account deletes every student and plan with it — they live on the user record, so nothing is orphaned. Two steps, with the download offered one last time.</p>
+    <div class="screen-outer">
+      <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>Delete account — confirmation</span></div>
+      <div class="veil">
+        <div class="modal sm-w" style="max-width:420px">
+          <div class="modal-b">
+            <h3>Delete your account</h3>
+            <p class="sub">This removes your account and both saved plans — Zavien's and Maya's. It cannot be undone, and no backup is held anywhere.</p>
+            <div style="background:var(--m-amb-bg);border:1px solid var(--m-amb-ln);border-radius:9px;padding:11px 13px;margin-bottom:16px">
+              <div style="font-size:12px;color:var(--m-amb);line-height:1.5"><b>Want a copy first?</b> Download both plans as text. One click, and it works without an account.</div>
+              <div class="btn" style="margin-top:9px;background:var(--m-white);border-color:var(--m-amb-ln);color:var(--m-amb);font-size:12px;padding:6px">Download plans</div>
+            </div>
+            <p style="font-size:12px;color:var(--m-mut);margin:0 0 7px">Type <b style="color:var(--m-tx)">delete</b> to confirm:</p>
+            <div style="border:1px solid var(--m-line);border-radius:8px;padding:9px 11px;font-size:13px;color:rgba(113,112,107,.5);margin-bottom:16px">delete</div>
+            <div style="display:flex;gap:9px;justify-content:flex-end">
+              <span class="sm gh" style="color:var(--m-mut);padding:8px 14px">Cancel</span>
+              <span class="sm" style="background:var(--m-red);color:#fff;padding:8px 16px">Delete permanently</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <div class="note"><span class="k">Names the students</span><p>"Zavien's and Maya's" is harder to click past than "your data". Specificity is the friction.</p></div>
+      <div class="note"><span class="k">Four-year dormancy purge</span><p>Accounts with no sign-in for four years are deleted automatically. A full high school run, and any sign-in resets it.</p></div>
+    </div>
+  </section>
+
+  <section class="matrix">
+    <div class="step-head"><span class="step-n">REF</span><h2>What happens on sign-in</h2></div>
+    <p class="why">The student model changes the last row. What used to be a forced choice between two plans is now an additive default that destroys nothing.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>On this device</th><th>In the account</th><th>Result</th><th>Prompt</th></tr></thead>
+        <tbody>
+          <tr><td class="q">Empty</td><td class="q">Empty</td><td>Nothing to reconcile. Straight to the planner.</td><td><span class="tag">Silent</span></td></tr>
+          <tr><td class="q">One student</td><td class="q">Empty</td><td>Adopted as the account's first student. The common first sign-in.</td><td><span class="tag">Silent</span></td></tr>
+          <tr><td class="q">Empty</td><td class="q">Any students</td><td>They load. The second-device case.</td><td><span class="tag">Silent</span></td></tr>
+          <tr><td class="q">One student</td><td class="q">Same courses</td><td>Recognised as the same student. Nothing added, nothing asked.</td><td><span class="tag">Silent</span></td></tr>
+          <tr><td class="q">One student</td><td class="q">Different courses</td><td>Offered as a new student, pre-selected. Replacing an existing one is available but demoted.</td><td><span class="tag ask">Ask — B3</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div>
+      <h4>Build order</h4>
+      <p><b>1 · Share-link fix.</b> B5, standalone. Live data-loss bug, no auth, no student model.</p>
+      <p><b>2 · Print / PDF.</b> Independent, cheap, serves the counsellor meeting.</p>
+      <p><b>3 · Student model.</b> A1–A4 plus the schema-2 migration. All of it works signed out.</p>
+      <p><b>4 · Accounts.</b> B1–B4, B6. Google first, Apple after.</p>
+    </div>
+    <div>
+      <h4>What this costs</h4>
+      <p><b>A schema migration.</b> Courses go from bare strings to objects, and plans gain a student wrapper. Backward-compatible read, so nobody loses work — but it has to be written carefully and tested against a v1 blob.</p>
+      <p><b>Grade-aware logic</b> touches the credit calculator, the warnings, the empty states and the wizard.</p>
+    </div>
+    <div>
+      <h4>Still open</h4>
+      <p><b>Student names are new PII.</b> Today the site stores no names. Optional labels change that, and the privacy policy needs rewriting before this ships, not after.</p>
+      <p><b>A cap on students.</b> Unbounded lets a sync loop fill an account. Four or five is more than any family needs.</p>
+      <p><b>Does the wizard become per-student?</b> It writes a whole plan, so it needs to know which student it's writing for.</p>
+    </div>
+  </div>
+
+</div>
